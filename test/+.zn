@@ -1,0 +1,148 @@
+(require '["/../test/__test_utils__/+.zn" :as + :refer-macros true])
+
+(def* TestProd [a b])
+(defn-mk (mkTestProd [a b] TestProd) (%= [a b]))
+
+(def* Sugar [[x        :type +/StrT]
+             [children :type +/VecT]
+             [y        :type +/NumT]])
+
+(def+ TestSum
+  (Tag             )
+  (Data   [d      ])
+  (Writer [res [acc :type +/StrT]]))
+(defn-impl testKey [TestSum]
+  (Tag "t:")
+  (Data (+/str "d:" (+/key %d)))
+  (Writer (+/str "w:" (+/key %res) "|" (+/key %acc))))
+(+/implement-key TestSum testKey)
+(def TagT    (+/lookup-variant-id TestSum +Tag   ))
+(def DataT   (+/lookup-variant-id TestSum +Data  ))
+(def WriterT (+/lookup-variant-id TestSum +Writer))
+(def Tag (mk (Tag :of TestSum)))
+(defn-mk (Data   [d      ] TestSum) (%= [d      ]))
+(defn-mk (Writer [res acc] TestSum) (%= [acc res]))
+;; (%= [ .. ]) matches by symbol name       ↑
+;;       notice order doesnt matter here ───┘
+
+(describe "core data library '+'"
+  (describe "mk sugar"
+    (it (+/str "macro supports various ways of creating objects which are "
+                 "represented internally as arrays with the typeId in 0 index")
+      (let [x "hey" y 0 children (+/Vec 3 4 5)]
+        (expect (mk Sugar (%x x) (%y y) (%children children)) -to-eq
+                [Sugar x children y])
+        (expect (mk Sugar (%= [x y children])) -to-eq
+                (mk Sugar (%x x) (%y y) (%children children)))
+        (expect (mk Sugar (%= [x y]) children) -to-eq
+                (mk Sugar (%= [x y children])))
+        (expect (mk Sugar (%x<< "h") (%x<< "ey") (%<< (+/Vec 3 4)) (%< 5)) -to-eq
+                (mk Sugar (%= [x y children]))))))
+  (describe "key"
+    (it "uses implementation provided by `implement-key`"
+      (expect (+/key Tag) -to-eq "t:")
+      (expect (+/key (Data 7)) -to-eq "d:7")
+      (expect (+/key (Writer true "hi")) -to-eq "w:true|hi")))
+  (describe "serializing"
+    (it "encodes to array representation with type-id in 0 index"
+      (expect (+/encode +/None) -to-eq (+/str "[" +/MaybeT ",null]"))
+      (expect (+/encode (+/Just true)) -to-eq (+/str "[" +/MaybeT ",true]"))
+      (expect (+/encode (+/Vec 1 2 3)) -to-eq (+/str "[" +/VecT ",1,2,3]"))
+      (expect (+/encode (+/KeyedList [[1 2] [3 4]])) -to-eq
+              (+/str "[" +/KeyedListT ",[1,2],[3,4]]"))
+      (expect (+/encode (+/Map [[1 2] [3 4]])) -to-eq
+              (+/str "[" +/MapT ",[1,2],[3,4]]"))
+      (expect (+/encode (+/KeyMap [[Tag 2] [(Data 3) 4]])) -to-eq
+              (+/str "[" +/KeyMapT ",[[" TestSum "," TagT "],2],"
+                                    "[[" TestSum "," DataT ",3],4]]"))
+      (expect (+/encode (mkTestProd 5 8)) -to-eq (+/str "[" TestProd ",5,8]"))
+      (expect (+/encode (Writer 1 "log")) -to-eq
+              (+/str "[" TestSum "," WriterT ",1,\"log\"]")))
+    (it "encodes array representations recursively"
+      (expect (+/encode (mkTestProd +/None (+/Vec -1 3))) -to-eq
+              (+/str "[" TestProd ",[" +/MaybeT ",null],[" +/VecT ",-1,3]]")))
+    (it "encodes to string that deocdes to structurally identical value"
+      (let [v-prior (+/Just (Writer (+/Vec Tag (Data (mkTestProd 2 3))) "hi"))
+            v-after (+/decode (+/encode v-prior))]
+        (expect v-prior -to-eq v-after)
+        (expect (+/json v-prior) -to-raw-eq (+/json v-after)))))
+  (describe "Maybe"
+    (describe "or"
+      (it "returns value if just"
+        (expect (+/or 2 (+/Just 4)) -to-eq 4))
+      (it "returns default value if none"
+        (expect (+/or 2 +/None) -to-eq 2)))
+    (describe "or-"
+      (it "only uses functions when it needs to"
+        (let [n-count [0]
+              track-n (fn [] (amod n-count 0 +/inc))
+              fn (fn [] (track-n) 1)]
+          (expect (+/or- fn (+/Just 4)) -to-eq 4)
+          (expect n-count -to-raw-eq [0])
+          (expect (+/or- fn +/None) -to-eq 1)
+          (expect n-count -to-raw-eq [1])))))
+  (describe "Range"
+    (it "builds vector of ints based on [end]/[init, end]/[init, end, step] args"
+      (expect (+/Range 2)      -to-eq (+/Vec 0 1))
+      (expect (+/Range -4)     -to-eq (+/Vec 0 -1 -2 -3))
+      (expect (+/Range 3 8)    -to-eq (+/Vec 3 4 5 6 7))
+      (expect (+/Range -1 2)   -to-eq (+/Vec -1 0 1))
+      (expect (+/Range 5 3)    -to-eq (+/Vec 5 4))
+      (expect (+/Range 2 9 3)  -to-eq (+/Vec 2 5 8))
+      (expect (+/Range 2 8 3)  -to-eq (+/Vec 2 5))
+      (expect (+/Range 2 7 3)  -to-eq (+/Vec 2 5))
+      (expect (+/Range 9 2 -2) -to-eq (+/Vec 9 7 5 3))))
+  (describe "keys/vals"
+    (it "gets a vector of the keys or values in a collection"
+      (expect (+/keys (+/Map [[4 "a"] [5 "b"] [6 "c"]])) -to-eq (+/Vec 4 5 6))
+      (expect (+/keys (+/Vec "a" "b" "c")) -to-eq (+/Vec 0 1 2))
+      (expect (+/keys (+/Just "a")) -to-eq (+/Vec 0))
+      (expect (+/keys +/None) -to-eq (+/Vec))
+
+      (expect (+/vals (+/Map [[4 "a"] [5 "b"] [6 "c"]])) -to-eq (+/Vec "a" "b" "c"))
+      (expect (+/vals (+/Vec "a" "b" "c")) -to-eq (+/Vec "a" "b" "c"))
+      (expect (+/vals (+/Just "a")) -to-eq (+/Vec "a"))
+      (expect (+/vals +/None) -to-eq (+/Vec)))
+    (it "returns fresh instance even when keys/vals just returns itself"
+      (let [vec1 (+/Vec (mkTestProd 1 2) (mkTestProd 3 4) (mkTestProd 5 6))
+            vec2 (+/vals vec1)]
+        (expect vec1 -to-eq vec2)
+        (expect vec1 -not -toBe vec2)
+        (expect (.-a vec1) -not -toBe (.-a vec2))
+        (expect (aget (.-a vec1) 0) -toBe (aget (.-a vec2) 0)))))
+  (describe "fmap"
+    (it "maps function over collection"
+      (expect (+/fmap +/inc (+/Vec 0 1 2)) -to-eq (+/Vec 1 2 3))
+      (expect (+/fmap +/inc (+/Map [[4 8] [15 16]])) -to-eq (+/Map [[4 9] [15 17]]))
+      (expect (+/fmap +/inc (+/Just 5)) -to-eq (+/Just 6)))
+    (it "noops on empty collection"
+      (expect (+/fmap +/inc (+/Vec)) -to-eq (+/Vec))
+      (expect (+/fmap +/inc (+/Map)) -to-eq (+/Map))
+      (expect (+/fmap +/inc +/None) -to-eq +/None))
+    (it "passes all args"
+      (let [fmapper (fn [coll] (+/fmap #(+/Vec (+/inc %1) %2 (+/size %3)) coll))]
+        (expect (fmapper (+/Vec 0 1 2)) -to-eq
+                (+/Vec (+/Vec 1 0 3) (+/Vec 2 1 3) (+/Vec 3 2 3)))
+        (expect (fmapper (+/Map [[7 0] [8 1] [9 2]])) -to-eq
+                (+/Map [[7 (+/Vec 1 7 3)] [8 (+/Vec 2 8 3)] [9 (+/Vec 3 9 3)]]))
+        (expect (fmapper (+/Just 1)) -to-eq
+                (+/Just (+/Vec 2 0 1))))))
+
+  (describe "filter/remove"
+    (it "filters collection by predicate"
+      (expect (+/filter #(> % 2) (+/Vec 3 1 4 5 2 )) -to-eq (+/Vec 3 4 5))
+      (expect (+/filter #(> % 2) (+/Just 5)) -to-eq (+/Just 5))
+      (expect (+/filter #(> % 2) (+/Just 1)) -to-eq +/None)
+      (expect (+/filter #(> % 2) +/None) -to-eq +/None)
+
+      (expect (+/remove #(> % 2) (+/Vec 3 1 4 5 2 )) -to-eq (+/Vec 1 2))
+      (expect (+/remove #(> % 2) (+/Just 5)) -to-eq +/None)
+      (expect (+/remove #(> % 2) (+/Just 1)) -to-eq (+/Just 1))
+      (expect (+/filter #(> % 2) +/None) -to-eq +/None))
+    (it "passes all args"
+      (let [filterer (+/partial +/filter #(+/is 0 (+/mod (+ %1 %2 (+/size %3)) 2)))]
+        (expect (filterer (+/Vec 1 2 3  4)) -to-eq (+/Vec       ))
+        (expect (filterer (+/Vec 1 2 3   )) -to-eq (+/Vec 1  2 3))
+        (expect (filterer (+/Vec 1 2 10 3)) -to-eq (+/Vec 10 3  ))
+        (expect (filterer (+/Just 1      )) -to-eq (+/Just 1    ))
+        (expect (filterer (+/Just 2      )) -to-eq  +/None       )))))

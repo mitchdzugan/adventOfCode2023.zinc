@@ -1,0 +1,2 @@
+(require ' ["./../test/+.mjs"])
+(require ' ["./../test/__test_utils__/extend.mjs"])

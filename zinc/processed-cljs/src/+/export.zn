@@ -1,0 +1,2 @@
+(require ' ["./js-native-extensions.mjs"])
+(require ' ["./core.mjs" :exporting "*"])

@@ -1,0 +1,1 @@
+{:type-ids {"Str" 2, "else" 10, "Rec" 7, "Vec" 5, "StatsT" 15, "Map" 6, "KeyedList" 9, "KeyMap" 8, "SolutionT" 16, "Bool" 3, "OriginT" 17, "Pair" 11, "StateT" 14, "Num" 1, "Maybe" 4, "OutcomeAccT" 13, "PairT" 12}, :variant-ids {11 {"l" 1}, 13 {"Found" 1, "Searching" 2}, 17 {"Front" 1, "Back" 2}}}
