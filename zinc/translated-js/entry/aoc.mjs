@@ -1,7 +1,8 @@
 import * as day1 from './../src/aoc/day1.mjs';import * as day2 from './../src/aoc/day2.mjs';
+import * as day3 from './../src/aoc/day3.mjs';
 import * as lib from './../src/aoc/lib.mjs';
 import * as _PLUS_ from './../src/+.mjs';
-var dayModules = _PLUS_.Vec(day1, day2)
+var dayModules = _PLUS_.Vec(day1, day2, day3)
 ;
 var solve = (function (day) {
 let module1 = _PLUS_.or(({  }), _PLUS_.at(dayModules, (day - 1)));
