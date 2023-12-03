@@ -1,9 +1,6 @@
 (require '["/aoc/lib.zn" :as lib])
 (require '["/+.zn" :as + :refer-macros true])
 
-(def* CubeNumsT [[red :type +/NumT] [green :type +/NumT] [blue :type +/NumT]])
-(defn-mk (CubeNums [red green blue] CubeNumsT) (%= [red green blue]))
-
 (def* SchemaNumberT [value part-number?])
 (defn-mk (SchemaNumber [value] SchemaNumberT)
   (%value value) (%part-number? false))
@@ -11,8 +8,6 @@
 (defn-un part-number? [SchemaNumberT] %part-number?)
 (defn accept-part-number [schema-number]
   (mk SchemaNumberT (%value (value schema-number)) (%part-number? true)))
-
-(def* GameT [id [rounds :type [+/VecT CubeNumsT]]])
 
 (def+ TokenT
   (Digit [d])
@@ -101,7 +96,3 @@
          (when (+/is 2 (+/size neighbors)))
          (add-gear-ratio (+/reduce #(* %1 (value %2)) 1 neighbors)))
     (get-gear-ratio-sum)))
-
-(defn solve []
-  (let [input (lib/getInput 3)]
-    (lib/Solution (part1 input) (part2 input))))

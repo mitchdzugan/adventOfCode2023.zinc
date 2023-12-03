@@ -67,7 +67,3 @@
        (+/fmap min-cubes)
        (+/fmap cubes-power)
        (+/reduce #(+ %1 %2) 0)))
-
-(defn solve []
-  (let [input (lib/getInput 2)]
-    (lib/Solution (part1 input) (part2 input))))

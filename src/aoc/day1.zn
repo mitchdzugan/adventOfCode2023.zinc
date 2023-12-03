@@ -50,7 +50,3 @@
 
 (defn part1 [input] (getCalibrationSum input false))
 (defn part2 [input] (getCalibrationSum input true ))
-
-(defn solve []
-  (let [input (lib/getInput 1)]
-    (lib/Solution (part1 input) (part2 input))))

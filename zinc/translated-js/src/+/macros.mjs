@@ -51,10 +51,10 @@ return flatplicative_impls[type_id] = ensure_type_impl;
 })
 ;
 var implement_flatplicative_for_applicative = (function (type_id) {
-return implement_flatplicative(type_id, (function (_anon_PERCENT_1_62) {
-if ((type_id === _anon_PERCENT_1_62["T"])) {
-return _anon_PERCENT_1_62;} else {
-return pure(type_id, _anon_PERCENT_1_62);}
+return implement_flatplicative(type_id, (function (_anon_PERCENT_1_88) {
+if ((type_id === _anon_PERCENT_1_88["T"])) {
+return _anon_PERCENT_1_88;} else {
+return pure(type_id, _anon_PERCENT_1_88);}
 }));
 })
 ;

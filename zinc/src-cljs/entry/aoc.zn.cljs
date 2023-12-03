@@ -10,11 +10,11 @@
   (let [module (+/or {} (+/at dayModules (- day 1)))]
     (+/log (+/str "❄ 🎄 ❄ 🎄 ❄ 🎄 ❄ 🎄 ❄ 🎄 ❄ "))
     (+/log (+/str "🎄 advent of code day " day " 🎄"))
-    (let [solution (.solve module)]
+    (let [input (lib/getInput day)]
       (+/log (+/str "❄ 🎄 part 1:🎄 ❄ 🎄 ❄ 🎄 ❄ "))
-      (+/log (lib/part1 solution))
+      (+/log (.part1 module input))
       (+/log (+/str "❄ 🎄 part 2:🎄 ❄ 🎄 ❄ 🎄 ❄ "))
-      (+/log (lib/part2 solution))
+      (+/log (.part2 module input))
       (+/log (+/str "❄ 🎄 ❄ 🎄 ❄ 🎄 ❄ 🎄 ❄ 🎄 ❄ "))
       (+/log))))
 

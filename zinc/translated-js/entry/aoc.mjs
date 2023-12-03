@@ -8,11 +8,11 @@ var solve = (function (day) {
 let module1 = _PLUS_.or(({  }), _PLUS_.at(dayModules, (day - 1)));
 _PLUS_.log(_PLUS_.str("❄ 🎄 ❄ 🎄 ❄ 🎄 ❄ 🎄 ❄ 🎄 ❄ "));
 _PLUS_.log(_PLUS_.str("🎄 advent of code day ", day, " 🎄"));
-let solution2 = module1.solve();
+let input2 = lib.getInput(day);
 _PLUS_.log(_PLUS_.str("❄ 🎄 part 1:🎄 ❄ 🎄 ❄ 🎄 ❄ "));
-_PLUS_.log(lib.part1(solution2));
+_PLUS_.log(module1.part1(input2));
 _PLUS_.log(_PLUS_.str("❄ 🎄 part 2:🎄 ❄ 🎄 ❄ 🎄 ❄ "));
-_PLUS_.log(lib.part2(solution2));
+_PLUS_.log(module1.part2(input2));
 _PLUS_.log(_PLUS_.str("❄ 🎄 ❄ 🎄 ❄ 🎄 ❄ 🎄 ❄ 🎄 ❄ "));
 return _PLUS_.log();
 })
