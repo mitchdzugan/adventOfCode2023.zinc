@@ -1,7 +1,7 @@
 import * as lib from './lib.mjs';import * as _PLUS_ from './../+.mjs';
 var IGNORE_LEADING_0 = false
 ;
-var digitStrs = _PLUS_.Map([["one", 1], ["two", 2], ["three", 3], ["four", 4], ["five", 5], ["six", 6], ["seven", 7], ["eight", 8], ["nine", 9], ["ten", 10]])
+var digitStrs = _PLUS_.Map([["one", 1], ["two", 2], ["three", 3], ["four", 4], ["five", 5], ["six", 6], ["seven", 7], ["eight", 8], ["nine", 9]])
 ;
 var digitStrLengths = (function () {
 let seenLengths1 = _PLUS_.Map();

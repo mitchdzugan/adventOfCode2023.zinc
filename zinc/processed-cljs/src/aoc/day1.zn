@@ -1,7 +1,7 @@
 (require ' ["./lib.mjs" :as lib])
 (require ' ["./../+.mjs" :as + :refer-macros true])
 (def IGNORE_LEADING_0 false)
-(def digitStrs (+/Map [["one" 1] ["two" 2] ["three" 3] ["four" 4] ["five" 5] ["six" 6] ["seven" 7] ["eight" 8] ["nine" 9] ["ten" 10]]))
+(def digitStrs (+/Map [["one" 1] ["two" 2] ["three" 3] ["four" 4] ["five" 5] ["six" 6] ["seven" 7] ["eight" 8] ["nine" 9]]))
 (def digitStrLengths ((fn [] (let [seenLengths (+/Map)] (+/each (fn [_anon%1_2 _anon%2_1] (+/put seenLengths (.-length _anon%2_1) true)) digitStrs) (+/sort (+/keys seenLengths))))))
 (defn getDigit [src index useDigitStrs exclude0] (let [digit (js/parseInt (.substr src index 1) 10)] (if (and (< digit 10) (>= digit (if exclude0 1 0))) (+/Just digit) (loop [result +/None strLenIndex 0] (if (or (not useDigitStrs) (not (+/empty? result)) (> strLenIndex (+/size digitStrLengths))) result (let [strLen (+/or 0 (+/at digitStrLengths strLenIndex)) substr (.substr src index strLen)] (recur (+/at digitStrs substr) (+ strLenIndex 1))))))))
 (do (do (aset +/qt-store 17 "OriginT") (+/bury +/prop-store [17 1] {0 {:idname "+", :fullname "%+", :ind 0}}) (+/bury +/prop-store [17 2] {0 {:idname "+", :fullname "%+", :ind 0}}) (+/bury +/variant-store [17 1] "Front") (+/bury +/variant-store [17 2] "Back")) (def OriginT 17))
