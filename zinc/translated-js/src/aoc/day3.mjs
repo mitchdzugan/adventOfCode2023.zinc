@@ -55,27 +55,27 @@ return _PLUS_.put(row4, j, v);
 })
 ;
 var process_grid = (function (input, handle_symbol_neighbors) {
-let token_grid5 = _PLUS_.fmap((function (_anon_PERCENT_1_15) {
-return _PLUS_.fmap(classify, lib.strsplit(_anon_PERCENT_1_15, ""));
+let token_grid5 = _PLUS_.fmap((function (_anon_PERCENT_1_1) {
+return _PLUS_.fmap(classify, lib.strsplit(_anon_PERCENT_1_1, ""));
 }), lib.strsplit(input, "\n"));
-let schema_number_id_grid6 = _PLUS_.fmap((function (_anon_PERCENT_1_16) {
+let schema_number_id_grid6 = _PLUS_.fmap((function (_anon_PERCENT_1_2) {
 return _PLUS_.fmap((function () {
 return _PLUS_.None;
-}), _anon_PERCENT_1_16);
+}), _anon_PERCENT_1_2);
 }), token_grid5);
 let schema_numbers7 = _PLUS_.Vec();
 let add_neighbor8 = (function (neighbors, i, j) {
-return (function (_anon_PERCENT_1_18, _anon_PERCENT_2_17) {
-return _PLUS_.bind(_anon_PERCENT_2_17, _anon_PERCENT_1_18);
+return (function (_anon_PERCENT_1_4, _anon_PERCENT_2_3) {
+return _PLUS_.bind(_anon_PERCENT_2_3, _anon_PERCENT_1_4);
 })(_PLUS_.at(schema_number_id_grid6, i), (function (row) {
-return (function (_anon_PERCENT_1_20, _anon_PERCENT_2_19) {
-return _PLUS_.bind(_anon_PERCENT_2_19, _anon_PERCENT_1_20);
+return (function (_anon_PERCENT_1_6, _anon_PERCENT_2_5) {
+return _PLUS_.bind(_anon_PERCENT_2_5, _anon_PERCENT_1_6);
 })(_PLUS_.at(row, j), (function (mschema_number_id) {
-return (function (_anon_PERCENT_1_22, _anon_PERCENT_2_21) {
-return _PLUS_.bind(_anon_PERCENT_2_21, _anon_PERCENT_1_22);
+return (function (_anon_PERCENT_1_8, _anon_PERCENT_2_7) {
+return _PLUS_.bind(_anon_PERCENT_2_7, _anon_PERCENT_1_8);
 })(mschema_number_id, (function (schema_number_id) {
-return (function (_anon_PERCENT_1_24, _anon_PERCENT_2_23) {
-return _PLUS_.bind(_anon_PERCENT_2_23, _anon_PERCENT_1_24);
+return (function (_anon_PERCENT_1_10, _anon_PERCENT_2_9) {
+return _PLUS_.bind(_anon_PERCENT_2_9, _anon_PERCENT_1_10);
 })(_PLUS_.at(schema_numbers7, schema_number_id), (function (schema_number) {
 return _PLUS_.put(neighbors, schema_number_id, schema_number);
 }));
@@ -83,9 +83,9 @@ return _PLUS_.put(neighbors, schema_number_id, schema_number);
 }));
 }));
 });
-let init_schema_number9 = (function (_anon_PERCENT_1_25) {
-if ((_anon_PERCENT_1_25 > 0)) {
-return _PLUS_.put(schema_numbers7, _PLUS_.size(schema_numbers7), SchemaNumber(_anon_PERCENT_1_25));}
+let init_schema_number9 = (function (_anon_PERCENT_1_11) {
+if ((_anon_PERCENT_1_11 > 0)) {
+return _PLUS_.put(schema_numbers7, _PLUS_.size(schema_numbers7), SchemaNumber(_anon_PERCENT_1_11));}
 });
 _PLUS_.each((function (row, i) {
 let ending10 = _PLUS_.reduce((function (acc, val_50, j) {
@@ -128,30 +128,24 @@ return schema_numbers7;
 })
 ;
 var part1 = (function (input) {
-return _PLUS_.reduce((function (_anon_PERCENT_1_28, _anon_PERCENT_2_29) {
-return (_anon_PERCENT_1_28 + _anon_PERCENT_2_29);
+return _PLUS_.reduce((function (_anon_PERCENT_1_14, _anon_PERCENT_2_15) {
+return (_anon_PERCENT_1_14 + _anon_PERCENT_2_15);
 }), 0, _PLUS_.fmap(value, _PLUS_.filter(part_number_QMARK_, process_grid(input, (function (neighbors, schema_nums) {
-return _PLUS_.each((function (_anon_PERCENT_1_27, _anon_PERCENT_2_26) {
-return _PLUS_.put(schema_nums, _anon_PERCENT_2_26, accept_part_number(_anon_PERCENT_1_27));
+return _PLUS_.each((function (_anon_PERCENT_1_13, _anon_PERCENT_2_12) {
+return _PLUS_.put(schema_nums, _anon_PERCENT_2_12, accept_part_number(_anon_PERCENT_1_13));
 }), neighbors);
 })))));
 })
 ;
 var part2 = (function (input) {
-let gear_ratio_sum_ref18 = [0];
-let get_gear_ratio_sum19 = (function () {
-return gear_ratio_sum_ref18[0];
-});
-let add_gear_ratio20 = (function (_anon_PERCENT_1_30) {
-return gear_ratio_sum_ref18[0] = (get_gear_ratio_sum19() + _anon_PERCENT_1_30);
-});
+let sum_ref18 = {r:0};
 process_grid(input, (function (neighbors) {
 if (_PLUS_.is(2, _PLUS_.size(neighbors))) {
-return add_gear_ratio20(_PLUS_.reduce((function (_anon_PERCENT_1_31, _anon_PERCENT_2_32) {
-return (_anon_PERCENT_1_31 * value(_anon_PERCENT_2_32));
-}), 1, neighbors));}
+return (sum_ref18.r = (sum_ref18["r"] + _PLUS_.reduce((function (_anon_PERCENT_1_16, _anon_PERCENT_2_17) {
+return (_anon_PERCENT_1_16 * value(_anon_PERCENT_2_17));
+}), 1, neighbors)));}
 }));
-return get_gear_ratio_sum19();
+return sum_ref18["r"];
 })
 ;
 

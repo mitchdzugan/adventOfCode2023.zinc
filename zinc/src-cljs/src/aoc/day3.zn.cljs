@@ -88,11 +88,11 @@
        (+/reduce #(+ %1 %2) 0)))
 
 (defn part2 [input]
-  (let [gear-ratio-sum-ref [0]
-        get-gear-ratio-sum #(aget gear-ratio-sum-ref 0)
-        add-gear-ratio #(aset gear-ratio-sum-ref 0 (+ (get-gear-ratio-sum) %1))]
+  (let [sum-ref (aref 0)]
     (<<- (process-grid input)
          (fn [neighbors])
          (when (+/is 2 (+/size neighbors)))
-         (add-gear-ratio (+/reduce #(* %1 (value %2)) 1 neighbors)))
-    (get-gear-ratio-sum)))
+         (@= sum-ref)
+         (+ @sum-ref)
+         (+/reduce #(* %1 (value %2)) 1 neighbors))
+    @sum-ref))
