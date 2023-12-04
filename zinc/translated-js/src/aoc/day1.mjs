@@ -5,8 +5,8 @@ var digitStrs = _PLUS_.Map([["one", 1], ["two", 2], ["three", 3], ["four", 4], [
 ;
 var digitStrLengths = (function () {
 let seenLengths1 = _PLUS_.Map();
-_PLUS_.each((function (_anon_PERCENT_1_41, _anon_PERCENT_2_40) {
-return _PLUS_.put(seenLengths1, _anon_PERCENT_2_40["length"], true);
+_PLUS_.each((function (_anon_PERCENT_1_52, _anon_PERCENT_2_51) {
+return _PLUS_.put(seenLengths1, _anon_PERCENT_2_51["length"], true);
 }), digitStrs);
 return _PLUS_.sort(_PLUS_.keys(seenLengths1));
 })()
@@ -32,44 +32,44 @@ continue;
 }
 })
 ;
-_PLUS_.qt_store[11] = "OriginT";
-_PLUS_.bury(_PLUS_.prop_store, [11, 1], ({ 0: ({ "idname": "+", "fullname": "%+", "ind": 0 }) }));
-_PLUS_.bury(_PLUS_.prop_store, [11, 2], ({ 0: ({ "idname": "+", "fullname": "%+", "ind": 0 }) }));
-_PLUS_.bury(_PLUS_.variant_store, [11, 1], "Front");
-_PLUS_.bury(_PLUS_.variant_store, [11, 2], "Back");
-var OriginT = 11
+_PLUS_.qt_store[13] = "OriginT";
+_PLUS_.bury(_PLUS_.prop_store, [13, 1], ({ 0: ({ "idname": "+", "fullname": "%+", "ind": 0 }) }));
+_PLUS_.bury(_PLUS_.prop_store, [13, 2], ({ 0: ({ "idname": "+", "fullname": "%+", "ind": 0 }) }));
+_PLUS_.bury(_PLUS_.variant_store, [13, 1], "Front");
+_PLUS_.bury(_PLUS_.variant_store, [13, 2], "Back");
+var OriginT = 13
 ;
-var Front = [11, 1]
+var Front = [13, 1]
 ;
-var Back = [11, 2]
+var Back = [13, 2]
 ;
 var firstDigit = (function (src, origin, useDigitStrs) {
 let start9 = (function () {
- let val_1610 = origin;
-let spec_1711 = ({ 1: (function () {
+ let val_1810 = origin;
+let spec_1911 = ({ 1: (function () {
 return 0;
 }), 2: (function () {
 return (src["length"] - 1);
 }) });
-return (spec_1711[val_1610[1]] || spec_1711[0])();
+return (spec_1911[val_1810[1]] || spec_1911[0])();
 })();
 let delta12 = (function () {
- let val_1813 = origin;
-let spec_1914 = ({ 1: (function () {
+ let val_2013 = origin;
+let spec_2114 = ({ 1: (function () {
 return 1;
 }), 2: (function () {
 return -1;
 }) });
-return (spec_1914[val_1813[1]] || spec_1914[0])();
+return (spec_2114[val_2013[1]] || spec_2114[0])();
 })();
 let exclude015 = (function () {
- let val_2016 = origin;
-let spec_2117 = ({ 1: (function () {
+ let val_2216 = origin;
+let spec_2317 = ({ 1: (function () {
 return IGNORE_LEADING_0;
 }), 2: (function () {
 return false;
 }) });
-return (spec_2117[val_2016[1]] || spec_2117[0])();
+return (spec_2317[val_2216[1]] || spec_2317[0])();
 })();
 let result18 = _PLUS_.None;
 let index19 = start9;
@@ -87,11 +87,11 @@ continue;
 })
 ;
 var getCalibrationValue = (function (src, useDigitStrs) {
-return (function (_anon_PERCENT_1_43, _anon_PERCENT_2_42) {
-return _PLUS_.bind(_anon_PERCENT_2_42, _anon_PERCENT_1_43);
+return (function (_anon_PERCENT_1_54, _anon_PERCENT_2_53) {
+return _PLUS_.bind(_anon_PERCENT_2_53, _anon_PERCENT_1_54);
 })(firstDigit(src, Front, useDigitStrs), (function (dTens) {
-return (function (_anon_PERCENT_1_45, _anon_PERCENT_2_44) {
-return _PLUS_.bind(_anon_PERCENT_2_44, _anon_PERCENT_1_45);
+return (function (_anon_PERCENT_1_56, _anon_PERCENT_2_55) {
+return _PLUS_.bind(_anon_PERCENT_2_55, _anon_PERCENT_1_56);
 })(firstDigit(src, Back, useDigitStrs), (function (dOnes) {
 return _PLUS_.Just(((10 * dTens) + dOnes));
 }));
@@ -99,10 +99,10 @@ return _PLUS_.Just(((10 * dTens) + dOnes));
 })
 ;
 var getCalibrationSum = (function (input, useDigitStrs) {
-return _PLUS_.reduce((function (_anon_PERCENT_1_47, _anon_PERCENT_2_48) {
-return (_anon_PERCENT_1_47 + _PLUS_.or(0, _anon_PERCENT_2_48));
-}), 0, _PLUS_.fmap((function (_anon_PERCENT_1_46) {
-return getCalibrationValue(_anon_PERCENT_1_46, useDigitStrs);
+return _PLUS_.reduce((function (_anon_PERCENT_1_58, _anon_PERCENT_2_59) {
+return (_anon_PERCENT_1_58 + _PLUS_.or(0, _anon_PERCENT_2_59));
+}), 0, _PLUS_.fmap((function (_anon_PERCENT_1_57) {
+return getCalibrationValue(_anon_PERCENT_1_57, useDigitStrs);
 }), lib.strsplit(input, "\n")));
 })
 ;
