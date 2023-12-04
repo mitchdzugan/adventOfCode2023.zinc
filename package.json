@@ -30,17 +30,14 @@
         "test:clean": "yarn clean && yarn test"
     },
     "devDependencies": {
-        "@mitch.dz/zinc": "^0.0.6",
+        "@mitch.dz/zinc": "^0.0.7",
         "jest": "^29.7.0",
         "jest-diff": "^29.7.0",
         "webpack": "^5.88.2",
         "webpack-cli": "^5.1.4",
         "webpack-merge": "^5.9.0"
     },
-    "dependencies": {
-        "express": "^4.18.2",
-        "nbb": "^1.2.178"
-    },
+    "dependencies": { },
     "jest": {
         "rootDir": "./zinc/translated-js",
         "setupFilesAfterEnv": [
