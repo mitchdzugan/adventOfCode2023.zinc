@@ -152,8 +152,8 @@ return expect(_PLUS_.fmap(_PLUS_.inc, _PLUS_.None))["to_eq"](_PLUS_.None);
 }));
 return it("passes all args", (function () {
 let fmapper16 = (function (coll) {
-return _PLUS_.fmap((function (_anon_PERCENT_1_35, _anon_PERCENT_2_36, _anon_PERCENT_3_37) {
-return _PLUS_.Vec(_PLUS_.inc(_anon_PERCENT_1_35), _anon_PERCENT_2_36, _PLUS_.size(_anon_PERCENT_3_37));
+return _PLUS_.fmap((function (_anon_PERCENT_1_1, _anon_PERCENT_2_2, _anon_PERCENT_3_3) {
+return _PLUS_.Vec(_PLUS_.inc(_anon_PERCENT_1_1), _anon_PERCENT_2_2, _PLUS_.size(_anon_PERCENT_3_3));
 }), coll);
 });
 expect(fmapper16(_PLUS_.Vec(0, 1, 2)))["to_eq"](_PLUS_.Vec(_PLUS_.Vec(1, 0, 3), _PLUS_.Vec(2, 1, 3), _PLUS_.Vec(3, 2, 3)));
@@ -163,34 +163,34 @@ return expect(fmapper16(_PLUS_.Just(1)))["to_eq"](_PLUS_.Just(_PLUS_.Vec(2, 0, 1
 }));
 return describe("filter/remove", (function () {
 it("filters collection by predicate", (function () {
-expect(_PLUS_.filter((function (_anon_PERCENT_1_38) {
-return (_anon_PERCENT_1_38 > 2);
+expect(_PLUS_.filter((function (_anon_PERCENT_1_4) {
+return (_anon_PERCENT_1_4 > 2);
 }), _PLUS_.Vec(3, 1, 4, 5, 2)))["to_eq"](_PLUS_.Vec(3, 4, 5));
-expect(_PLUS_.filter((function (_anon_PERCENT_1_39) {
-return (_anon_PERCENT_1_39 > 2);
+expect(_PLUS_.filter((function (_anon_PERCENT_1_5) {
+return (_anon_PERCENT_1_5 > 2);
 }), _PLUS_.Just(5)))["to_eq"](_PLUS_.Just(5));
-expect(_PLUS_.filter((function (_anon_PERCENT_1_40) {
-return (_anon_PERCENT_1_40 > 2);
+expect(_PLUS_.filter((function (_anon_PERCENT_1_6) {
+return (_anon_PERCENT_1_6 > 2);
 }), _PLUS_.Just(1)))["to_eq"](_PLUS_.None);
-expect(_PLUS_.filter((function (_anon_PERCENT_1_41) {
-return (_anon_PERCENT_1_41 > 2);
+expect(_PLUS_.filter((function (_anon_PERCENT_1_7) {
+return (_anon_PERCENT_1_7 > 2);
 }), _PLUS_.None))["to_eq"](_PLUS_.None);
-expect(_PLUS_.remove((function (_anon_PERCENT_1_42) {
-return (_anon_PERCENT_1_42 > 2);
+expect(_PLUS_.remove((function (_anon_PERCENT_1_8) {
+return (_anon_PERCENT_1_8 > 2);
 }), _PLUS_.Vec(3, 1, 4, 5, 2)))["to_eq"](_PLUS_.Vec(1, 2));
-expect(_PLUS_.remove((function (_anon_PERCENT_1_43) {
-return (_anon_PERCENT_1_43 > 2);
+expect(_PLUS_.remove((function (_anon_PERCENT_1_9) {
+return (_anon_PERCENT_1_9 > 2);
 }), _PLUS_.Just(5)))["to_eq"](_PLUS_.None);
-expect(_PLUS_.remove((function (_anon_PERCENT_1_44) {
-return (_anon_PERCENT_1_44 > 2);
+expect(_PLUS_.remove((function (_anon_PERCENT_1_10) {
+return (_anon_PERCENT_1_10 > 2);
 }), _PLUS_.Just(1)))["to_eq"](_PLUS_.Just(1));
-return expect(_PLUS_.filter((function (_anon_PERCENT_1_45) {
-return (_anon_PERCENT_1_45 > 2);
+return expect(_PLUS_.filter((function (_anon_PERCENT_1_11) {
+return (_anon_PERCENT_1_11 > 2);
 }), _PLUS_.None))["to_eq"](_PLUS_.None);
 }));
 return it("passes all args", (function () {
-let filterer17 = _PLUS_.partial(_PLUS_.filter, (function (_anon_PERCENT_1_46, _anon_PERCENT_2_47, _anon_PERCENT_3_48) {
-return _PLUS_.is(0, _PLUS_.mod((_anon_PERCENT_1_46 + _anon_PERCENT_2_47 + _PLUS_.size(_anon_PERCENT_3_48)), 2));
+let filterer17 = _PLUS_.partial(_PLUS_.filter, (function (_anon_PERCENT_1_12, _anon_PERCENT_2_13, _anon_PERCENT_3_14) {
+return _PLUS_.is(0, _PLUS_.mod((_anon_PERCENT_1_12 + _anon_PERCENT_2_13 + _PLUS_.size(_anon_PERCENT_3_14)), 2));
 }));
 expect(filterer17(_PLUS_.Vec(1, 2, 3, 4)))["to_eq"](_PLUS_.Vec());
 expect(filterer17(_PLUS_.Vec(1, 2, 3)))["to_eq"](_PLUS_.Vec(1, 2, 3));

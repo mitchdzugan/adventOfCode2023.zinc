@@ -5,8 +5,8 @@ var digitStrs = _PLUS_.Map([["one", 1], ["two", 2], ["three", 3], ["four", 4], [
 ;
 var digitStrLengths = (function () {
 let seenLengths1 = _PLUS_.Map();
-_PLUS_.each((function (_anon_PERCENT_1_27, _anon_PERCENT_2_26) {
-return _PLUS_.put(seenLengths1, _anon_PERCENT_2_26["length"], true);
+_PLUS_.each((function (_anon_PERCENT_1_41, _anon_PERCENT_2_40) {
+return _PLUS_.put(seenLengths1, _anon_PERCENT_2_40["length"], true);
 }), digitStrs);
 return _PLUS_.sort(_PLUS_.keys(seenLengths1));
 })()
@@ -87,11 +87,11 @@ continue;
 })
 ;
 var getCalibrationValue = (function (src, useDigitStrs) {
-return (function (_anon_PERCENT_1_29, _anon_PERCENT_2_28) {
-return _PLUS_.bind(_anon_PERCENT_2_28, _anon_PERCENT_1_29);
+return (function (_anon_PERCENT_1_43, _anon_PERCENT_2_42) {
+return _PLUS_.bind(_anon_PERCENT_2_42, _anon_PERCENT_1_43);
 })(firstDigit(src, Front, useDigitStrs), (function (dTens) {
-return (function (_anon_PERCENT_1_31, _anon_PERCENT_2_30) {
-return _PLUS_.bind(_anon_PERCENT_2_30, _anon_PERCENT_1_31);
+return (function (_anon_PERCENT_1_45, _anon_PERCENT_2_44) {
+return _PLUS_.bind(_anon_PERCENT_2_44, _anon_PERCENT_1_45);
 })(firstDigit(src, Back, useDigitStrs), (function (dOnes) {
 return _PLUS_.Just(((10 * dTens) + dOnes));
 }));
@@ -99,10 +99,10 @@ return _PLUS_.Just(((10 * dTens) + dOnes));
 })
 ;
 var getCalibrationSum = (function (input, useDigitStrs) {
-return _PLUS_.reduce((function (_anon_PERCENT_1_33, _anon_PERCENT_2_34) {
-return (_anon_PERCENT_1_33 + _PLUS_.or(0, _anon_PERCENT_2_34));
-}), 0, _PLUS_.fmap((function (_anon_PERCENT_1_32) {
-return getCalibrationValue(_anon_PERCENT_1_32, useDigitStrs);
+return _PLUS_.reduce((function (_anon_PERCENT_1_47, _anon_PERCENT_2_48) {
+return (_anon_PERCENT_1_47 + _PLUS_.or(0, _anon_PERCENT_2_48));
+}), 0, _PLUS_.fmap((function (_anon_PERCENT_1_46) {
+return getCalibrationValue(_anon_PERCENT_1_46, useDigitStrs);
 }), lib.strsplit(input, "\n")));
 })
 ;

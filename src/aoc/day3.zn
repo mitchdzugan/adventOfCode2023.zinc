@@ -9,22 +9,17 @@
 (defn accept-part-number [schema-number]
   (mk SchemaNumberT (%value (value schema-number)) (%part-number? true)))
 
-(def+ TokenT
-  (Digit [d])
-  (Symbol [s])
-  (Dot))
+(def+ TokenT (Digit [d]) (Symbol [s]) (Dot))
 
 (defn-mk (Digit [d] TokenT ) (%= [d]))
 (defn-mk (Symbol [s] TokenT) (%= [s]))
 (def Dot (mk (Dot of TokenT)))
 
 (defn classify [c]
-  (if (+/is c ".")
-    Dot
-    (let [d (js/parseInt c 10)]
-      (if (and (>= d 0) (< d 10))
-        (Digit d)
-        (Symbol c)))))
+  (<<- (if (+/is c ".") Dot)
+       (let [d (js/parseInt c 10)])
+       (if (and (>= d 0) (< d 10))
+         (Digit d) (Symbol c))))
 
 (defn put-in [v2d i j v]
   (let [row (+/or (+/Vec) (+/at v2d i))]
@@ -35,48 +30,49 @@
                         (+/fmap #(+/fmap classify (lib/strsplit %1 ""))))
         schema-number-id-grid (+/fmap #(+/fmap (fn [] +/None) %) token-grid)
         schema-numbers (+/Vec)
-
+        init-schema-number #(<<- (when (> %1 0))
+                                 (+/put schema-numbers (+/size schema-numbers))
+                                 (SchemaNumber %1))
         add-neighbor
         (fn [neighbors i j]
-          (<<- (#(+/bind %2 %1) (+/at schema-number-id-grid i)) (fn [row])
-               (#(+/bind %2 %1) (+/at row j)) (fn [mschema-number-id])
-               (#(+/bind %2 %1) mschema-number-id) (fn [schema-number-id])
-               (#(+/bind %2 %1) (+/at schema-numbers schema-number-id)) (fn [schema-number])
-               (+/put neighbors schema-number-id schema-number)))
-
-        init-schema-number
-        #(when (> %1 0)
-           (+/put schema-numbers (+/size schema-numbers) (SchemaNumber %1)))]
+          (<<- (#(+/bind %2 %1) (+/at schema-number-id-grid i))
+               (fn [row])
+               (#(+/bind %2 %1) (+/at row j))
+               (fn [mschema-number-id])
+               (#(+/bind %2 %1) mschema-number-id)
+               (fn [schema-number-id])
+               (#(+/bind %2 %1) (+/at schema-numbers schema-number-id))
+               (fn [schema-number])
+               (+/put neighbors schema-number-id schema-number)))]
 
     (<- (+/each token-grid)
         (fn [row i]
-          (let [ending
-                (<- (+/reduce 0 row)
-                    (fn-impl [acc TokenT j]
-                             (Digit
-                               (let [next (+ (* 10 acc) %d)]
-                                 (<<- (when (> next 0))
-                                      (put-in schema-number-id-grid i j)
-                                      (+/Just (+/size schema-numbers)))
-                                 next))
-                             (_ (do (init-schema-number acc) 0))))]
-            (init-schema-number ending))))
+          (-> (fn-impl [acc TokenT j]
+                (Digit
+                  (let [next (+ (* 10 acc) %d)]
+                    (<<- (when (> next 0))
+                         (put-in schema-number-id-grid i j)
+                         (+/Just (+/size schema-numbers)))
+                    next))
+                (_ (do (init-schema-number acc) 0)))
+              (+/reduce 0 row)
+              (init-schema-number))))
     (<- (+/each token-grid)
         (fn [row i]
           (<- (+/each row)
               (fn-impl [TokenT j]
-                       (Symbol
-                         (let [neighbors (+/Map)]
-                           (add-neighbor neighbors (+/dec i) (+/dec j))
-                           (add-neighbor neighbors (+/dec i) (+/id  j))
-                           (add-neighbor neighbors (+/dec i) (+/inc j))
-                           (add-neighbor neighbors (+/id  i) (+/dec j))
-                           (add-neighbor neighbors (+/id  i) (+/inc j))
-                           (add-neighbor neighbors (+/inc i) (+/dec j))
-                           (add-neighbor neighbors (+/inc i) (+/id  j))
-                           (add-neighbor neighbors (+/inc i) (+/inc j))
-                           (handle-symbol-neighbors neighbors schema-numbers)))
-                       (_ nil)))))
+                (Symbol
+                  (let [neighbors (+/Map)]
+                    (add-neighbor neighbors (+/dec i) (+/dec j))
+                    (add-neighbor neighbors (+/dec i) (+/id  j))
+                    (add-neighbor neighbors (+/dec i) (+/inc j))
+                    (add-neighbor neighbors (+/id  i) (+/dec j))
+                    (add-neighbor neighbors (+/id  i) (+/inc j))
+                    (add-neighbor neighbors (+/inc i) (+/dec j))
+                    (add-neighbor neighbors (+/inc i) (+/id  j))
+                    (add-neighbor neighbors (+/inc i) (+/inc j))
+                    (handle-symbol-neighbors neighbors schema-numbers)))
+                (_)))))
     schema-numbers))
 
 (defn part1 [input]
