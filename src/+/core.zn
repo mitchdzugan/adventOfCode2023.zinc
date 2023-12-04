@@ -6,6 +6,11 @@
 (defn key [obj]
   ((aget key-impls (type-id obj)) obj))
 
+(defn forcedKey [obj]
+  ((or (aget key-impls (type-id obj))
+       inst-id)
+   obj))
+
 (implement-key +/NumT +/id)
 (implement-key +/StrT +/id)
 (implement-key +/BoolT +/id)
@@ -26,6 +31,8 @@
 
 (def MapClass +/MapClass)
 
+(def Unit [+/UnitT])
+
 (defn Vec [& a-]
   (let [a  (clojure.core/or a- [])
         id (+/mk-inst-id)]
@@ -36,6 +43,17 @@
      :a a}))
 
 (defn Map [pairs] (new MapClass pairs))
+
+(defn Set [& initials-]
+  (let [initials (clojure.core/or initials- [])
+        d (Map)
+        id (+/mk-inst-id)]
+    (.forEach initials #(.set d (key %1) %1))
+    {:T +/SetT
+     :I id
+     :J (+/prop$ (+/js-array-from d [+/SetT] (fn [[_ v]] (json v))))
+     :P (+/prop$ (pretty (vals d)))
+     :d d}))
 
 (defn KeyMap [pairs]
   (let [ks (Map (.map pairs (fn [[k  ]] [(key k) k])))
@@ -128,9 +146,18 @@
   (defn-impl$ [$ k]
     ([+/VecT] (Maybe (aget $ "a" k)))
     ([+/MapT] (Maybe (.get $ k)))
+    ([+/SetT] (fmap (fn [] Unit) (Maybe (.get (.-d $) (key k)))))
     ([+/KeyMapT] (Maybe ((.. $ -vs -get) (key k))))
     ([+/KeyedListT] (fmap #(aget % 0) (Maybe (aget $ "d" k))))
     ([+/MaybeT] (if (or (not= 0 k) (.-e $)) None $))))
+
+(defn has? [c k] (not (empty? (at c k))))
+
+(defn intersection [s1 s2]
+  (+/apply Set (.-a (filter #(has? s2 %1) (vals s1)))))
+
+(defn union [s1 s2]
+  (+/apply Set (.-a (concat (vals s1) (vals s2)))))
 
 (defn put
   (defn-impl$ [$ k v]
@@ -181,6 +208,7 @@
   (defn-impl$ [$]
     ([+/VecT] (Range (+/js-length (.-a $))))
     ([+/MapT] (+/apply Vec (+/js-array-from $ #(aget % 0))))
+    ([+/SetT] (vals (.-d $)))
     ([+/KeyMapT] (vals (.-ks $)))
     ([+/MaybeT] (if (.-e $) (Vec) (Vec 0)))))
 
@@ -188,6 +216,7 @@
   (defn-impl$ [$]
     ([+/VecT] (+/apply Vec (.-a $)))
     ([+/MapT] (+/apply Vec (+/js-array-from $ #(aget % 1))))
+    ([+/SetT] (vals (.-d $)))
     ([+/KeyMapT] (vals (.-vs $)))
     ([+/MaybeT] (if (.-e $) (Vec) (Vec (.-j $))))))
 
@@ -195,6 +224,7 @@
   (defn-impl$ [$]
     ([+/VecT] (+/js-length (.-a $)))
     ([+/MapT] (.. $ -size))
+    ([+/SetT] (size (vals (.-d $))))
     ([+/KeyMapT] (size (.-ks $)))
     ([+/MaybeT] (if (.-e $) 0 1))))
 
@@ -207,6 +237,7 @@
   (defn-impl$ [on-none on-just $]
     ([+/MaybeT] (if (.-e $) (on-none) (on-just (.-j $))))))
 (defn maybe [none on-just m] (maybe- (fn [] none) on-just m))
+
 
 (defn insert
   (defn-impl$ [$ target-id v]
@@ -231,6 +262,7 @@
 (defn unshift
   (defn-impl$ [$ v]
     ([+/VecT] (.unshift (.-a $) v))
+    ([+/SetT] (.set (.-d $) (key v) v))
     ([+/KeyedListT] (insert $ (.-f $) v))))
 
 (defn sort
@@ -239,6 +271,11 @@
       (let [res (+/apply Vec (.-a $))]
         (.sort (.-a res))
         res))))
+
+(defn keyBy [f c]
+  (let [res (Map)]
+    (each #(put res (f %1) %1) c)
+    res))
 
 (defn empty? [c] (+/is 0 (size c)))
 
@@ -258,3 +295,21 @@
 
 (defn encode [v] (js/JSON.stringify (json v)))
 (defn decode [s] (unjson (js/JSON.parse s)))
+
+#zinc/preprocess
+(defmacro defn-memo [name & rest]
+  (let [rtrnsym (gensym (str name "-rtrn"))
+        mkeysym (gensym (str name "-mkey"))
+        implsym (gensym (str name "-impl"))
+        argssym (gensym (str name "-args"))
+        memosym (gensym (str name "-memo"))]
+    `(let [~implsym (fn ~@rest)
+           ~memosym (Map)]
+       (defn ~name [& ~argssym]
+         (let [~mkeysym (encode (fmap +/forcedKey (+/apply +/Vec ~argssym)))
+               ~rtrnsym (or- (fn [] (+/apply ~implsym ~argssym))
+                             (at ~memosym ~mkeysym))]
+           (put ~memosym ~mkeysym ~rtrnsym)
+           ~rtrnsym)))))
+
+(zinc/referred-macros defn-memo)

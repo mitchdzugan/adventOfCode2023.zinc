@@ -1,11 +1,13 @@
 (require '["/+/macros.zn" :as + :exporting "*"])
 
+(+/def-type-id UnitT :as Unit)
 (+/def-type-id NumT :as Num)
 (+/def-type-id StrT :as Str)
 (+/def-type-id BoolT :as Bool)
 (+/def-type-id MaybeT :as Maybe)
 (+/def-type-id VecT :as Vec)
 (+/def-type-id MapT :as Map)
+(+/def-type-id SetT :as Set)
 (+/def-type-id RecT :as Rec)
 (+/def-type-id KeyMapT :as KeyMap)
 (+/def-type-id KeyedListT :as KeyedList)
