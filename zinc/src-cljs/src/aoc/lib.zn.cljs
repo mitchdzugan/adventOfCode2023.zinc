@@ -2,7 +2,11 @@
 (require '["fs$default" :as fs])
 (require '["/+.zn" :as + :refer-macros true])
 
+(def rx_whitespace (js/RegExp. "\\s+"))
+
 (defn strsplit [src split] (+/apply +/Vec (.split src split)))
+
+(defn parseInt [s] (js/global.parseInt s 10))
 
 (defn getInput [n]
   (let [basename (+/str "day" n)

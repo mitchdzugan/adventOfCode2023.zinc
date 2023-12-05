@@ -78,80 +78,81 @@ const _pow = (a, b) => Math.pow(a, b);
 const _abs = (a) => Math.abs(a);
 const _random = () => Math.random();
 // ")
-;
-var id = _id
-;
-var const$ = _const
-;
-var apply = _apply
-;
-var dig = _dig
-;
-var bury = _bury
-;
-var log = (_log || _log || (function () {
-return undefined;
-}))
-;
-var jlog = (_jlog || _jlog || (function () {
-return undefined;
-}))
-;
-var rlog = (_rlog || _rlog || (function () {
-return undefined;
-}))
-;
-var inc = _inc
-;
-var dec = _dec
-;
-var str = _str
-;
-var argv = _argv
-;
-var is = _is
-;
-var nil_QMARK_ = _isNil
-;
-var null$ = _null
-;
-var js_array_QMARK_ = _isArray
-;
-var js_function_QMARK_ = _isFunction
-;
-var js_str_QMARK_ = _isStr
-;
-var js_array_from = _arrayFrom
-;
-var js_flat_array_from = _flatArrayFrom
-;
-var js_length = _length
-;
-var not = _not
-;
-var partial = _partial
-;
-var mod = _mod
-;
-var MapClass = Map
-;
-var max = _max
-;
-var min = _min
-;
-var ceil = _ceil
-;
-var floor = _floor
-;
-var round = _round
-;
-var div = _div
-;
-var pow = _pow
-;
-var abs = _abs
-;
-var random = _random
-;
 
-export { partial, floor, ceil, random, min, null$, not, str, is, rlog, js_array_QMARK_, max, id, pow, MapClass, log, jlog, apply, inc, js_length, bury, nil_QMARK_, mod, js_str_QMARK_, dig, div, abs, js_array_from, const$, argv, js_function_QMARK_, round, dec, js_flat_array_from }
+var id = _id;
+var const$ = _const;
+var apply = _apply;
+var dig = _dig;
+var bury = _bury;
+var log = (undefined || _log || (function() {
+    return undefined;
+}));
+var jlog = (undefined || _jlog || (function() {
+    return undefined;
+}));
+var rlog = (undefined || _rlog || (function() {
+    return undefined;
+}));
+var inc = _inc;
+var dec = _dec;
+var str = _str;
+var argv = _argv;
+var is = _is;
+var nil_QMARK_ = _isNil;
+var null$ = _null;
+var js_array_QMARK_ = _isArray;
+var js_function_QMARK_ = _isFunction;
+var js_str_QMARK_ = _isStr;
+var js_array_from = _arrayFrom;
+var js_flat_array_from = _flatArrayFrom;
+var js_length = _length;
+var not = _not;
+var partial = _partial;
+var mod = _mod;
+var MapClass = Map;
+var max = _max;
+var min = _min;
+var ceil = _ceil;
+var floor = _floor;
+var round = _round;
+var div = _div;
+var pow = _pow;
+var abs = _abs;
+var random = _random;
+
+export {
+    partial,
+    floor,
+    ceil,
+    random,
+    min,
+    null$,
+    not,
+    str,
+    is,
+    rlog,
+    js_array_QMARK_,
+    max,
+    id,
+    pow,
+    MapClass,
+    log,
+    jlog,
+    apply,
+    inc,
+    js_length,
+    bury,
+    nil_QMARK_,
+    mod,
+    js_str_QMARK_,
+    dig,
+    div,
+    abs,
+    js_array_from,
+    const$,
+    argv,
+    js_function_QMARK_,
+    round,
+    dec,
+    js_flat_array_from
+}

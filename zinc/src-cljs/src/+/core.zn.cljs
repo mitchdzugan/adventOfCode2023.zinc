@@ -233,6 +233,9 @@
     ([+/MaybeT] (if (.-e $) (mk-default-val) (.-j $)))))
 (defn or [default-val m] (or- (fn [] default-val) m))
 
+(defn unwrap! [m] (or- (fn [] (throw "unwrap forced on 'None' type")) m))
+(defn at! [c id] (unwrap! (at c id)))
+
 (defn maybe-
   (defn-impl$ [on-none on-just $]
     ([+/MaybeT] (if (.-e $) (on-none) (on-just (.-j $))))))
@@ -259,18 +262,26 @@
                               (aset % "d" id [v pid target-id]))
                             (Just id)))))))
 
+(defn push
+  (defn-impl$ [$ v]
+    ([+/VecT] (.push (.-a $) v))
+    ([+/SetT] (.set (.-d $) (key v) v))
+    ([+/KeyedListT] "TODO")))
+
 (defn unshift
   (defn-impl$ [$ v]
     ([+/VecT] (.unshift (.-a $) v))
     ([+/SetT] (.set (.-d $) (key v) v))
     ([+/KeyedListT] (insert $ (.-f $) v))))
 
-(defn sort
-  (defn-impl$ [$ v]
+(defn sort-by
+  (defn-impl$ [f $]
     ([+/VecT]
       (let [res (+/apply Vec (.-a $))]
-        (.sort (.-a res))
+        (.sort (.-a res) #(- (f %1) (f %2)))
         res))))
+
+(defn sort [c] (sort-by +/id c))
 
 (defn keyBy [f c]
   (let [res (Map)]

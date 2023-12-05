@@ -17,7 +17,7 @@
 
 (defn classify [c]
   (<<- (if (+/is c ".") Dot)
-       (let [d (js/parseInt c 10)])
+       (let [d (lib/parseInt c)])
        (if (and (>= d 0) (< d 10))
          (Digit d) (Symbol c))))
 
