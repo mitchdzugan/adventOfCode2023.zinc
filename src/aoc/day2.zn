@@ -11,7 +11,7 @@
 (defn addColorValFromColorStr [colorVals _colorStr]
   (let [colorStr (.trim _colorStr)
         [colorValStr color] (.split colorStr " ")
-        colorVal (js/parseInt colorValStr 10)]
+        colorVal (lib/parseInt colorValStr)]
     (+/put colorVals color colorVal)))
 
 (defn parse-round [_roundStr]
@@ -27,7 +27,7 @@
 (defn parse-game [line]
   (let [[idStr, roundsStr] (.split line ":")
         [_game_ idValStr] (.split idStr " ")
-        id (js/parseInt idValStr 10)
+        id (lib/parseInt idValStr)
         roundStrs (lib/strsplit roundsStr ";")
         rounds (+/fmap parse-round roundStrs)]
     (mk GameT (%= [id rounds]))))

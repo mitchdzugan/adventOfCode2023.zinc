@@ -4,16 +4,15 @@
 (def* CardT [id [winning :type [+/SetT +/NumT]] [my :type [+/SetT +/NumT]]])
 (defn-un cardId [CardT] %id)
 
-(def rx_whitespace (js/RegExp. "\\s+"))
 (defn parseCard [line]
   (let [[idLabelStr numDataStr] (.split line ":")
-        [_cardStr idStr] (.split (.trim idLabelStr) rx_whitespace)
-        id (js/parseInt idStr 10)
+        [_cardStr idStr] (.split (.trim idLabelStr) lib/rx_whitespace)
+        id (lib/parseInt idStr)
         [winningNumStr myNumStr] (.split (.trim numDataStr) "|")
         toSet (fn [numStr]
                 (as-> numStr $
-                  (.split (.trim $) rx_whitespace)
-                  (.map $ #(js/parseInt %1 10))
+                  (.split (.trim $) lib/rx_whitespace)
+                  (.map $ lib/parseInt)
                   (+/apply +/Set $)))
         winning (toSet winningNumStr)
         my (toSet myNumStr)]

@@ -13,7 +13,7 @@
        (+/sort (+/keys seenLengths))))))
 
 (defn getDigit [src index useDigitStrs exclude0]
-  (let [digit (js/parseInt (.substr src index 1) 10)]
+  (let [digit (lib/parseInt (.substr src index 1))]
     (if (and (< digit 10) (>= digit (if exclude0 1 0)))
       (+/Just digit)
       (loop [result +/None strLenIndex 0]
