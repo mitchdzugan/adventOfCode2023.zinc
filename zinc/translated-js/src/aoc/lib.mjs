@@ -6,7 +6,7 @@ var strsplit = (function(src, split) {
     return _PLUS_.apply(_PLUS_.Vec, src.split(split));
 });
 var parseInt = (function(s) {
-    return global.parseInt(s, 10);
+    return Number.parseInt(s, 10);
 });
 var getInput = (function(n) {
     let basename1 = _PLUS_.str("day", n);

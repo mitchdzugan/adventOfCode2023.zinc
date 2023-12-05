@@ -6,7 +6,7 @@
 
 (defn strsplit [src split] (+/apply +/Vec (.split src split)))
 
-(defn parseInt [s] (js/global.parseInt s 10))
+(defn parseInt [s] (js/Number.parseInt s 10))
 
 (defn getInput [n]
   (let [basename (+/str "day" n)
