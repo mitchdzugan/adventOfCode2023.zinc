@@ -3,9 +3,10 @@ import * as day2 from './../src/aoc/day2.mjs';
 import * as day3 from './../src/aoc/day3.mjs';
 import * as day4 from './../src/aoc/day4.mjs';
 import * as day5 from './../src/aoc/day5.mjs';
+import * as day6 from './../src/aoc/day6.mjs';
 import * as lib from './../src/aoc/lib.mjs';
 import * as _PLUS_ from './../src/+.mjs';
-var dayModules = _PLUS_.Vec(day1, day2, day3, day4, day5);
+var dayModules = _PLUS_.Vec(day1, day2, day3, day4, day5, day6);
 var solve = (function(day) {
     let module1 = _PLUS_.or(({}), _PLUS_.at(dayModules, (day - 1)));
     _PLUS_.log(_PLUS_.str("❄ 🎄 ❄ 🎄 ❄ 🎄 ❄ 🎄 ❄ 🎄 ❄ "));

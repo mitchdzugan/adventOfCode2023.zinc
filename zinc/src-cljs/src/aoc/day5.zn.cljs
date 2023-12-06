@@ -62,7 +62,7 @@
         (>= id (get-id rbound))       (+/Just rbound)
         (<= (- rbound lbound) 1)      (+/Just lbound)
         :else
-        (let [mbound (+ lbound (+/floor (+/div (- rbound lbound) 2)))]
+        (let [mbound (+ lbound (+/floor (/ (- rbound lbound) 2)))]
           (cond
             (+/is id (get-id mbound)) (+/Just mbound)
             (< id (get-id mbound))    (recur lbound mbound)
@@ -134,7 +134,7 @@
           (InitialSeeds
             (@= rinitials
                 (if ranges?
-                  (->> (+/Range (+/floor (+/div (+/size %seeds) 2)))
+                  (->> (+/Range (+/floor (/ (+/size %seeds) 2)))
                        (+/fmap (fn [n]
                                  (Range "seed"
                                         (+/at! %seeds (+ 0 (* 2 n)))

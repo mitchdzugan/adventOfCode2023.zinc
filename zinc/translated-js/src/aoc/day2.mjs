@@ -25,8 +25,8 @@ var parse_round = (function(_roundStr) {
     let roundStr12 = _roundStr.trim();
     let colorVals13 = _PLUS_.Map();
     let colorStrs14 = lib.strsplit(roundStr12, ",");
-    _PLUS_.each((function(_anon_PERCENT_1_52) {
-        return addColorValFromColorStr(colorVals13, _anon_PERCENT_1_52);
+    _PLUS_.each((function(_anon_PERCENT_1_40) {
+        return addColorValFromColorStr(colorVals13, _anon_PERCENT_1_40);
     }), colorStrs14);
     return CubeNums(_PLUS_.or(0, _PLUS_.at(colorVals13, "red")), _PLUS_.or(0, _PLUS_.at(colorVals13, "green")), _PLUS_.or(0, _PLUS_.at(colorVals13, "blue")));
 });
@@ -54,18 +54,18 @@ var valid_round_QMARK_ = (function(val_28) {
 });
 var valid_game_QMARK_ = (function(val_35) {
     let var_rounds_3636 = val_35[2];
-    return _PLUS_.reduce((function(_anon_PERCENT_1_53, _anon_PERCENT_2_54) {
-        return (_anon_PERCENT_1_53 && valid_round_QMARK_(_anon_PERCENT_2_54));
+    return _PLUS_.reduce((function(_anon_PERCENT_1_41, _anon_PERCENT_2_42) {
+        return (_anon_PERCENT_1_41 && valid_round_QMARK_(_anon_PERCENT_2_42));
     }), true, var_rounds_3636);
 });
 var to_games = (function(input) {
-    return _PLUS_.fmap(parse_game, _PLUS_.filter((function(_anon_PERCENT_1_55) {
-        return !_PLUS_.is("", _anon_PERCENT_1_55.trim());
+    return _PLUS_.fmap(parse_game, _PLUS_.filter((function(_anon_PERCENT_1_43) {
+        return !_PLUS_.is("", _anon_PERCENT_1_43.trim());
     }), lib.strsplit(input, "\n")));
 });
 var part1 = (function(input) {
-    return _PLUS_.reduce((function(_anon_PERCENT_1_56, _anon_PERCENT_2_57) {
-        return (_anon_PERCENT_1_56 + _anon_PERCENT_2_57);
+    return _PLUS_.reduce((function(_anon_PERCENT_1_44, _anon_PERCENT_2_45) {
+        return (_anon_PERCENT_1_44 + _anon_PERCENT_2_45);
     }), 0, _PLUS_.fmap((function(val_37) {
         let var_id_3837 = val_37[1];
         return var_id_3837;
@@ -88,8 +88,8 @@ var min_cubes = (function(val_46) {
     return _PLUS_.reduce(update_min_cubes, CubeNums(0, 0, 0), var_rounds_4747);
 });
 var part2 = (function(input) {
-    return _PLUS_.reduce((function(_anon_PERCENT_1_58, _anon_PERCENT_2_59) {
-        return (_anon_PERCENT_1_58 + _anon_PERCENT_2_59);
+    return _PLUS_.reduce((function(_anon_PERCENT_1_46, _anon_PERCENT_2_47) {
+        return (_anon_PERCENT_1_46 + _anon_PERCENT_2_47);
     }), 0, _PLUS_.fmap(cubes_power, _PLUS_.fmap(min_cubes, to_games(input))));
 });
 

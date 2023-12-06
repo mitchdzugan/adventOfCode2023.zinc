@@ -23,67 +23,67 @@ var defs_for = (function(js_class, f) {
 });
 defs_for(Number, (function(def_property, def_method) {
     def_property("T", (function() {
-        let $_942 = this;
+        let $_972 = this;
         return _PLUS_.NumT;
     }));
     for (let k of ["J", "P", "I"]) {
         [true, def_property(k, (function() {
-            let $_953 = this;
-            return $_953.valueOf();
+            let $_983 = this;
+            return $_983.valueOf();
         }))]
     };
     return undefined;
 }));
 defs_for(Boolean, (function(def_property, def_method) {
     def_property("T", (function() {
-        let $_964 = this;
+        let $_994 = this;
         return _PLUS_.BoolT;
     }));
     for (let k of ["J", "P", "I"]) {
         [true, def_property(k, (function() {
-            let $_975 = this;
-            return $_975.valueOf();
+            let $_1005 = this;
+            return $_1005.valueOf();
         }))]
     };
     return undefined;
 }));
 defs_for(String, (function(def_property, def_method) {
     def_property("T", (function() {
-        let $_986 = this;
+        let $_1016 = this;
         return _PLUS_.StrT;
     }));
     for (let k of ["J", "P", "I"]) {
         [true, def_property(k, (function() {
-            let $_997 = this;
-            return $_997.valueOf();
+            let $_1027 = this;
+            return $_1027.valueOf();
         }))]
     };
     return undefined;
 }));
 defs_for(Map, (function(def_property, def_method) {
     def_property("T", (function() {
-        let $_1008 = this;
+        let $_1038 = this;
         return _PLUS_.MapT;
     }));
     def_property("I", (function() {
-        let $_1019 = this;
-        let i10 = ($_1019["i"] || _PLUS_.mk_inst_id());
-        $_1019["i"] = i10;
+        let $_1049 = this;
+        let i10 = ($_1049["i"] || _PLUS_.mk_inst_id());
+        $_1049["i"] = i10;
         return i10;
     }));
     def_property("J", (function() {
-        let $_10211 = this;
-        return _PLUS_.js_array_from($_10211, [_PLUS_.MapT], (function(_anon_PERCENT_1_113) {
-            return _anon_PERCENT_1_113.map(_PLUS_.json);
+        let $_10511 = this;
+        return _PLUS_.js_array_from($_10511, [_PLUS_.MapT], (function(_anon_PERCENT_1_115) {
+            return _anon_PERCENT_1_115.map(_PLUS_.json);
         }));
     }));
     return def_property("P", (function() {
-        let $_10312 = this;
+        let $_10612 = this;
         let res13 = ({});
-        _PLUS_.js_array_from($_10312).forEach((function(_anon_PERCENT_1_114) {
-            let k14 = _anon_PERCENT_1_114[0];
+        _PLUS_.js_array_from($_10612).forEach((function(_anon_PERCENT_1_116) {
+            let k14 = _anon_PERCENT_1_116[0];
             let pk15 = ((_PLUS_.js_str_QMARK_(k14)) ? (_PLUS_.str("\"", k14, "\"")) : (k14));
-            let pv16 = _PLUS_.pretty(_anon_PERCENT_1_114[1]);
+            let pv16 = _PLUS_.pretty(_anon_PERCENT_1_116[1]);
             return res13[pk15] = pv16;
         }));
         return res13;
@@ -91,28 +91,28 @@ defs_for(Map, (function(def_property, def_method) {
 }));
 defs_for(Array, (function(def_property, def_method) {
     def_property("T", (function() {
-        let $_10417 = this;
-        return $_10417[0];
+        let $_10717 = this;
+        return $_10717[0];
     }));
     def_property("I", (function() {
-        let $_10518 = this;
-        let i19 = ($_10518["i"] || _PLUS_.mk_inst_id());
-        $_10518["i"] = i19;
+        let $_10818 = this;
+        let i19 = ($_10818["i"] || _PLUS_.mk_inst_id());
+        $_10818["i"] = i19;
         return i19;
     }));
     def_property("J", (function() {
-        let $_10620 = this;
-        return $_10620.map(_PLUS_.json);
+        let $_10920 = this;
+        return $_10920.map(_PLUS_.json);
     }));
     return def_property("P", (function() {
-        let $_10721 = this;
-        let id22 = $_10721["T"];
+        let $_11021 = this;
+        let id22 = $_11021["T"];
         let res23 = ({});
         res23["Type"] = (_PLUS_.qt_store[id22] || id22);
-        $_10721.slice(1).forEach((function(v, ind) {
-            let pk24 = (_PLUS_.dig(_PLUS_.prop_store, [id22, undefined, ind, "idname"]) || _PLUS_.dig(_PLUS_.prop_store, [id22, $_10721[1], ind, "idname"]) || ind);
+        $_11021.slice(1).forEach((function(v, ind) {
+            let pk24 = (_PLUS_.dig(_PLUS_.prop_store, [id22, undefined, ind, "idname"]) || _PLUS_.dig(_PLUS_.prop_store, [id22, $_11021[1], ind, "idname"]) || ind);
             if (_PLUS_.is(pk24, "+")) {
-                return res23["Type"] = _PLUS_.str(res23["Type"], "[", _PLUS_.dig(_PLUS_.variant_store, [id22, $_10721[1]]), "]");
+                return res23["Type"] = _PLUS_.str(res23["Type"], "[", _PLUS_.dig(_PLUS_.variant_store, [id22, $_11021[1]]), "]");
             } else {
                 return res23[pk24] = _PLUS_.pretty(v);
             }

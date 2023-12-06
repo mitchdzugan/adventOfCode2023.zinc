@@ -37,11 +37,11 @@ var implement_flatplicative = (function(type_id, ensure_type_impl) {
     return flatplicative_impls[type_id] = ensure_type_impl;
 });
 var implement_flatplicative_for_applicative = (function(type_id) {
-    return implement_flatplicative(type_id, (function(_anon_PERCENT_1_112) {
-        if ((type_id === _anon_PERCENT_1_112["T"])) {
-            return _anon_PERCENT_1_112;
+    return implement_flatplicative(type_id, (function(_anon_PERCENT_1_114) {
+        if ((type_id === _anon_PERCENT_1_114["T"])) {
+            return _anon_PERCENT_1_114;
         } else {
-            return pure(type_id, _anon_PERCENT_1_112);
+            return pure(type_id, _anon_PERCENT_1_114);
         }
     }));
 });

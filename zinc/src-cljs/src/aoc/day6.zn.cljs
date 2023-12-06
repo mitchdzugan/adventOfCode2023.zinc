@@ -1,0 +1,21 @@
+(require '["/aoc/lib.zn" :as lib])
+(require '["/+.zn" :as + :refer-macros true])
+
+(def* RaceT [time record])
+(defn Race [time record] (mk RaceT (%= [time record])))
+
+(defn-un count-possibilities [RaceT]
+  (let [qdrtc_root (/ (js/Math.sqrt (- (* %time %time) (* 4 %record))) 2)
+        qdrtc_b_2a (/ %time 2)
+        bound_h (+/floor (+ qdrtc_b_2a qdrtc_root))
+        bound_l (+/floor (- qdrtc_b_2a qdrtc_root))]
+    (- bound_h bound_l)))
+
+(defn part1 []
+  (->> (+/Vec (Race 52 426) (Race 94 1374) (Race 75 1279) (Race 94 1216))
+       (+/fmap count-possibilities)
+       (+/reduce #(* %1 %2) 1)))
+
+(defn part2 []
+  (let [time 52947594 record 426137412791216]
+    (count-possibilities (Race time record))))
