@@ -179,6 +179,8 @@
     ([+/MaybeT] (when-not (.-e $) (f (.-j $) 0 $)))
     ([+/KeyedListT] ((.. $ -a forEach (fn [[id v] ind] (f v id $ ind)))))))
 
+(defn for [c f] (each f c))
+
 (defn reduce [f init coll]
   (let [res [init]]
     (each #(aset res 0 (f (aget res 0) %1 %2 %3 %4)) coll)
@@ -286,6 +288,14 @@
 (defn keyBy [f c]
   (let [res (Map)]
     (each #(put res (f %1) %1) c)
+    res))
+
+(defn groupBy [f c]
+  (let [res (Map)]
+    (each #(let [k (f %1) curr (or- Vec (at res k))]
+             (push curr %1)
+             (put res k curr))
+          c)
     res))
 
 (defn empty? [c] (+/is 0 (size c)))

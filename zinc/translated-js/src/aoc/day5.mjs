@@ -10,13 +10,13 @@ var GuideT = 20;
 var Guide = (function(id, offset) {
     return [20, id, offset];
 });
-var guide_id = (function(val_64) {
-    let var_id_651 = val_64[1];
-    return var_id_651;
+var guide_id = (function(val_23) {
+    let var_id_241 = val_23[1];
+    return var_id_241;
 });
-var offset = (function(val_66) {
-    let var_offset_672 = val_66[2];
-    return var_offset_672;
+var offset = (function(val_25) {
+    let var_offset_262 = val_25[2];
+    return var_offset_262;
 });
 undefined;
 var InitialT = 21;
@@ -31,17 +31,17 @@ var CategoryMapT = 22;
 var init_category_map = (function(src, dst) {
     return [22, src, dst, _PLUS_.Vec()];
 });
-var destination = (function(val_68) {
-    let var_dst_693 = val_68[2];
-    return var_dst_693;
+var destination = (function(val_27) {
+    let var_dst_283 = val_27[2];
+    return var_dst_283;
 });
-var guides = (function(val_70) {
-    let var_guides_714 = val_70[3];
-    return var_guides_714;
+var guides = (function(val_29) {
+    let var_guides_304 = val_29[3];
+    return var_guides_304;
 });
-var push_guide = (function(val_72, guide) {
-    let var_guides_735 = val_72[3];
-    return _PLUS_.push(var_guides_735, guide);
+var push_guide = (function(val_31, guide) {
+    let var_guides_325 = val_31[3];
+    return _PLUS_.push(var_guides_325, guide);
 });
 undefined;
 var InputLineT = 23;
@@ -90,8 +90,8 @@ var parse_line = (function(line) {
     }
 });
 let get_guide_ind_impl_2334 = (function(id, guides) {
-    let get_id35 = (function(_anon_PERCENT_1_3) {
-        return guide_id(_PLUS_.at_BANG_(guides, _anon_PERCENT_1_3));
+    let get_id35 = (function(_anon_PERCENT_1_54) {
+        return guide_id(_PLUS_.at_BANG_(guides, _anon_PERCENT_1_54));
     });
     let lbound36 = 0;
     let rbound37 = (_PLUS_.size(guides) - 1);
@@ -172,8 +172,8 @@ var get_guide_ind = (function() {
     return f44;
 })();
 var get_offset = (function(id, guides) {
-    return _PLUS_.or(0, _PLUS_.fmap((function(_anon_PERCENT_1_4) {
-        return offset(_PLUS_.at_BANG_(guides, _anon_PERCENT_1_4));
+    return _PLUS_.or(0, _PLUS_.fmap((function(_anon_PERCENT_1_55) {
+        return offset(_PLUS_.at_BANG_(guides, _anon_PERCENT_1_55));
     }), get_guide_ind(id, guides)));
 });
 var get_associated_item = (function(category_maps, category, id) {
@@ -184,19 +184,19 @@ var get_associated_ranges = (function(category_maps, category, start, length) {
     let cat_map57 = _PLUS_.at_BANG_(category_maps, category);
     let cat_guides58 = guides(cat_map57);
     let dst59 = destination(cat_map57);
-    let mk_range60 = (function(_anon_PERCENT_1_5, _anon_PERCENT_2_6) {
-        return Range(dst59, _anon_PERCENT_1_5, _anon_PERCENT_2_6);
+    let mk_range60 = (function(_anon_PERCENT_1_56, _anon_PERCENT_2_57) {
+        return Range(dst59, _anon_PERCENT_1_56, _anon_PERCENT_2_57);
     });
-    let get_id61 = (function(_anon_PERCENT_1_7) {
-        return guide_id(_PLUS_.at_BANG_(cat_guides58, _anon_PERCENT_1_7));
+    let get_id61 = (function(_anon_PERCENT_1_58) {
+        return guide_id(_PLUS_.at_BANG_(cat_guides58, _anon_PERCENT_1_58));
     });
-    let get_offset62 = (function(_anon_PERCENT_1_8) {
-        return offset(_PLUS_.at_BANG_(cat_guides58, _anon_PERCENT_1_8));
+    let get_offset62 = (function(_anon_PERCENT_1_59) {
+        return offset(_PLUS_.at_BANG_(cat_guides58, _anon_PERCENT_1_59));
     });
     let results63 = _PLUS_.Vec();
     let end64 = (start + length);
-    let oob_QMARK_65 = (function(_anon_PERCENT_1_9) {
-        return (_anon_PERCENT_1_9 >= end64);
+    let oob_QMARK_65 = (function(_anon_PERCENT_1_60) {
+        return (_anon_PERCENT_1_60 >= end64);
     });
     let id66 = start;
     let m_ind67 = get_guide_ind(start, cat_guides58);
@@ -218,30 +218,30 @@ var get_associated_ranges = (function(category_maps, category, start, length) {
     };
     return results63;
 });
-var get_location = (function(category_maps, val_74) {
-    let val_7573 = val_74;
-    let spec_7674 = ({
+var get_location = (function(category_maps, val_33) {
+    let val_3473 = val_33;
+    let spec_3574 = ({
         1: (function() {
-            let var_category_7775 = val_7573[2];
-            let var_id_7876 = val_7573[3];
-            if (_PLUS_.is("location", var_category_7775)) {
-                return var_id_7876;
+            let var_category_3675 = val_3473[2];
+            let var_id_3776 = val_3473[3];
+            if (_PLUS_.is("location", var_category_3675)) {
+                return var_id_3776;
             } else {
-                return get_location(category_maps, get_associated_item(category_maps, var_category_7775, var_id_7876));
+                return get_location(category_maps, get_associated_item(category_maps, var_category_3675, var_id_3776));
             }
         }),
         2: (function() {
-            let var_category_7977 = val_7573[2];
-            let var_start_8078 = val_7573[3];
-            let var_length_8179 = val_7573[4];
-            if (_PLUS_.is("location", var_category_7977)) {
-                return var_start_8078;
+            let var_category_3877 = val_3473[2];
+            let var_start_3978 = val_3473[3];
+            let var_length_4079 = val_3473[4];
+            if (_PLUS_.is("location", var_category_3877)) {
+                return var_start_3978;
             } else {
-                return min_location(category_maps, get_associated_ranges(category_maps, var_category_7977, var_start_8078, var_length_8179));
+                return min_location(category_maps, get_associated_ranges(category_maps, var_category_3877, var_start_3978, var_length_4079));
             }
         })
     });
-    return (spec_7674[val_7573[1]] || spec_7674[0])();
+    return (spec_3574[val_3473[1]] || spec_3574[0])();
 });
 var min_location = (function(category_maps, initials) {
     return _PLUS_.unwrap_BANG_(_PLUS_.reduce((function(acc, loc) {
@@ -250,10 +250,10 @@ var min_location = (function(category_maps, initials) {
         return get_location(category_maps, initial);
     }), initials)));
 });
-var min_location_for_input = (function(val_82) {
-    let var_category_maps_8380 = val_82[2];
-    let var_initials_8481 = val_82[1];
-    return min_location(var_category_maps_8380, var_initials_8481);
+var min_location_for_input = (function(val_41) {
+    let var_category_maps_4280 = val_41[2];
+    let var_initials_4381 = val_41[1];
+    return min_location(var_category_maps_4280, var_initials_4381);
 });
 var parse_input = (function(input, ranges_QMARK_) {
     let rsrc82 = {
@@ -269,46 +269,46 @@ var parse_input = (function(input, ranges_QMARK_) {
     let inputs86 = _PLUS_.fmap(parse_line, lib.strsplit(input, "\n"));
     let finalize_category_map87 = (function() {
         _PLUS_.each((function(cat_map) {
-            return _PLUS_.each((function(_anon_PERCENT_1_12) {
-                return push_guide(cat_map, _anon_PERCENT_1_12);
-            }), _PLUS_.sort_by(guide_id, _PLUS_.vals(_PLUS_.fmap((function(_anon_PERCENT_1_11, _anon_PERCENT_2_10) {
-                return Guide(_anon_PERCENT_2_10, _anon_PERCENT_1_11);
+            return _PLUS_.each((function(_anon_PERCENT_1_63) {
+                return push_guide(cat_map, _anon_PERCENT_1_63);
+            }), _PLUS_.sort_by(guide_id, _PLUS_.vals(_PLUS_.fmap((function(_anon_PERCENT_1_62, _anon_PERCENT_2_61) {
+                return Guide(_anon_PERCENT_2_61, _anon_PERCENT_1_62);
             }), rmap83["r"]))));
         }), _PLUS_.at(category_maps85, rsrc82["r"]));
         return (rmap83.r = _PLUS_.Map());
     });
-    _PLUS_.each((function(val_85) {
-        let val_8688 = val_85;
-        let spec_8789 = ({
+    _PLUS_.each((function(val_44) {
+        let val_4588 = val_44;
+        let spec_4689 = ({
             2: (function() {
-                let var_seeds_8890 = val_8688[2];
+                let var_seeds_4790 = val_4588[2];
                 return (rinitials84.r = ((ranges_QMARK_) ? (_PLUS_.fmap((function(n) {
-                    return Range("seed", _PLUS_.at_BANG_(var_seeds_8890, (0 + (2 * n))), _PLUS_.at_BANG_(var_seeds_8890, (1 + (2 * n))));
-                }), _PLUS_.Range(_PLUS_.floor((_PLUS_.size(var_seeds_8890) / 2))))) : (_PLUS_.fmap((function(id) {
+                    return Range("seed", _PLUS_.at_BANG_(var_seeds_4790, (0 + (2 * n))), _PLUS_.at_BANG_(var_seeds_4790, (1 + (2 * n))));
+                }), _PLUS_.Range(_PLUS_.floor((_PLUS_.size(var_seeds_4790) / 2))))) : (_PLUS_.fmap((function(id) {
                     return Item("seed", id);
-                }), var_seeds_8890))));
+                }), var_seeds_4790))));
             }),
             3: (function() {
-                let var_from_8991 = val_8688[2];
-                let var_to_9092 = val_8688[3];
+                let var_from_4891 = val_4588[2];
+                let var_to_4992 = val_4588[3];
                 finalize_category_map87();
-                _PLUS_.put(category_maps85, var_from_8991, init_category_map(var_from_8991, var_to_9092));
-                return (rsrc82.r = var_from_8991);
+                _PLUS_.put(category_maps85, var_from_4891, init_category_map(var_from_4891, var_to_4992));
+                return (rsrc82.r = var_from_4891);
             }),
             4: (function() {
-                let var_dst_9193 = val_8688[2];
-                let var_src_9294 = val_8688[3];
-                let var_length_9395 = val_8688[4];
-                let offset96 = (var_dst_9193 - var_src_9294);
-                let end97 = (var_src_9294 + var_length_9395);
-                _PLUS_.put(rmap83["r"], var_src_9294, offset96);
+                let var_dst_5093 = val_4588[2];
+                let var_src_5194 = val_4588[3];
+                let var_length_5295 = val_4588[4];
+                let offset96 = (var_dst_5093 - var_src_5194);
+                let end97 = (var_src_5194 + var_length_5295);
+                _PLUS_.put(rmap83["r"], var_src_5194, offset96);
                 return _PLUS_.put(rmap83["r"], end97, _PLUS_.or(0, _PLUS_.at(rmap83["r"], end97)));
             }),
             0: (function() {
                 return undefined;
             })
         });
-        return (spec_8789[val_8688[1]] || spec_8789[0])();
+        return (spec_4689[val_4588[1]] || spec_4689[0])();
     }), inputs86);
     finalize_category_map87();
     return InputData(rinitials84["r"], category_maps85);

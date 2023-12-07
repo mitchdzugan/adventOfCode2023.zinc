@@ -169,8 +169,8 @@ describe("core data library '+'", (function() {
         }));
         return it("passes all args", (function() {
             let fmapper16 = (function(coll) {
-                return _PLUS_.fmap((function(_anon_PERCENT_1_57, _anon_PERCENT_2_58, _anon_PERCENT_3_59) {
-                    return _PLUS_.Vec(_PLUS_.inc(_anon_PERCENT_1_57), _anon_PERCENT_2_58, _PLUS_.size(_anon_PERCENT_3_59));
+                return _PLUS_.fmap((function(_anon_PERCENT_1_1, _anon_PERCENT_2_2, _anon_PERCENT_3_3) {
+                    return _PLUS_.Vec(_PLUS_.inc(_anon_PERCENT_1_1), _anon_PERCENT_2_2, _PLUS_.size(_anon_PERCENT_3_3));
                 }), coll);
             });
             expect(fmapper16(_PLUS_.Vec(0, 1, 2)))["to_eq"](_PLUS_.Vec(_PLUS_.Vec(1, 0, 3), _PLUS_.Vec(2, 1, 3), _PLUS_.Vec(3, 2, 3)));
@@ -188,34 +188,34 @@ describe("core data library '+'", (function() {
     }));
     return describe("filter/remove", (function() {
         it("filters collection by predicate", (function() {
-            expect(_PLUS_.filter((function(_anon_PERCENT_1_60) {
-                return (_anon_PERCENT_1_60 > 2);
+            expect(_PLUS_.filter((function(_anon_PERCENT_1_4) {
+                return (_anon_PERCENT_1_4 > 2);
             }), _PLUS_.Vec(3, 1, 4, 5, 2)))["to_eq"](_PLUS_.Vec(3, 4, 5));
-            expect(_PLUS_.filter((function(_anon_PERCENT_1_61) {
-                return (_anon_PERCENT_1_61 > 2);
+            expect(_PLUS_.filter((function(_anon_PERCENT_1_5) {
+                return (_anon_PERCENT_1_5 > 2);
             }), _PLUS_.Just(5)))["to_eq"](_PLUS_.Just(5));
-            expect(_PLUS_.filter((function(_anon_PERCENT_1_62) {
-                return (_anon_PERCENT_1_62 > 2);
+            expect(_PLUS_.filter((function(_anon_PERCENT_1_6) {
+                return (_anon_PERCENT_1_6 > 2);
             }), _PLUS_.Just(1)))["to_eq"](_PLUS_.None);
-            expect(_PLUS_.filter((function(_anon_PERCENT_1_63) {
-                return (_anon_PERCENT_1_63 > 2);
+            expect(_PLUS_.filter((function(_anon_PERCENT_1_7) {
+                return (_anon_PERCENT_1_7 > 2);
             }), _PLUS_.None))["to_eq"](_PLUS_.None);
-            expect(_PLUS_.remove((function(_anon_PERCENT_1_64) {
-                return (_anon_PERCENT_1_64 > 2);
+            expect(_PLUS_.remove((function(_anon_PERCENT_1_8) {
+                return (_anon_PERCENT_1_8 > 2);
             }), _PLUS_.Vec(3, 1, 4, 5, 2)))["to_eq"](_PLUS_.Vec(1, 2));
-            expect(_PLUS_.remove((function(_anon_PERCENT_1_65) {
-                return (_anon_PERCENT_1_65 > 2);
+            expect(_PLUS_.remove((function(_anon_PERCENT_1_9) {
+                return (_anon_PERCENT_1_9 > 2);
             }), _PLUS_.Just(5)))["to_eq"](_PLUS_.None);
-            expect(_PLUS_.remove((function(_anon_PERCENT_1_66) {
-                return (_anon_PERCENT_1_66 > 2);
+            expect(_PLUS_.remove((function(_anon_PERCENT_1_10) {
+                return (_anon_PERCENT_1_10 > 2);
             }), _PLUS_.Just(1)))["to_eq"](_PLUS_.Just(1));
-            return expect(_PLUS_.filter((function(_anon_PERCENT_1_67) {
-                return (_anon_PERCENT_1_67 > 2);
+            return expect(_PLUS_.filter((function(_anon_PERCENT_1_11) {
+                return (_anon_PERCENT_1_11 > 2);
             }), _PLUS_.None))["to_eq"](_PLUS_.None);
         }));
         return it("passes all args", (function() {
-            let filterer17 = _PLUS_.partial(_PLUS_.filter, (function(_anon_PERCENT_1_68, _anon_PERCENT_2_69, _anon_PERCENT_3_70) {
-                return _PLUS_.is(0, _PLUS_.mod((_anon_PERCENT_1_68 + _anon_PERCENT_2_69 + _PLUS_.size(_anon_PERCENT_3_70)), 2));
+            let filterer17 = _PLUS_.partial(_PLUS_.filter, (function(_anon_PERCENT_1_12, _anon_PERCENT_2_13, _anon_PERCENT_3_14) {
+                return _PLUS_.is(0, _PLUS_.mod((_anon_PERCENT_1_12 + _anon_PERCENT_2_13 + _PLUS_.size(_anon_PERCENT_3_14)), 2));
             }));
             expect(filterer17(_PLUS_.Vec(1, 2, 3, 4)))["to_eq"](_PLUS_.Vec());
             expect(filterer17(_PLUS_.Vec(1, 2, 3)))["to_eq"](_PLUS_.Vec(1, 2, 3));

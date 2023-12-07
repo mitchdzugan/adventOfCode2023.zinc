@@ -14,8 +14,8 @@ var digitStrs = _PLUS_.Map([
 ]);
 var digitStrLengths = (function() {
     let seenLengths1 = _PLUS_.Map();
-    _PLUS_.each((function(_anon_PERCENT_1_49, _anon_PERCENT_2_48) {
-        return _PLUS_.put(seenLengths1, _anon_PERCENT_2_48["length"], true);
+    _PLUS_.each((function(_anon_PERCENT_1_44, _anon_PERCENT_2_43) {
+        return _PLUS_.put(seenLengths1, _anon_PERCENT_2_43["length"], true);
     }), digitStrs);
     return _PLUS_.sort(_PLUS_.keys(seenLengths1));
 })();
@@ -48,8 +48,8 @@ var Front = [13, 1];
 var Back = [13, 2];
 var firstDigit = (function(src, origin, useDigitStrs) {
     let start9 = (function() {
-        let val_1810 = origin;
-        let spec_1911 = ({
+        let val_5310 = origin;
+        let spec_5411 = ({
             1: (function() {
                 return 0;
             }),
@@ -57,11 +57,11 @@ var firstDigit = (function(src, origin, useDigitStrs) {
                 return (src["length"] - 1);
             })
         });
-        return (spec_1911[val_1810[1]] || spec_1911[0])();
+        return (spec_5411[val_5310[1]] || spec_5411[0])();
     })();
     let delta12 = (function() {
-        let val_2013 = origin;
-        let spec_2114 = ({
+        let val_5513 = origin;
+        let spec_5614 = ({
             1: (function() {
                 return 1;
             }),
@@ -69,11 +69,11 @@ var firstDigit = (function(src, origin, useDigitStrs) {
                 return -1;
             })
         });
-        return (spec_2114[val_2013[1]] || spec_2114[0])();
+        return (spec_5614[val_5513[1]] || spec_5614[0])();
     })();
     let exclude015 = (function() {
-        let val_2216 = origin;
-        let spec_2317 = ({
+        let val_5716 = origin;
+        let spec_5817 = ({
             1: (function() {
                 return IGNORE_LEADING_0;
             }),
@@ -81,7 +81,7 @@ var firstDigit = (function(src, origin, useDigitStrs) {
                 return false;
             })
         });
-        return (spec_2317[val_2216[1]] || spec_2317[0])();
+        return (spec_5817[val_5716[1]] || spec_5817[0])();
     })();
     let result18 = _PLUS_.None;
     let index19 = start9;
@@ -100,21 +100,21 @@ var firstDigit = (function(src, origin, useDigitStrs) {
 
 });
 var getCalibrationValue = (function(src, useDigitStrs) {
-    return (function(_anon_PERCENT_1_51, _anon_PERCENT_2_50) {
-        return _PLUS_.bind(_anon_PERCENT_2_50, _anon_PERCENT_1_51);
+    return (function(_anon_PERCENT_1_46, _anon_PERCENT_2_45) {
+        return _PLUS_.bind(_anon_PERCENT_2_45, _anon_PERCENT_1_46);
     })(firstDigit(src, Front, useDigitStrs), (function(dTens) {
-        return (function(_anon_PERCENT_1_53, _anon_PERCENT_2_52) {
-            return _PLUS_.bind(_anon_PERCENT_2_52, _anon_PERCENT_1_53);
+        return (function(_anon_PERCENT_1_48, _anon_PERCENT_2_47) {
+            return _PLUS_.bind(_anon_PERCENT_2_47, _anon_PERCENT_1_48);
         })(firstDigit(src, Back, useDigitStrs), (function(dOnes) {
             return _PLUS_.Just(((10 * dTens) + dOnes));
         }));
     }));
 });
 var getCalibrationSum = (function(input, useDigitStrs) {
-    return _PLUS_.reduce((function(_anon_PERCENT_1_55, _anon_PERCENT_2_56) {
-        return (_anon_PERCENT_1_55 + _PLUS_.or(0, _anon_PERCENT_2_56));
-    }), 0, _PLUS_.fmap((function(_anon_PERCENT_1_54) {
-        return getCalibrationValue(_anon_PERCENT_1_54, useDigitStrs);
+    return _PLUS_.reduce((function(_anon_PERCENT_1_50, _anon_PERCENT_2_51) {
+        return (_anon_PERCENT_1_50 + _PLUS_.or(0, _anon_PERCENT_2_51));
+    }), 0, _PLUS_.fmap((function(_anon_PERCENT_1_49) {
+        return getCalibrationValue(_anon_PERCENT_1_49, useDigitStrs);
     }), lib.strsplit(input, "\n")));
 });
 var part1 = (function(input) {

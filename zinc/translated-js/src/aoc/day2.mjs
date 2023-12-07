@@ -7,11 +7,11 @@ var CubeNums = (function(red, green, blue) {
 });
 undefined;
 var GameT = 15;
-var cubes_power = (function(val_24) {
-    let var_red_251 = val_24[1];
-    let var_green_262 = val_24[2];
-    let var_blue_273 = val_24[3];
-    return (var_red_251 * var_green_262 * var_blue_273);
+var cubes_power = (function(val_82) {
+    let var_red_831 = val_82[1];
+    let var_green_842 = val_82[2];
+    let var_blue_853 = val_82[3];
+    return (var_red_831 * var_green_842 * var_blue_853);
 });
 var addColorValFromColorStr = (function(colorVals, _colorStr) {
     let colorStr7 = _colorStr.trim();
@@ -25,8 +25,8 @@ var parse_round = (function(_roundStr) {
     let roundStr12 = _roundStr.trim();
     let colorVals13 = _PLUS_.Map();
     let colorStrs14 = lib.strsplit(roundStr12, ",");
-    _PLUS_.each((function(_anon_PERCENT_1_40) {
-        return addColorValFromColorStr(colorVals13, _anon_PERCENT_1_40);
+    _PLUS_.each((function(_anon_PERCENT_1_74) {
+        return addColorValFromColorStr(colorVals13, _anon_PERCENT_1_74);
     }), colorStrs14);
     return CubeNums(_PLUS_.or(0, _PLUS_.at(colorVals13, "red")), _PLUS_.or(0, _PLUS_.at(colorVals13, "green")), _PLUS_.or(0, _PLUS_.at(colorVals13, "blue")));
 });
@@ -43,53 +43,53 @@ var parse_game = (function(line) {
     return [15, id27, rounds29];
 });
 var all_cubes = CubeNums(12, 13, 14);
-var valid_round_QMARK_ = (function(val_28) {
-    let var_red_2930 = val_28[1];
-    let var_green_3031 = val_28[2];
-    let var_blue_3132 = val_28[3];
-    let var_red_3233 = all_cubes[1];
-    let var_green_3334 = all_cubes[2];
-    let var_blue_3435 = all_cubes[3];
-    return ((var_red_2930 <= var_red_3233) && (var_green_3031 <= var_green_3334) && (var_blue_3132 <= var_blue_3435));
+var valid_round_QMARK_ = (function(val_86) {
+    let var_red_8730 = val_86[1];
+    let var_green_8831 = val_86[2];
+    let var_blue_8932 = val_86[3];
+    let var_red_9033 = all_cubes[1];
+    let var_green_9134 = all_cubes[2];
+    let var_blue_9235 = all_cubes[3];
+    return ((var_red_8730 <= var_red_9033) && (var_green_8831 <= var_green_9134) && (var_blue_8932 <= var_blue_9235));
 });
-var valid_game_QMARK_ = (function(val_35) {
-    let var_rounds_3636 = val_35[2];
-    return _PLUS_.reduce((function(_anon_PERCENT_1_41, _anon_PERCENT_2_42) {
-        return (_anon_PERCENT_1_41 && valid_round_QMARK_(_anon_PERCENT_2_42));
-    }), true, var_rounds_3636);
+var valid_game_QMARK_ = (function(val_93) {
+    let var_rounds_9436 = val_93[2];
+    return _PLUS_.reduce((function(_anon_PERCENT_1_75, _anon_PERCENT_2_76) {
+        return (_anon_PERCENT_1_75 && valid_round_QMARK_(_anon_PERCENT_2_76));
+    }), true, var_rounds_9436);
 });
 var to_games = (function(input) {
-    return _PLUS_.fmap(parse_game, _PLUS_.filter((function(_anon_PERCENT_1_43) {
-        return !_PLUS_.is("", _anon_PERCENT_1_43.trim());
+    return _PLUS_.fmap(parse_game, _PLUS_.filter((function(_anon_PERCENT_1_77) {
+        return !_PLUS_.is("", _anon_PERCENT_1_77.trim());
     }), lib.strsplit(input, "\n")));
 });
 var part1 = (function(input) {
-    return _PLUS_.reduce((function(_anon_PERCENT_1_44, _anon_PERCENT_2_45) {
-        return (_anon_PERCENT_1_44 + _anon_PERCENT_2_45);
-    }), 0, _PLUS_.fmap((function(val_37) {
-        let var_id_3837 = val_37[1];
-        return var_id_3837;
+    return _PLUS_.reduce((function(_anon_PERCENT_1_78, _anon_PERCENT_2_79) {
+        return (_anon_PERCENT_1_78 + _anon_PERCENT_2_79);
+    }), 0, _PLUS_.fmap((function(val_95) {
+        let var_id_9637 = val_95[1];
+        return var_id_9637;
     }), _PLUS_.filter(valid_game_QMARK_, to_games(input))));
 });
-var update_min_cubes = (function(acc, val_39) {
-    let var_red_4038 = val_39[1];
-    let var_green_4139 = val_39[2];
-    let var_blue_4240 = val_39[3];
-    let var_red_4341 = acc[1];
-    let var_green_4442 = acc[2];
-    let var_blue_4543 = acc[3];
-    let red44 = Math.max(var_red_4341, var_red_4038);
-    let green45 = Math.max(var_green_4442, var_green_4139);
-    let blue46 = Math.max(var_blue_4543, var_blue_4240);
+var update_min_cubes = (function(acc, val_97) {
+    let var_red_9838 = val_97[1];
+    let var_green_9939 = val_97[2];
+    let var_blue_10040 = val_97[3];
+    let var_red_10141 = acc[1];
+    let var_green_10242 = acc[2];
+    let var_blue_10343 = acc[3];
+    let red44 = Math.max(var_red_10141, var_red_9838);
+    let green45 = Math.max(var_green_10242, var_green_9939);
+    let blue46 = Math.max(var_blue_10343, var_blue_10040);
     return CubeNums(red44, green45, blue46);
 });
-var min_cubes = (function(val_46) {
-    let var_rounds_4747 = val_46[2];
-    return _PLUS_.reduce(update_min_cubes, CubeNums(0, 0, 0), var_rounds_4747);
+var min_cubes = (function(val_104) {
+    let var_rounds_10547 = val_104[2];
+    return _PLUS_.reduce(update_min_cubes, CubeNums(0, 0, 0), var_rounds_10547);
 });
 var part2 = (function(input) {
-    return _PLUS_.reduce((function(_anon_PERCENT_1_46, _anon_PERCENT_2_47) {
-        return (_anon_PERCENT_1_46 + _anon_PERCENT_2_47);
+    return _PLUS_.reduce((function(_anon_PERCENT_1_80, _anon_PERCENT_2_81) {
+        return (_anon_PERCENT_1_80 + _anon_PERCENT_2_81);
     }), 0, _PLUS_.fmap(cubes_power, _PLUS_.fmap(min_cubes, to_games(input))));
 });
 

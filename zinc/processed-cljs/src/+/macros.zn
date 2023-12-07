@@ -14,6 +14,6 @@
 (defn pure [type-id a] ((aget applicative-impls type-id) a))
 (def flatplicative-impls {})
 (defn implement-flatplicative [type-id ensure-type-impl] (aset flatplicative-impls type-id ensure-type-impl))
-(defn implement-flatplicative-for-applicative [type-id] (implement-flatplicative type-id (fn [_anon%1_114] (if (= type-id (.-T _anon%1_114)) _anon%1_114 (pure type-id _anon%1_114)))))
+(defn implement-flatplicative-for-applicative [type-id] (implement-flatplicative type-id (fn [_anon%1_126] (if (= type-id (.-T _anon%1_126)) _anon%1_126 (pure type-id _anon%1_126)))))
 (defn ensure-type [type-id obj] ((aget flatplicative-impls type-id) obj))
 (defn fplus [type-id a b] (let [b-flat (when b (ensure-type type-id b))] (cond (+/nil? a) b-flat (+/nil? b) a :else (mplus a b-flat))))
