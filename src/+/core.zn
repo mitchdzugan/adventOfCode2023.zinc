@@ -159,6 +159,9 @@
 (defn union [s1 s2]
   (+/apply Set (.-a (concat (vals s1) (vals s2)))))
 
+(defn every? [p c] (reduce #(and %1 (p %2 %3 %4)) true c))
+(defn any? [p c] (not (every? (fn [& args] (not (+/apply p args))) c)))
+
 (defn put
   (defn-impl$ [$ k v]
     ([+/VecT] (aset $ "a" k v))
@@ -173,6 +176,7 @@
 
 (defn each
   (defn-impl$ [f $]
+    ([+/SetT] (each f (vals $)))
     ([+/VecT] ((.. $ -a -forEach) #(f %1 %2 $)))
     ([+/MapT]    (for-each-map f $ +/id      +/id                ))
     ([+/KeyMapT] (for-each-map f $ #(.-vs %) #((.. $ -ks -get) %)))
