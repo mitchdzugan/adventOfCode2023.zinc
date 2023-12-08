@@ -1,14 +1,14 @@
 import * as lib from './lib.mjs';
 import * as _PLUS_ from './../+.mjs';
 undefined;
-var InputDataT = 19;
+var InputDataT = 14;
 var InputData = (function(initials, category_maps) {
-    return [19, initials, category_maps];
+    return [14, initials, category_maps];
 });
 undefined;
-var GuideT = 20;
+var GuideT = 15;
 var Guide = (function(id, offset) {
-    return [20, id, offset];
+    return [15, id, offset];
 });
 var guide_id = (function(val_23) {
     let var_id_241 = val_23[1];
@@ -19,17 +19,17 @@ var offset = (function(val_25) {
     return var_offset_262;
 });
 undefined;
-var InitialT = 21;
+var InitialT = 16;
 var Item = (function(category, id) {
-    return [21, 1, category, id];
+    return [16, 1, category, id];
 });
 var Range = (function(category, start, length) {
-    return [21, 2, category, start, length];
+    return [16, 2, category, start, length];
 });
 undefined;
-var CategoryMapT = 22;
+var CategoryMapT = 17;
 var init_category_map = (function(src, dst) {
-    return [22, src, dst, _PLUS_.Vec()];
+    return [17, src, dst, _PLUS_.Vec()];
 });
 var destination = (function(val_27) {
     let var_dst_283 = val_27[2];
@@ -44,7 +44,7 @@ var push_guide = (function(val_31, guide) {
     return _PLUS_.push(var_guides_325, guide);
 });
 undefined;
-var InputLineT = 23;
+var InputLineT = 18;
 var parse_initial_seeds = (function(line) {
     let vec__69 = line.split(":");
     let _seeds10 = vec__69[0];
@@ -52,7 +52,7 @@ var parse_initial_seeds = (function(line) {
     let $12 = ids_str11.trim();
     let $13 = lib.strsplit($12, lib.rx_whitespace);
     let $14 = _PLUS_.fmap(lib.parseInt, $13);
-    return [23, 2, $14];
+    return [18, 2, $14];
 });
 var parse_map_header = (function(line) {
     let vec__1521 = line.split(lib.rx_whitespace);
@@ -61,18 +61,18 @@ var parse_map_header = (function(line) {
     let from24 = vec__1823[0];
     let _to_25 = vec__1823[1];
     let to26 = vec__1823[2];
-    return [23, 3, from24, to26];
+    return [18, 3, from24, to26];
 });
 var parse_map_entry = (function(line) {
     let vec__2730 = line.split(lib.rx_whitespace).map(lib.parseInt);
     let dst31 = vec__2730[0];
     let src32 = vec__2730[1];
     let length33 = vec__2730[2];
-    return [23, 4, dst31, src32, length33];
+    return [18, 4, dst31, src32, length33];
 });
 var parse_line = (function(line) {
     if (("" === line.trim())) {
-        return [23, 1];
+        return [18, 1];
     } else {
         if (line.startsWith("seeds:")) {
             return parse_initial_seeds(line);
@@ -90,8 +90,8 @@ var parse_line = (function(line) {
     }
 });
 let get_guide_ind_impl_2334 = (function(id, guides) {
-    let get_id35 = (function(_anon_PERCENT_1_54) {
-        return guide_id(_PLUS_.at_BANG_(guides, _anon_PERCENT_1_54));
+    let get_id35 = (function(_anon_PERCENT_1_56) {
+        return guide_id(_PLUS_.at_BANG_(guides, _anon_PERCENT_1_56));
     });
     let lbound36 = 0;
     let rbound37 = (_PLUS_.size(guides) - 1);
@@ -172,8 +172,8 @@ var get_guide_ind = (function() {
     return f44;
 })();
 var get_offset = (function(id, guides) {
-    return _PLUS_.or(0, _PLUS_.fmap((function(_anon_PERCENT_1_55) {
-        return offset(_PLUS_.at_BANG_(guides, _anon_PERCENT_1_55));
+    return _PLUS_.or(0, _PLUS_.fmap((function(_anon_PERCENT_1_57) {
+        return offset(_PLUS_.at_BANG_(guides, _anon_PERCENT_1_57));
     }), get_guide_ind(id, guides)));
 });
 var get_associated_item = (function(category_maps, category, id) {
@@ -184,19 +184,19 @@ var get_associated_ranges = (function(category_maps, category, start, length) {
     let cat_map57 = _PLUS_.at_BANG_(category_maps, category);
     let cat_guides58 = guides(cat_map57);
     let dst59 = destination(cat_map57);
-    let mk_range60 = (function(_anon_PERCENT_1_56, _anon_PERCENT_2_57) {
-        return Range(dst59, _anon_PERCENT_1_56, _anon_PERCENT_2_57);
+    let mk_range60 = (function(_anon_PERCENT_1_58, _anon_PERCENT_2_59) {
+        return Range(dst59, _anon_PERCENT_1_58, _anon_PERCENT_2_59);
     });
-    let get_id61 = (function(_anon_PERCENT_1_58) {
-        return guide_id(_PLUS_.at_BANG_(cat_guides58, _anon_PERCENT_1_58));
+    let get_id61 = (function(_anon_PERCENT_1_60) {
+        return guide_id(_PLUS_.at_BANG_(cat_guides58, _anon_PERCENT_1_60));
     });
-    let get_offset62 = (function(_anon_PERCENT_1_59) {
-        return offset(_PLUS_.at_BANG_(cat_guides58, _anon_PERCENT_1_59));
+    let get_offset62 = (function(_anon_PERCENT_1_61) {
+        return offset(_PLUS_.at_BANG_(cat_guides58, _anon_PERCENT_1_61));
     });
     let results63 = _PLUS_.Vec();
     let end64 = (start + length);
-    let oob_QMARK_65 = (function(_anon_PERCENT_1_60) {
-        return (_anon_PERCENT_1_60 >= end64);
+    let oob_QMARK_65 = (function(_anon_PERCENT_1_62) {
+        return (_anon_PERCENT_1_62 >= end64);
     });
     let id66 = start;
     let m_ind67 = get_guide_ind(start, cat_guides58);
@@ -269,10 +269,10 @@ var parse_input = (function(input, ranges_QMARK_) {
     let inputs86 = _PLUS_.fmap(parse_line, lib.strsplit(input, "\n"));
     let finalize_category_map87 = (function() {
         _PLUS_.each((function(cat_map) {
-            return _PLUS_.each((function(_anon_PERCENT_1_63) {
-                return push_guide(cat_map, _anon_PERCENT_1_63);
-            }), _PLUS_.sort_by(guide_id, _PLUS_.vals(_PLUS_.fmap((function(_anon_PERCENT_1_62, _anon_PERCENT_2_61) {
-                return Guide(_anon_PERCENT_2_61, _anon_PERCENT_1_62);
+            return _PLUS_.each((function(_anon_PERCENT_1_65) {
+                return push_guide(cat_map, _anon_PERCENT_1_65);
+            }), _PLUS_.sort_by(guide_id, _PLUS_.vals(_PLUS_.fmap((function(_anon_PERCENT_1_64, _anon_PERCENT_2_63) {
+                return Guide(_anon_PERCENT_2_63, _anon_PERCENT_1_64);
             }), rmap83["r"]))));
         }), _PLUS_.at(category_maps85, rsrc82["r"]));
         return (rmap83.r = _PLUS_.Map());

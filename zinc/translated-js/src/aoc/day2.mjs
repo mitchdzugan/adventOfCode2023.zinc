@@ -1,17 +1,17 @@
 import * as lib from './lib.mjs';
 import * as _PLUS_ from './../+.mjs';
 undefined;
-var CubeNumsT = 14;
+var CubeNumsT = 30;
 var CubeNums = (function(red, green, blue) {
-    return [14, red, green, blue];
+    return [30, red, green, blue];
 });
 undefined;
-var GameT = 15;
-var cubes_power = (function(val_82) {
-    let var_red_831 = val_82[1];
-    let var_green_842 = val_82[2];
-    let var_blue_853 = val_82[3];
-    return (var_red_831 * var_green_842 * var_blue_853);
+var GameT = 31;
+var cubes_power = (function(val_119) {
+    let var_red_1201 = val_119[1];
+    let var_green_1212 = val_119[2];
+    let var_blue_1223 = val_119[3];
+    return (var_red_1201 * var_green_1212 * var_blue_1223);
 });
 var addColorValFromColorStr = (function(colorVals, _colorStr) {
     let colorStr7 = _colorStr.trim();
@@ -25,8 +25,8 @@ var parse_round = (function(_roundStr) {
     let roundStr12 = _roundStr.trim();
     let colorVals13 = _PLUS_.Map();
     let colorStrs14 = lib.strsplit(roundStr12, ",");
-    _PLUS_.each((function(_anon_PERCENT_1_74) {
-        return addColorValFromColorStr(colorVals13, _anon_PERCENT_1_74);
+    _PLUS_.each((function(_anon_PERCENT_1_76) {
+        return addColorValFromColorStr(colorVals13, _anon_PERCENT_1_76);
     }), colorStrs14);
     return CubeNums(_PLUS_.or(0, _PLUS_.at(colorVals13, "red")), _PLUS_.or(0, _PLUS_.at(colorVals13, "green")), _PLUS_.or(0, _PLUS_.at(colorVals13, "blue")));
 });
@@ -40,56 +40,56 @@ var parse_game = (function(line) {
     let id27 = lib.parseInt(idValStr26);
     let roundStrs28 = lib.strsplit(roundsStr23, ";");
     let rounds29 = _PLUS_.fmap(parse_round, roundStrs28);
-    return [15, id27, rounds29];
+    return [31, id27, rounds29];
 });
 var all_cubes = CubeNums(12, 13, 14);
-var valid_round_QMARK_ = (function(val_86) {
-    let var_red_8730 = val_86[1];
-    let var_green_8831 = val_86[2];
-    let var_blue_8932 = val_86[3];
-    let var_red_9033 = all_cubes[1];
-    let var_green_9134 = all_cubes[2];
-    let var_blue_9235 = all_cubes[3];
-    return ((var_red_8730 <= var_red_9033) && (var_green_8831 <= var_green_9134) && (var_blue_8932 <= var_blue_9235));
+var valid_round_QMARK_ = (function(val_123) {
+    let var_red_12430 = val_123[1];
+    let var_green_12531 = val_123[2];
+    let var_blue_12632 = val_123[3];
+    let var_red_12733 = all_cubes[1];
+    let var_green_12834 = all_cubes[2];
+    let var_blue_12935 = all_cubes[3];
+    return ((var_red_12430 <= var_red_12733) && (var_green_12531 <= var_green_12834) && (var_blue_12632 <= var_blue_12935));
 });
-var valid_game_QMARK_ = (function(val_93) {
-    let var_rounds_9436 = val_93[2];
-    return _PLUS_.reduce((function(_anon_PERCENT_1_75, _anon_PERCENT_2_76) {
-        return (_anon_PERCENT_1_75 && valid_round_QMARK_(_anon_PERCENT_2_76));
-    }), true, var_rounds_9436);
+var valid_game_QMARK_ = (function(val_130) {
+    let var_rounds_13136 = val_130[2];
+    return _PLUS_.reduce((function(_anon_PERCENT_1_77, _anon_PERCENT_2_78) {
+        return (_anon_PERCENT_1_77 && valid_round_QMARK_(_anon_PERCENT_2_78));
+    }), true, var_rounds_13136);
 });
 var to_games = (function(input) {
-    return _PLUS_.fmap(parse_game, _PLUS_.filter((function(_anon_PERCENT_1_77) {
-        return !_PLUS_.is("", _anon_PERCENT_1_77.trim());
+    return _PLUS_.fmap(parse_game, _PLUS_.filter((function(_anon_PERCENT_1_79) {
+        return !_PLUS_.is("", _anon_PERCENT_1_79.trim());
     }), lib.strsplit(input, "\n")));
 });
 var part1 = (function(input) {
-    return _PLUS_.reduce((function(_anon_PERCENT_1_78, _anon_PERCENT_2_79) {
-        return (_anon_PERCENT_1_78 + _anon_PERCENT_2_79);
-    }), 0, _PLUS_.fmap((function(val_95) {
-        let var_id_9637 = val_95[1];
-        return var_id_9637;
-    }), _PLUS_.filter(valid_game_QMARK_, to_games(input))));
-});
-var update_min_cubes = (function(acc, val_97) {
-    let var_red_9838 = val_97[1];
-    let var_green_9939 = val_97[2];
-    let var_blue_10040 = val_97[3];
-    let var_red_10141 = acc[1];
-    let var_green_10242 = acc[2];
-    let var_blue_10343 = acc[3];
-    let red44 = Math.max(var_red_10141, var_red_9838);
-    let green45 = Math.max(var_green_10242, var_green_9939);
-    let blue46 = Math.max(var_blue_10343, var_blue_10040);
-    return CubeNums(red44, green45, blue46);
-});
-var min_cubes = (function(val_104) {
-    let var_rounds_10547 = val_104[2];
-    return _PLUS_.reduce(update_min_cubes, CubeNums(0, 0, 0), var_rounds_10547);
-});
-var part2 = (function(input) {
     return _PLUS_.reduce((function(_anon_PERCENT_1_80, _anon_PERCENT_2_81) {
         return (_anon_PERCENT_1_80 + _anon_PERCENT_2_81);
+    }), 0, _PLUS_.fmap((function(val_132) {
+        let var_id_13337 = val_132[1];
+        return var_id_13337;
+    }), _PLUS_.filter(valid_game_QMARK_, to_games(input))));
+});
+var update_min_cubes = (function(acc, val_134) {
+    let var_red_13538 = val_134[1];
+    let var_green_13639 = val_134[2];
+    let var_blue_13740 = val_134[3];
+    let var_red_13841 = acc[1];
+    let var_green_13942 = acc[2];
+    let var_blue_14043 = acc[3];
+    let red44 = Math.max(var_red_13841, var_red_13538);
+    let green45 = Math.max(var_green_13942, var_green_13639);
+    let blue46 = Math.max(var_blue_14043, var_blue_13740);
+    return CubeNums(red44, green45, blue46);
+});
+var min_cubes = (function(val_141) {
+    let var_rounds_14247 = val_141[2];
+    return _PLUS_.reduce(update_min_cubes, CubeNums(0, 0, 0), var_rounds_14247);
+});
+var part2 = (function(input) {
+    return _PLUS_.reduce((function(_anon_PERCENT_1_82, _anon_PERCENT_2_83) {
+        return (_anon_PERCENT_1_82 + _anon_PERCENT_2_83);
     }), 0, _PLUS_.fmap(cubes_power, _PLUS_.fmap(min_cubes, to_games(input))));
 });
 
