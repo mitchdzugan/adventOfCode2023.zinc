@@ -73,17 +73,17 @@ defs_for(Map, (function(def_property, def_method) {
     }));
     def_property("J", (function() {
         let $_15111 = this;
-        return _PLUS_.js_array_from($_15111, [_PLUS_.MapT], (function(_anon_PERCENT_1_133) {
-            return _anon_PERCENT_1_133.map(_PLUS_.json);
+        return _PLUS_.js_array_from($_15111, [_PLUS_.MapT], (function(_anon_PERCENT_1_141) {
+            return _anon_PERCENT_1_141.map(_PLUS_.json);
         }));
     }));
     return def_property("P", (function() {
         let $_15212 = this;
         let res13 = ({});
-        _PLUS_.js_array_from($_15212).forEach((function(_anon_PERCENT_1_134) {
-            let k14 = _anon_PERCENT_1_134[0];
+        _PLUS_.js_array_from($_15212).forEach((function(_anon_PERCENT_1_142) {
+            let k14 = _anon_PERCENT_1_142[0];
             let pk15 = ((_PLUS_.js_str_QMARK_(k14)) ? (_PLUS_.str("\"", k14, "\"")) : (k14));
-            let pv16 = _PLUS_.pretty(_anon_PERCENT_1_134[1]);
+            let pv16 = _PLUS_.pretty(_anon_PERCENT_1_142[1]);
             return res13[pk15] = pv16;
         }));
         return res13;

@@ -15,8 +15,8 @@ var count_possibilities = (function(val_116) {
     return (bound_h5 - bound_l6);
 });
 var part1 = (function() {
-    return _PLUS_.reduce((function(_anon_PERCENT_1_15, _anon_PERCENT_2_16) {
-        return (_anon_PERCENT_1_15 * _anon_PERCENT_2_16);
+    return _PLUS_.reduce((function(_anon_PERCENT_1_78, _anon_PERCENT_2_79) {
+        return (_anon_PERCENT_1_78 * _anon_PERCENT_2_79);
     }), 1, _PLUS_.fmap(count_possibilities, _PLUS_.Vec(Race(52, 426), Race(94, 1374), Race(75, 1279), Race(94, 1216))));
 });
 var part2 = (function() {

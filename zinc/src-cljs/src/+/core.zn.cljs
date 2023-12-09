@@ -241,12 +241,22 @@
 
 (defn unwrap! [m] (or- (fn [] (throw "unwrap forced on 'None' type")) m))
 (defn at! [c id] (unwrap! (at c id)))
+(def last! #(at! %1 (- (size %1) 1)))
+(def first! #(at! %1 0))
 
 (defn maybe-
   (defn-impl$ [on-none on-just $]
     ([+/MaybeT] (if (.-e $) (on-none) (on-just (.-j $))))))
 (defn maybe [none on-just m] (maybe- (fn [] none) on-just m))
 
+
+(defn reverse [v]
+  (let [res (Vec)]
+    (loop [i (- (size v) 1)]
+      (if (< i 0)
+        res
+        (do (push res (at! v i))
+            (recur (- i 1)))))))
 
 (defn insert
   (defn-impl$ [$ target-id v]
