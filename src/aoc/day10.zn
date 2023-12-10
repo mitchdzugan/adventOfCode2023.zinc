@@ -7,37 +7,6 @@
 (def Up    (mk (Up    of DirT)))
 (def Down  (mk (Down  of DirT)))
 
-(def* PosT [x y])
-(defn-mk (Pos [x y] PosT) (%= [x y]))
-
-;; determined using the inspectGrid util fn
-(def INITIAL_POS (Pos 74 82))
-(def INITIAL_DIR Up)
-(def TRUE_S_CHAR "7")
-
-(defn-un pipe-at [m PosT preserveS?]
-  (let [res (+/at! (+/at! m %y) %x)]
-    (cond
-      preserveS? res
-      (+/is res "S") TRUE_S_CHAR
-      :else res)))
-
-(defn-un step-pos [PosT dir]
-  (let [x %x y %y]
-    (impl [DirT dir]
-      (Left  (Pos (- x 1) y))
-      (Right (Pos (+ x 1) y))
-      (Up    (Pos x (- y 1)))
-      (Down  (Pos x (+ y 1))))))
-
-(def* InstT [m pos dir])
-(defn-mk (Inst [m pos dir] InstT) (%= [m pos dir]))
-(defn-un inst-pos [InstT] %pos)
-
-(defn-un step [InstT]
-  (let [ndir (next-dir (pipe-at %m %pos) %dir)]
-    (Inst %m (step-pos %pos ndir) ndir)))
-
 (defn next-dir [c dir]
   (cond
     (+/is c "-") (impl [DirT dir] (Left  Left ) (Right Right))
@@ -47,100 +16,90 @@
     (+/is c "L") (impl [DirT dir] (Down  Right) (Left  Up   ))
     (+/is c "F") (impl [DirT dir] (Up    Right) (Left  Down ))))
 
-(defn parse-input [input]
-  (let [m (+/fmap #(lib/strsplit %1 "") (lib/strsplit input "\n"))]
-    [m (Inst m INITIAL_POS INITIAL_DIR)]))
+(def* PosT [x y])
+(defn-mk (Pos [x y] PosT) (%= [x y]))
 
-(defn-un start? [InstT] (+/is "S" (pipe-at %m %pos true)))
+(defn eq-pos [p1 p2]
+  (un [PosT p1 :prefix {:type :ns :s "p1"}]
+    (un [PosT p2 :prefix {:type :ns :s "p2"}]
+      (and (= %p1/x %p2/x) (= %p1/y %p2/y)))))
+
+(defn-un get-at-pos [m PosT s-char]
+  (let [res (+/or "." (+/at (+/or (+/Vec) (+/at m %y)) %x))]
+    (if (+/is res "S") s-char res)))
+
+(defn-un set-at-pos [m PosT v] (+/put (+/at! m %y) %x v))
+
+(defn-un step-pos [PosT dir]
+  (let [x %x y %y]
+    (impl [DirT dir]
+      (Left  (Pos (- x 1) y))
+      (Right (Pos (+ x 1) y))
+      (Up    (Pos x (- y 1)))
+      (Down  (Pos x (+ y 1))))))
+
+(def* InstT [m pos dir origin s-char])
+(defn-mk (Inst [m pos dir origin s-char] InstT) (%= [m pos dir origin s-char]))
+(defn-un inst-pos [InstT] %pos)
+
+(defn-un step [InstT]
+  (let [ndir (next-dir (get-at-pos %m %pos %s-char) %dir)]
+    (Inst %m (step-pos %pos ndir) ndir %origin %s-char)))
+
+(defn-un start? [InstT] (eq-pos %pos %origin))
+
+(defn-memo loop-only-parse-input [input]
+  (let [base (+/fmap #(lib/strsplit %1 "") (lib/strsplit input "\n"))
+        loop-only (+/fmap #(+/fmap (fn [] ".") %1) base)
+        ;; determined using the inspectGrid util fn ;;
+        s-char "7"
+        init-pos (Pos 74 82)
+        init-dir Up
+        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        mk-inst #(Inst %1 init-pos init-dir init-pos s-char)]
+    (loop [inst (step (mk-inst base))]
+      (let [p (inst-pos inst)]
+        (set-at-pos loop-only p (get-at-pos base p s-char)))
+      (when-not (start? inst) (recur (step inst))))
+    loop-only))
 
 (defn part1 [input]
-  (let [[m initial] (parse-input input)]
-    (loop [inst (step initial) steps 1]
-      (if (start? inst)
-        (+/floor (/ steps 2))
-        (recur (step inst) (+ 1 steps))))))
+  (let [m (loop-only-parse-input input)]
+    (->> (+/bind +/id m)
+         (+/remove #(+/is "." %1))
+         ((fn [p] (+/floor (/ (+/size p) 2)))))))
 
-(defn init-matrix [rows cols init]
-  (let [res (+/Vec)]
-    (loop [y 0]
-      (when (< y cols)
-        (let [row (+/Vec)]
-          (loop [x 0]
-            (when (< x rows)
-              (+/push row init)
-              (recur (+ x 1))))
-          (+/push res row))
-        (recur (+ y 1))))
-    res))
+(defn-memo crossings-to-top-edge [m x y]
+  (let [getc #(get-at-pos m (Pos x %1))
+        plain? #(+/is (getc %1) ".")
+        edge? #(or (+/is (getc %1) "-") (+/is (getc %1) "|"))
+        corner? #(and (not (edge? %1)) (not (plain? (getc %1))))
+        get-rest #(crossings-to-top-edge m x (- %1 1))]
+    (cond
+      (< y 0)     0
+      (plain? y)  (get-rest y)
+      (edge? y)   (+ 1 (get-rest y))
+      :else
+      (loop [suby (- y 1)]
+        (if (edge? suby)
+          (recur (- suby 1))
+          (+ (get-rest suby)
+             (if (= (next-dir (getc y   ) Down)
+                    (next-dir (getc suby) Up  ))
+               0 1)))))))
 
-(defn inflate-char [c]
-  (cond
-    (+/is c "-") ["..."
-                  "---"
-                  "..."]
-
-    (+/is c "7") ["..."
-                  "-7."
-                  ".|."]
-
-    (+/is c "|") [".|."
-                  ".|."
-                  ".|."]
-
-    (+/is c "J") [".|."
-                  "-J."
-                  "..."]
-
-    (+/is c "L") [".|."
-                  ".L-"
-                  "..."]
-
-    (+/is c "F") ["..."
-                  ".F-"
-                  ".|."]))
-
-(defn-un set-at-pos [src PosT v] (+/put (+/at! src %y) %x v))
-(defn-un get-at-pos [src PosT] (+/at! (+/at! src %y) %x))
-
-(defn-un inflate [PosT src dst]
-  (let [grid (inflate-char (pipe-at src %.))
-        put (fn [x y] (+/put (+/at! dst (+ y (* 3 %y)))
-                             (+ x (* 3 %x))
-                             (aget grid y x)))]
-    (+/for (+/Vec 0 1 2) (fn [x] (put x 0) (put x 1) (put x 2)))))
-
-(defn-un fill-unenclosed [expanded checked enclosed]
-  (loop [stack [[0 0]]]
-    (when (> (.-length stack) 0)
-      (let [[x y] (.pop stack) pos (Pos x y) ]
-        (when (and (>= x 0)
-                   (>= y 0)
-                   (< x (+/size (+/at! expanded 0)))
-                   (< y (+/size expanded))
-                   (not (get-at-pos checked pos)))
-          (set-at-pos checked pos true)
-          (when (+/is "." (get-at-pos expanded pos))
-            (set-at-pos enclosed (Pos (+/floor (/ x 3)) (+/floor (/ y 3))) false)
-            (.push stack [x (+ y 1)])
-            (.push stack [x (- y 1)])
-            (.push stack [(+ x 1) y])
-            (.push stack [(- x 1) y]))))
-      (recur stack))))
+(defn-un enclosed? [m PosT]
+  (and (= "." (get-at-pos m %.))
+       (= 1 (+/mod (crossings-to-top-edge m %x %y) 2))))
 
 (defn part2 [input]
-  (let [[m initial] (parse-input input)
+  (let [m (loop-only-parse-input input)
+        rincluded (aref 0)
         h (+/size m)
-        w (+/size (+/at! m 0))
-        expanded (init-matrix (* 3 w) (* 3 h) ".")
-        checked (init-matrix (* 3 w) (* 3 h) false)
-        enclosed (init-matrix w h true)]
-    (loop [inst (step initial)]
-      (set-at-pos enclosed (inst-pos inst) false)
-      (inflate (inst-pos inst) m expanded)
-      (when (not (start? inst))
-        (recur (step inst))))
-    (fill-unenclosed expanded checked enclosed (Pos 0 0))
-    (+/reduce #(+/reduce (fn [acc b] (+ acc (if b 1 0))) %1 %2) 0 enclosed)))
+        w (+/size (+/at! m 0))]
+    (->> (fn [row y] (+/size (+/filter #(enclosed? m (Pos %2 y)) row)))
+         ((fn [mapper] (+/fmap mapper m)))
+         (+/reduce #(+ %1 %2) 0))))
 
 (defn inspectGrid [input]
   (let [m (+/fmap #(lib/strsplit %1 "") (lib/strsplit input "\n"))]
