@@ -10,8 +10,17 @@
 (def* PosT [x y])
 (defn-mk (Pos [x y] PosT) (%= [x y]))
 
-(defn-un pipe-at [m PosT]
-  (+/at! (+/at! m %y) %x))
+;; determined using the inspectGrid util fn
+(def INITIAL_POS (Pos 74 82))
+(def INITIAL_DIR Up)
+(def TRUE_S_CHAR "7")
+
+(defn-un pipe-at [m PosT preserveS?]
+  (let [res (+/at! (+/at! m %y) %x)]
+    (cond
+      preserveS? res
+      (+/is res "S") TRUE_S_CHAR
+      :else res)))
 
 (defn-un step-pos [PosT dir]
   (let [x %x y %y]
@@ -21,28 +30,31 @@
       (Up    (Pos x (- y 1)))
       (Down  (Pos x (+ y 1))))))
 
-(defn next-dir [c_ dir]
-  (let [c (if (+/is c_ "S") "7" c_)]
-    (cond
-      (+/is c "-") (impl [DirT dir] (Left  Left ) (Right Right))
-      (+/is c "7") (impl [DirT dir] (Up    Left ) (Right Down ))
-      (+/is c "|") (impl [DirT dir] (Up    Up   ) (Down  Down ))
-      (+/is c "J") (impl [DirT dir] (Down  Left ) (Right Up   ))
-      (+/is c "L") (impl [DirT dir] (Down  Right) (Left  Up   ))
-      (+/is c "F") (impl [DirT dir] (Up    Right) (Left  Down )))))
-
 (def* InstT [m pos dir])
 (defn-mk (Inst [m pos dir] InstT) (%= [m pos dir]))
 (defn-un inst-pos [InstT] %pos)
+
 (defn-un step [InstT]
   (let [ndir (next-dir (pipe-at %m %pos) %dir)]
     (Inst %m (step-pos %pos ndir) ndir)))
-(defn-un start? [InstT] (+/is "S" (pipe-at %m %pos)))
 
-; S: (82, 74) | true symbol: 7
-(defn part1 [input] nil
-  (let [m (+/fmap #(lib/strsplit %1 "") (lib/strsplit input "\n"))
-        initial (Inst m (Pos 74 82) Up)]
+(defn next-dir [c dir]
+  (cond
+    (+/is c "-") (impl [DirT dir] (Left  Left ) (Right Right))
+    (+/is c "7") (impl [DirT dir] (Up    Left ) (Right Down ))
+    (+/is c "|") (impl [DirT dir] (Up    Up   ) (Down  Down ))
+    (+/is c "J") (impl [DirT dir] (Down  Left ) (Right Up   ))
+    (+/is c "L") (impl [DirT dir] (Down  Right) (Left  Up   ))
+    (+/is c "F") (impl [DirT dir] (Up    Right) (Left  Down ))))
+
+(defn parse-input [input]
+  (let [m (+/fmap #(lib/strsplit %1 "") (lib/strsplit input "\n"))]
+    [m (Inst m INITIAL_POS INITIAL_DIR)]))
+
+(defn-un start? [InstT] (+/is "S" (pipe-at %m %pos true)))
+
+(defn part1 [input]
+  (let [[m initial] (parse-input input)]
     (loop [inst (step initial) steps 1]
       (if (start? inst)
         (+/floor (/ steps 2))
@@ -61,16 +73,31 @@
         (recur (+ y 1))))
     res))
 
-(defn inflate-char [c_]
-  (let [c (if (+/is c_ "S") "7" c_)]
-    (cond
-      (+/is c ".") ["..." "..." "..."]
-      (+/is c "-") ["..." "---" "..."]
-      (+/is c "7") ["..." "-7." ".|."]
-      (+/is c "|") [".|." ".|." ".|."]
-      (+/is c "J") [".|." "-J." "..."]
-      (+/is c "L") [".|." ".L-" "..."]
-      (+/is c "F") ["..." ".F-" ".|."])))
+(defn inflate-char [c]
+  (cond
+    (+/is c "-") ["..."
+                  "---"
+                  "..."]
+
+    (+/is c "7") ["..."
+                  "-7."
+                  ".|."]
+
+    (+/is c "|") [".|."
+                  ".|."
+                  ".|."]
+
+    (+/is c "J") [".|."
+                  "-J."
+                  "..."]
+
+    (+/is c "L") [".|."
+                  ".L-"
+                  "..."]
+
+    (+/is c "F") ["..."
+                  ".F-"
+                  ".|."]))
 
 (defn-un set-at-pos [src PosT v] (+/put (+/at! src %y) %x v))
 (defn-un get-at-pos [src PosT] (+/at! (+/at! src %y) %x))
@@ -101,13 +128,12 @@
       (recur stack))))
 
 (defn part2 [input]
-  (let [m (+/fmap #(lib/strsplit %1 "") (lib/strsplit input "\n"))
+  (let [[m initial] (parse-input input)
         h (+/size m)
         w (+/size (+/at! m 0))
         expanded (init-matrix (* 3 w) (* 3 h) ".")
         checked (init-matrix (* 3 w) (* 3 h) false)
-        enclosed (init-matrix w h true)
-        initial (Inst m (Pos 74 82) Up)]
+        enclosed (init-matrix w h true)]
     (loop [inst (step initial)]
       (set-at-pos enclosed (inst-pos inst) false)
       (inflate (inst-pos inst) m expanded)
