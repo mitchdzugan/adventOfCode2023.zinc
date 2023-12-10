@@ -1,16 +1,18 @@
-(require '["/aoc/day1.zn" :as day1])
-(require '["/aoc/day2.zn" :as day2])
-(require '["/aoc/day3.zn" :as day3])
-(require '["/aoc/day4.zn" :as day4])
-(require '["/aoc/day5.zn" :as day5])
-(require '["/aoc/day6.zn" :as day6])
-(require '["/aoc/day7.zn" :as day7])
-(require '["/aoc/day8.zn" :as day8])
-(require '["/aoc/day9.zn" :as day9])
+(require '["/aoc/day1.zn"  :as day1 ])
+(require '["/aoc/day2.zn"  :as day2 ])
+(require '["/aoc/day3.zn"  :as day3 ])
+(require '["/aoc/day4.zn"  :as day4 ])
+(require '["/aoc/day5.zn"  :as day5 ])
+(require '["/aoc/day6.zn"  :as day6 ])
+(require '["/aoc/day7.zn"  :as day7 ])
+(require '["/aoc/day8.zn"  :as day8 ])
+(require '["/aoc/day9.zn"  :as day9 ])
+(require '["/aoc/day10.zn" :as day10])
 (require '["/aoc/lib.zn" :as lib])
 (require '["/+.zn" :as + :refer-macros true])
 
-(def dayModules (+/Vec day1 day2 day3 day4 day5 day6 day7 day8 day9))
+(def dayModules
+  (+/Vec day1 day2 day3 day4 day5 day6 day7 day8 day9 day10))
 
 (defn solve [day]
   (let [module (+/or {} (+/at dayModules (- day 1)))]
