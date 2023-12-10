@@ -7,6 +7,17 @@
 (def Up    (mk (Up    of DirT)))
 (def Down  (mk (Down  of DirT)))
 
+;; can be either of the legal directions a path headed into
+;; a space containing the given character would be going
+(defn init-dir [c]
+  (cond
+    (+/is c "-") Left
+    (+/is c "7") Up
+    (+/is c "|") Up
+    (+/is c "J") Down
+    (+/is c "L") Down
+    (+/is c "F") Up))
+
 (defn next-dir [c dir]
   (cond
     (+/is c "-") (impl [DirT dir] (Left  Left ) (Right Right))
@@ -48,23 +59,40 @@
 
 (defn-un start? [InstT] (eq-pos %pos %origin))
 
-(defn-memo loop-only-parse-input [input]
-  (let [base (+/fmap #(lib/strsplit %1 "") (lib/strsplit input "\n"))
-        loop-only (+/fmap #(+/fmap (fn [] ".") %1) base)
-        ;; determined using the inspectGrid util fn ;;
-        s-char "7"
-        init-pos (Pos 74 82)
-        init-dir Up
-        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-        mk-inst #(Inst %1 init-pos init-dir init-pos s-char)]
+(defn get-initial-pos [m]
+  (->> (+/bind (fn [r y] (+/fmap (fn [c x] [c x y]) r)) m)
+       (+/fmap (fn [[c x y]] (if (= "S" c) (+/Just (Pos x y)) +/None)))
+       (+/bind +/vals)
+       (+/first!)))
+
+(defn make-loop-only-assuming [base s-char]
+  (let [loop-only (+/fmap #(+/fmap (fn [] ".") %1) base)
+        init-pos (get-initial-pos base)
+        mk-inst #(Inst %1 init-pos (init-dir s-char) init-pos s-char)]
     (loop [inst (step (mk-inst base))]
       (let [p (inst-pos inst)]
         (set-at-pos loop-only p (get-at-pos base p s-char)))
-      (when-not (start? inst) (recur (step inst))))
+      (if (start? inst)
+        (step inst)
+        (recur (step inst))))
     loop-only))
 
+(defn try-s-char [base s-char]
+  (try
+    (+/Just (make-loop-only-assuming base s-char))
+    (catch js/Object e +/None)))
+
+(defn make-loop-only [base]
+  (<- (+/unwrap!)
+      (+/reduce +/None (+/Vec "-" "|" "J" "L" "F" "7"))
+      #(+/or- (fn [] (try-s-char base %2)) (+/fmap +/Just %1))))
+
+(defn to-matrix [input] (+/fmap #(lib/strsplit % "") (lib/strsplit input "\n")))
+(defn-memo parse-into-matrix-with-loop-only [input]
+  (make-loop-only (to-matrix input)))
+
 (defn part1 [input]
-  (let [m (loop-only-parse-input input)]
+  (let [m (parse-into-matrix-with-loop-only input)]
     (->> (+/bind +/id m)
          (+/remove #(+/is "." %1))
          ((fn [p] (+/floor (/ (+/size p) 2)))))))
@@ -93,24 +121,6 @@
        (= 1 (+/mod (crossings-to-top-edge m %x %y) 2))))
 
 (defn part2 [input]
-  (let [m (loop-only-parse-input input)]
-    (->> (fn [row y] (+/size (+/filter #(enclosed? m (Pos %2 y)) row)))
-         ((fn [mapper] (+/fmap mapper m)))
-         (+/reduce #(+ %1 %2) 0))))
-
-(defn inspectGrid [input]
-  (let [m (+/fmap #(lib/strsplit %1 "") (lib/strsplit input "\n"))]
-    (loop [i 0]
-      (when (< i (+/size m))
-        (loop [j 0]
-          (when (< j (+/size (+/at! m i)))
-            (if (+/is "S" (+/at! (+/at! m i) j))
-              (do
-                (+/log "I" i "J" j)
-                (+/log (+/str " " (+/at! (+/at! m (- i 1)) j)))
-                (+/log (+/str (+/at! (+/at! m i) (- j 1))
-                              "?"
-                              (+/at! (+/at! m i) (+ j 1))))
-                (+/log (+/str " " (+/at! (+/at! m (+ i 1)) j))))
-              (recur (+ 1 j)))))
-        (recur (+ 1 i))))))
+  (let [m (parse-into-matrix-with-loop-only input)]
+    (->> (+/fmap (fn [row y] (+/filter #(enclosed? m (Pos %2 y)) row)) m)
+         (+/reduce #(+ %1 (+/size %2)) 0))))
