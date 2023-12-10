@@ -5,18 +5,18 @@ var RaceT = 29;
 var Race = (function(time, record) {
     return [29, time, record];
 });
-var count_possibilities = (function(val_116) {
-    let var_time_1171 = val_116[1];
-    let var_record_1182 = val_116[2];
-    let qdrtc_root3 = (Math.sqrt(((var_time_1171 * var_time_1171) - (4 * var_record_1182))) / 2);
-    let qdrtc_b_2a4 = (var_time_1171 / 2);
+var count_possibilities = (function(val_154) {
+    let var_time_1551 = val_154[1];
+    let var_record_1562 = val_154[2];
+    let qdrtc_root3 = (Math.sqrt(((var_time_1551 * var_time_1551) - (4 * var_record_1562))) / 2);
+    let qdrtc_b_2a4 = (var_time_1551 / 2);
     let bound_h5 = _PLUS_.floor((qdrtc_b_2a4 + qdrtc_root3));
     let bound_l6 = _PLUS_.floor((qdrtc_b_2a4 - qdrtc_root3));
     return (bound_h5 - bound_l6);
 });
 var part1 = (function() {
-    return _PLUS_.reduce((function(_anon_PERCENT_1_78, _anon_PERCENT_2_79) {
-        return (_anon_PERCENT_1_78 * _anon_PERCENT_2_79);
+    return _PLUS_.reduce((function(_anon_PERCENT_1_23, _anon_PERCENT_2_24) {
+        return (_anon_PERCENT_1_23 * _anon_PERCENT_2_24);
     }), 1, _PLUS_.fmap(count_possibilities, _PLUS_.Vec(Race(52, 426), Race(94, 1374), Race(75, 1279), Race(94, 1216))));
 });
 var part2 = (function() {

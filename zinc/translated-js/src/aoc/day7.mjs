@@ -2,9 +2,9 @@ import * as lib from './lib.mjs';
 import * as _PLUS_ from './../+.mjs';
 undefined;
 var HandTypeT = 27;
-var type_val = (function(val_107) {
-    let val_1081 = val_107;
-    let spec_1092 = ({
+var type_val = (function(val_145) {
+    let val_1461 = val_145;
+    let spec_1472 = ({
         1: (function() {
             return 6;
         }),
@@ -27,7 +27,7 @@ var type_val = (function(val_107) {
             return 0;
         })
     });
-    return (spec_1092[val_1081[1]] || spec_1092[0])();
+    return (spec_1472[val_1461[1]] || spec_1472[0])();
 });
 var Kind5 = [27, 1];
 var Kind4 = [27, 2];
@@ -113,18 +113,18 @@ var get_type = (function(cards, jokers_QMARK_) {
     let rkind6 = {
         r: 0
     };
-    _PLUS_.for$(cards, (function(_anon_PERCENT_1_29) {
-        let card_count7 = (1 + _PLUS_.or(0, _PLUS_.at(card_counts3, _anon_PERCENT_1_29)));
-        if ((!jokers_QMARK_ || !joker_QMARK_(_anon_PERCENT_1_29))) {
+    _PLUS_.for$(cards, (function(_anon_PERCENT_1_31) {
+        let card_count7 = (1 + _PLUS_.or(0, _PLUS_.at(card_counts3, _anon_PERCENT_1_31)));
+        if ((!jokers_QMARK_ || !joker_QMARK_(_anon_PERCENT_1_31))) {
             (rkind6.r = Math.max(rkind6["r"], card_count7))
         };
-        if (joker_QMARK_(_anon_PERCENT_1_29)) {
+        if (joker_QMARK_(_anon_PERCENT_1_31)) {
             (rjokers5.r = (_PLUS_.inc)(rjokers5.r))
         };
         if (_PLUS_.is(card_count7, 2)) {
             (rpairs4.r = (_PLUS_.inc)(rpairs4.r))
         };
-        return _PLUS_.put(card_counts3, _anon_PERCENT_1_29, card_count7);
+        return _PLUS_.put(card_counts3, _anon_PERCENT_1_31, card_count7);
     }));
     let kind8 = (rkind6["r"] + ((jokers_QMARK_) ? (rjokers5["r"]) : (0)));
     let pairs_QMARK_9 = (rpairs4["r"] > 1);
@@ -159,25 +159,25 @@ var get_type = (function(cards, jokers_QMARK_) {
     }
 });
 var get_val = (function(cards, jokers_QMARK_) {
-    return _PLUS_.reduce((function(_anon_PERCENT_1_31, _anon_PERCENT_2_33, _anon_PERCENT_3_32) {
-        return (_anon_PERCENT_1_31 + (Math.pow(14, (_PLUS_.size(cards) - 1 - _anon_PERCENT_3_32)) * _anon_PERCENT_2_33));
-    }), 0, _PLUS_.fmap((function(_anon_PERCENT_1_30) {
-        return card_val(_anon_PERCENT_1_30, jokers_QMARK_);
+    return _PLUS_.reduce((function(_anon_PERCENT_1_33, _anon_PERCENT_2_35, _anon_PERCENT_3_34) {
+        return (_anon_PERCENT_1_33 + (Math.pow(14, (_PLUS_.size(cards) - 1 - _anon_PERCENT_3_34)) * _anon_PERCENT_2_35));
+    }), 0, _PLUS_.fmap((function(_anon_PERCENT_1_32) {
+        return card_val(_anon_PERCENT_1_32, jokers_QMARK_);
     }), cards));
 });
 undefined;
 var HandStatsT = 28;
-var hand_val = (function(val_110) {
-    let var_val_11110 = val_110[2];
-    return var_val_11110;
+var hand_val = (function(val_148) {
+    let var_val_14910 = val_148[2];
+    return var_val_14910;
 });
-var hand_bid = (function(val_112) {
-    let var_bid_11311 = val_112[3];
-    return var_bid_11311;
+var hand_bid = (function(val_150) {
+    let var_bid_15111 = val_150[3];
+    return var_bid_15111;
 });
-var hand_type_val = (function(val_114) {
-    let var_type_11512 = val_114[1];
-    return type_val(var_type_11512);
+var hand_type_val = (function(val_152) {
+    let var_type_15312 = val_152[1];
+    return type_val(var_type_15312);
 });
 var parse_line = (function(line, jokers_QMARK_) {
     let vec__1316 = line.trim().split(lib.rx_whitespace);
@@ -191,17 +191,17 @@ var parse_line = (function(line, jokers_QMARK_) {
 });
 var sort_hands = (function(hands) {
     let by_type_val23 = _PLUS_.groupBy(hand_type_val, hands);
-    return _PLUS_.bind((function(_anon_PERCENT_1_34) {
-        return _PLUS_.sort_by(hand_val, _PLUS_.or(_PLUS_.Vec(), _PLUS_.at(by_type_val23, type_val(_anon_PERCENT_1_34))));
+    return _PLUS_.bind((function(_anon_PERCENT_1_36) {
+        return _PLUS_.sort_by(hand_val, _PLUS_.or(_PLUS_.Vec(), _PLUS_.at(by_type_val23, type_val(_anon_PERCENT_1_36))));
     }), _PLUS_.Vec(Kind1, Kind2, TwoPair, Kind3, FullHouse, Kind4, Kind5));
 });
 var get_total_winnings = (function(input, jokers_QMARK_) {
-    return _PLUS_.reduce((function(_anon_PERCENT_1_37, _anon_PERCENT_2_39, _anon_PERCENT_3_38) {
-        return (_anon_PERCENT_1_37 + ((1 + _anon_PERCENT_3_38) * hand_bid(_anon_PERCENT_2_39)));
-    }), 0, sort_hands(_PLUS_.fmap((function(_anon_PERCENT_1_36) {
-        return parse_line(_anon_PERCENT_1_36, jokers_QMARK_);
-    }), _PLUS_.filter((function(_anon_PERCENT_1_35) {
-        return !_PLUS_.is("", _anon_PERCENT_1_35.trim());
+    return _PLUS_.reduce((function(_anon_PERCENT_1_39, _anon_PERCENT_2_41, _anon_PERCENT_3_40) {
+        return (_anon_PERCENT_1_39 + ((1 + _anon_PERCENT_3_40) * hand_bid(_anon_PERCENT_2_41)));
+    }), 0, sort_hands(_PLUS_.fmap((function(_anon_PERCENT_1_38) {
+        return parse_line(_anon_PERCENT_1_38, jokers_QMARK_);
+    }), _PLUS_.filter((function(_anon_PERCENT_1_37) {
+        return !_PLUS_.is("", _anon_PERCENT_1_37.trim());
     }), lib.strsplit(input, "\n")))));
 });
 var part1 = (function(input) {

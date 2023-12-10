@@ -36,25 +36,25 @@ var cardValue = (function(card) {
     return Math.floor(Math.pow(2, (-1 + myWinCount(card))));
 });
 var parseCards = (function(input) {
-    return _PLUS_.fmap(parseCard, _PLUS_.filter((function(_anon_PERCENT_1_80) {
-        return !_PLUS_.is("", _anon_PERCENT_1_80.trim());
+    return _PLUS_.fmap(parseCard, _PLUS_.filter((function(_anon_PERCENT_1_84) {
+        return !_PLUS_.is("", _anon_PERCENT_1_84.trim());
     }), lib.strsplit(input, "\n")));
 });
 var part1 = (function(input) {
-    return _PLUS_.reduce((function(_anon_PERCENT_1_81, _anon_PERCENT_2_82) {
-        return (_anon_PERCENT_1_81 + _anon_PERCENT_2_82);
+    return _PLUS_.reduce((function(_anon_PERCENT_1_85, _anon_PERCENT_2_86) {
+        return (_anon_PERCENT_1_85 + _anon_PERCENT_2_86);
     }), 0, _PLUS_.fmap(cardValue, parseCards(input)));
 });
 var scratchCardsWonByCard = (function(card, cardsById) {
-    return _PLUS_.reduce((function(_anon_PERCENT_1_84, _anon_PERCENT_2_85) {
-        return (_anon_PERCENT_1_84 + _anon_PERCENT_2_85);
-    }), 1, _PLUS_.fmap((function(_anon_PERCENT_1_83) {
-        return scratchCardsWonById((cardId(card) + 1 + _anon_PERCENT_1_83), cardsById);
+    return _PLUS_.reduce((function(_anon_PERCENT_1_88, _anon_PERCENT_2_89) {
+        return (_anon_PERCENT_1_88 + _anon_PERCENT_2_89);
+    }), 1, _PLUS_.fmap((function(_anon_PERCENT_1_87) {
+        return scratchCardsWonById((cardId(card) + 1 + _anon_PERCENT_1_87), cardsById);
     }), _PLUS_.Range(myWinCount(card))));
 });
 let scratchCardsWonById_impl_1829 = (function(id, cardsById) {
-    return _PLUS_.or(0, _PLUS_.fmap((function(_anon_PERCENT_1_86) {
-        return scratchCardsWonByCard(_anon_PERCENT_1_86, cardsById);
+    return _PLUS_.or(0, _PLUS_.fmap((function(_anon_PERCENT_1_90) {
+        return scratchCardsWonByCard(_anon_PERCENT_1_90, cardsById);
     }), _PLUS_.at(cardsById, id)));
 });
 let scratchCardsWonById_memo_2030 = _PLUS_.Map();
@@ -93,10 +93,10 @@ var scratchCardsWonById = (function() {
 var part2 = (function(input) {
     let cards43 = parseCards(input);
     let cardsById44 = _PLUS_.keyBy(cardId, cards43);
-    return _PLUS_.reduce((function(_anon_PERCENT_1_88, _anon_PERCENT_2_89) {
-        return (_anon_PERCENT_1_88 + _anon_PERCENT_2_89);
-    }), 0, _PLUS_.fmap((function(_anon_PERCENT_1_87) {
-        return scratchCardsWonById(_anon_PERCENT_1_87, cardsById44);
+    return _PLUS_.reduce((function(_anon_PERCENT_1_92, _anon_PERCENT_2_93) {
+        return (_anon_PERCENT_1_92 + _anon_PERCENT_2_93);
+    }), 0, _PLUS_.fmap((function(_anon_PERCENT_1_91) {
+        return scratchCardsWonById(_anon_PERCENT_1_91, cardsById44);
     }), _PLUS_.keys(cardsById44)));
 });
 

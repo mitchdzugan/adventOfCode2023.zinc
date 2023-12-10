@@ -90,8 +90,8 @@ var parse_line = (function(line) {
     }
 });
 let get_guide_ind_impl_2334 = (function(id, guides) {
-    let get_id35 = (function(_anon_PERCENT_1_68) {
-        return guide_id(_PLUS_.at_BANG_(guides, _anon_PERCENT_1_68));
+    let get_id35 = (function(_anon_PERCENT_1_74) {
+        return guide_id(_PLUS_.at_BANG_(guides, _anon_PERCENT_1_74));
     });
     let lbound36 = 0;
     let rbound37 = (_PLUS_.size(guides) - 1);
@@ -172,8 +172,8 @@ var get_guide_ind = (function() {
     return f44;
 })();
 var get_offset = (function(id, guides) {
-    return _PLUS_.or(0, _PLUS_.fmap((function(_anon_PERCENT_1_69) {
-        return offset(_PLUS_.at_BANG_(guides, _anon_PERCENT_1_69));
+    return _PLUS_.or(0, _PLUS_.fmap((function(_anon_PERCENT_1_75) {
+        return offset(_PLUS_.at_BANG_(guides, _anon_PERCENT_1_75));
     }), get_guide_ind(id, guides)));
 });
 var get_associated_item = (function(category_maps, category, id) {
@@ -184,19 +184,19 @@ var get_associated_ranges = (function(category_maps, category, start, length) {
     let cat_map57 = _PLUS_.at_BANG_(category_maps, category);
     let cat_guides58 = guides(cat_map57);
     let dst59 = destination(cat_map57);
-    let mk_range60 = (function(_anon_PERCENT_1_70, _anon_PERCENT_2_71) {
-        return Range(dst59, _anon_PERCENT_1_70, _anon_PERCENT_2_71);
+    let mk_range60 = (function(_anon_PERCENT_1_76, _anon_PERCENT_2_77) {
+        return Range(dst59, _anon_PERCENT_1_76, _anon_PERCENT_2_77);
     });
-    let get_id61 = (function(_anon_PERCENT_1_72) {
-        return guide_id(_PLUS_.at_BANG_(cat_guides58, _anon_PERCENT_1_72));
+    let get_id61 = (function(_anon_PERCENT_1_78) {
+        return guide_id(_PLUS_.at_BANG_(cat_guides58, _anon_PERCENT_1_78));
     });
-    let get_offset62 = (function(_anon_PERCENT_1_73) {
-        return offset(_PLUS_.at_BANG_(cat_guides58, _anon_PERCENT_1_73));
+    let get_offset62 = (function(_anon_PERCENT_1_79) {
+        return offset(_PLUS_.at_BANG_(cat_guides58, _anon_PERCENT_1_79));
     });
     let results63 = _PLUS_.Vec();
     let end64 = (start + length);
-    let oob_QMARK_65 = (function(_anon_PERCENT_1_74) {
-        return (_anon_PERCENT_1_74 >= end64);
+    let oob_QMARK_65 = (function(_anon_PERCENT_1_80) {
+        return (_anon_PERCENT_1_80 >= end64);
     });
     let id66 = start;
     let m_ind67 = get_guide_ind(start, cat_guides58);
@@ -269,10 +269,10 @@ var parse_input = (function(input, ranges_QMARK_) {
     let inputs86 = _PLUS_.fmap(parse_line, lib.strsplit(input, "\n"));
     let finalize_category_map87 = (function() {
         _PLUS_.each((function(cat_map) {
-            return _PLUS_.each((function(_anon_PERCENT_1_77) {
-                return push_guide(cat_map, _anon_PERCENT_1_77);
-            }), _PLUS_.sort_by(guide_id, _PLUS_.vals(_PLUS_.fmap((function(_anon_PERCENT_1_76, _anon_PERCENT_2_75) {
-                return Guide(_anon_PERCENT_2_75, _anon_PERCENT_1_76);
+            return _PLUS_.each((function(_anon_PERCENT_1_83) {
+                return push_guide(cat_map, _anon_PERCENT_1_83);
+            }), _PLUS_.sort_by(guide_id, _PLUS_.vals(_PLUS_.fmap((function(_anon_PERCENT_1_82, _anon_PERCENT_2_81) {
+                return Guide(_anon_PERCENT_2_81, _anon_PERCENT_1_82);
             }), rmap83["r"]))));
         }), _PLUS_.at(category_maps85, rsrc82["r"]));
         return (rmap83.r = _PLUS_.Map());
