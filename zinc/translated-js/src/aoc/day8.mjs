@@ -65,11 +65,11 @@ var parseLine = (function(line) {
     return Node(id18, left19, right20);
 });
 var parseNav = (function(line) {
-    return _PLUS_.bind((function(_anon_PERCENT_1_72) {
-        if ((_anon_PERCENT_1_72 === "L")) {
+    return _PLUS_.bind((function(_anon_PERCENT_1_61) {
+        if ((_anon_PERCENT_1_61 === "L")) {
             return _PLUS_.Vec(Left);
         } else {
-            if ((_anon_PERCENT_1_72 === "R")) {
+            if ((_anon_PERCENT_1_61 === "R")) {
                 return _PLUS_.Vec(Right);
             } else {
                 if ("else") {
@@ -93,8 +93,8 @@ var parseInput = (function(input) {
     let nodes24 = _PLUS_.keyBy((function(val_62) {
         let var_id_6325 = val_62[1];
         return var_id_6325;
-    }), _PLUS_.fmap(parseLine, _PLUS_.filter((function(_anon_PERCENT_1_73) {
-        return _anon_PERCENT_1_73.includes("=");
+    }), _PLUS_.fmap(parseLine, _PLUS_.filter((function(_anon_PERCENT_1_62) {
+        return _anon_PERCENT_1_62.includes("=");
     }), lines21)));
     return NavInput(nav23, nodes24);
 });

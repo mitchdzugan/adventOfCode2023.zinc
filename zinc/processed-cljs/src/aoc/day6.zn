@@ -2,6 +2,6 @@
 (require ' ["./../+.mjs" :as + :refer-macros true])
 (do nil (def RaceT 29))
 (defn Race [time record] [29 time record])
-(defn count-possibilities [val-154] (let [^{:unname "time"} var-time-155 (aget val-154 1) ^{:unname "record"} var-record-156 (aget val-154 2)] (let [qdrtc_root (/ (js/Math.sqrt (- (* ^{:unname "time"} var-time-155 ^{:unname "time"} var-time-155) (* 4 ^{:unname "record"} var-record-156))) 2) qdrtc_b_2a (/ ^{:unname "time"} var-time-155 2) bound_h (+/floor (+ qdrtc_b_2a qdrtc_root)) bound_l (+/floor (- qdrtc_b_2a qdrtc_root))] (- bound_h bound_l))))
-(defn part1 [] (->> (+/Vec (Race 52 426) (Race 94 1374) (Race 75 1279) (Race 94 1216)) (+/fmap count-possibilities) (+/reduce (fn [_anon%1_23 _anon%2_24] (* _anon%1_23 _anon%2_24)) 1)))
+(defn count-possibilities [val-157] (let [^{:unname "time"} var-time-158 (aget val-157 1) ^{:unname "record"} var-record-159 (aget val-157 2)] (let [qdrtc_root (/ (js/Math.sqrt (- (* ^{:unname "time"} var-time-158 ^{:unname "time"} var-time-158) (* 4 ^{:unname "record"} var-record-159))) 2) qdrtc_b_2a (/ ^{:unname "time"} var-time-158 2) bound_h (+/floor (+ qdrtc_b_2a qdrtc_root)) bound_l (+/floor (- qdrtc_b_2a qdrtc_root))] (- bound_h bound_l))))
+(defn part1 [] (->> (+/Vec (Race 52 426) (Race 94 1374) (Race 75 1279) (Race 94 1216)) (+/fmap count-possibilities) (+/reduce (fn [_anon%1_1 _anon%2_2] (* _anon%1_1 _anon%2_2)) 1)))
 (defn part2 [] (let [time 52947594 record 426137412791216] (count-possibilities (Race time record))))
