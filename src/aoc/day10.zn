@@ -93,10 +93,7 @@
        (= 1 (+/mod (crossings-to-top-edge m %x %y) 2))))
 
 (defn part2 [input]
-  (let [m (loop-only-parse-input input)
-        rincluded (aref 0)
-        h (+/size m)
-        w (+/size (+/at! m 0))]
+  (let [m (loop-only-parse-input input)]
     (->> (fn [row y] (+/size (+/filter #(enclosed? m (Pos %2 y)) row)))
          ((fn [mapper] (+/fmap mapper m)))
          (+/reduce #(+ %1 %2) 0))))
