@@ -101,7 +101,6 @@
   (let [getc #(get-at-pos m (Pos x %1))
         plain? #(+/is (getc %1) ".")
         edge? #(or (+/is (getc %1) "-") (+/is (getc %1) "|"))
-        corner? #(and (not (edge? %1)) (not (plain? (getc %1))))
         get-rest #(crossings-to-top-edge m x (- %1 1))]
     (cond
       (< y 0)     0
