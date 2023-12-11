@@ -15,38 +15,38 @@ implement_key(_PLUS_.StrT, _PLUS_.id);
 implement_key(_PLUS_.BoolT, _PLUS_.id);
 _PLUS_.implement_monad_plus(_PLUS_.NumT, (function() {
     return 0;
-}), (function(_anon_PERCENT_1_105, _anon_PERCENT_2_106) {
-    return (_anon_PERCENT_1_105 + _anon_PERCENT_2_106);
+}), (function(_anon_PERCENT_1_118, _anon_PERCENT_2_119) {
+    return (_anon_PERCENT_1_118 + _anon_PERCENT_2_119);
 }));
 _PLUS_.implement_monad_plus(_PLUS_.StrT, (function() {
     return "";
 }), _PLUS_.str);
 _PLUS_.implement_monad_plus(_PLUS_.BoolT, (function() {
     return false;
-}), (function(_anon_PERCENT_1_107, _anon_PERCENT_2_108) {
-    return (_anon_PERCENT_1_107 || _anon_PERCENT_2_108);
+}), (function(_anon_PERCENT_1_120, _anon_PERCENT_2_121) {
+    return (_anon_PERCENT_1_120 || _anon_PERCENT_2_121);
 }));
 _PLUS_.implement_monad_plus(_PLUS_.VecT, (function() {
     return Vec();
-}), (function(_anon_PERCENT_1_109, _anon_PERCENT_2_110) {
-    return concat(_anon_PERCENT_1_109, _anon_PERCENT_2_110);
+}), (function(_anon_PERCENT_1_122, _anon_PERCENT_2_123) {
+    return concat(_anon_PERCENT_1_122, _anon_PERCENT_2_123);
 }));
 _PLUS_.implement_monad_plus(_PLUS_.MaybeT, (function() {
     return None;
-}), (function(_anon_PERCENT_1_112, _anon_PERCENT_2_111) {
-    return maybe(_anon_PERCENT_2_111, Just, _anon_PERCENT_1_112);
+}), (function(_anon_PERCENT_1_125, _anon_PERCENT_2_124) {
+    return maybe(_anon_PERCENT_2_124, Just, _anon_PERCENT_1_125);
 }));
-_PLUS_.implement_applicative(_PLUS_.VecT, (function(_anon_PERCENT_1_113) {
-    return Vec(_anon_PERCENT_1_113);
+_PLUS_.implement_applicative(_PLUS_.VecT, (function(_anon_PERCENT_1_126) {
+    return Vec(_anon_PERCENT_1_126);
 }));
-_PLUS_.implement_applicative(_PLUS_.MaybeT, (function(_anon_PERCENT_1_114) {
-    return Just(_anon_PERCENT_1_114);
+_PLUS_.implement_applicative(_PLUS_.MaybeT, (function(_anon_PERCENT_1_127) {
+    return Just(_anon_PERCENT_1_127);
 }));
 _PLUS_.implement_flatplicative_for_applicative(_PLUS_.VecT);
 _PLUS_.implement_flatplicative_for_applicative(_PLUS_.MaybeT);
 _PLUS_.implement_flatplicative(_PLUS_.StrT, _PLUS_.str);
-_PLUS_.implement_flatplicative(_PLUS_.BoolT, (function(_anon_PERCENT_1_115) {
-    return _PLUS_.not(_PLUS_.not(_anon_PERCENT_1_115));
+_PLUS_.implement_flatplicative(_PLUS_.BoolT, (function(_anon_PERCENT_1_128) {
+    return _PLUS_.not(_PLUS_.not(_anon_PERCENT_1_128));
 }));
 var MapClass = _PLUS_.MapClass;
 var Unit = [_PLUS_.UnitT];
@@ -115,8 +115,8 @@ var Set = (function() {
         let initials24 = (initials_ || []);
         let d25 = Map();
         let id26 = _PLUS_.mk_inst_id();
-        initials24.forEach((function(_anon_PERCENT_1_116) {
-            return d25.set(key(_anon_PERCENT_1_116), _anon_PERCENT_1_116);
+        initials24.forEach((function(_anon_PERCENT_1_129) {
+            return d25.set(key(_anon_PERCENT_1_129), _anon_PERCENT_1_129);
         }));
         return ({
             "T": _PLUS_.SetT,
@@ -225,8 +225,8 @@ var KeyedList = (function(pairs) {
             }
         }
     });
-    let empty_QMARK_91 = (function(_anon_PERCENT_1_117) {
-        return _PLUS_.is(0, _PLUS_.js_length(_anon_PERCENT_1_117));
+    let empty_QMARK_91 = (function(_anon_PERCENT_1_130) {
+        return _PLUS_.is(0, _PLUS_.js_length(_anon_PERCENT_1_130));
     });
     let G__9293 = kl63;
     G__9293;
@@ -377,8 +377,8 @@ var Range = (function() {
         let a2199 = vec__194197[1];
         let a3200 = vec__194197[2];
         let fin201 = (function(init, end, step) {
-            return _PLUS_.apply(Vec, Array.from(Array(_PLUS_.ceil(_PLUS_.div((end - init), step))), (function(_anon_PERCENT_1_119, _anon_PERCENT_2_118) {
-                return (init + (step * _anon_PERCENT_2_118));
+            return _PLUS_.apply(Vec, Array.from(Array(_PLUS_.ceil(_PLUS_.div((end - init), step))), (function(_anon_PERCENT_1_132, _anon_PERCENT_2_131) {
+                return (init + (step * _anon_PERCENT_2_131));
             })));
         });
         if (_PLUS_.nil_QMARK_(a1198)) {
@@ -424,8 +424,8 @@ var at = (function(val_1, k) {
             return Maybe($203["vs"]["get"](key(k)));
         }),
         [_PLUS_.KeyedListT]: (function() {
-            return fmap((function(_anon_PERCENT_1_120) {
-                return _anon_PERCENT_1_120[0];
+            return fmap((function(_anon_PERCENT_1_133) {
+                return _anon_PERCENT_1_133[0];
             }), Maybe($203["d"][k]));
         }),
         [_PLUS_.MaybeT]: (function() {
@@ -441,16 +441,16 @@ var has_QMARK_ = (function(c, k) {
     return !empty_QMARK_(at(c, k));
 });
 var intersection = (function(s1, s2) {
-    return _PLUS_.apply(Set, filter((function(_anon_PERCENT_1_121) {
-        return has_QMARK_(s2, _anon_PERCENT_1_121);
+    return _PLUS_.apply(Set, filter((function(_anon_PERCENT_1_134) {
+        return has_QMARK_(s2, _anon_PERCENT_1_134);
     }), vals(s1))["a"]);
 });
 var union = (function(s1, s2) {
     return _PLUS_.apply(Set, concat(vals(s1), vals(s2))["a"]);
 });
 var every_QMARK_ = (function(p, c) {
-    return reduce((function(_anon_PERCENT_1_122, _anon_PERCENT_2_123, _anon_PERCENT_3_124, _anon_PERCENT_4_125) {
-        return (_anon_PERCENT_1_122 && p(_anon_PERCENT_2_123, _anon_PERCENT_3_124, _anon_PERCENT_4_125));
+    return reduce((function(_anon_PERCENT_1_135, _anon_PERCENT_2_136, _anon_PERCENT_3_137, _anon_PERCENT_4_138) {
+        return (_anon_PERCENT_1_135 && p(_anon_PERCENT_2_136, _anon_PERCENT_3_137, _anon_PERCENT_4_138));
     }), true, c);
 });
 var any_QMARK_ = (function(p, c) {
@@ -509,8 +509,8 @@ var for_each_map = (function(f, m, get_js_m, map_key) {
         return function() {
             return f(v222, map_key(k221), m);
         };
-    })).forEach((function(_anon_PERCENT_1_126) {
-        return _anon_PERCENT_1_126();
+    })).forEach((function(_anon_PERCENT_1_139) {
+        return _anon_PERCENT_1_139();
     }));
 });
 var each = (function(f, val_3) {
@@ -520,18 +520,18 @@ var each = (function(f, val_3) {
             return each(f, vals($223));
         }),
         [_PLUS_.VecT]: (function() {
-            return $223["a"]["forEach"]((function(_anon_PERCENT_1_127, _anon_PERCENT_2_128) {
-                return f(_anon_PERCENT_1_127, _anon_PERCENT_2_128, $223);
+            return $223["a"]["forEach"]((function(_anon_PERCENT_1_140, _anon_PERCENT_2_141) {
+                return f(_anon_PERCENT_1_140, _anon_PERCENT_2_141, $223);
             }));
         }),
         [_PLUS_.MapT]: (function() {
             return for_each_map(f, $223, _PLUS_.id, _PLUS_.id);
         }),
         [_PLUS_.KeyMapT]: (function() {
-            return for_each_map(f, $223, (function(_anon_PERCENT_1_129) {
-                return _anon_PERCENT_1_129["vs"];
-            }), (function(_anon_PERCENT_1_130) {
-                return $223["ks"]["get"](_anon_PERCENT_1_130);
+            return for_each_map(f, $223, (function(_anon_PERCENT_1_142) {
+                return _anon_PERCENT_1_142["vs"];
+            }), (function(_anon_PERCENT_1_143) {
+                return $223["ks"]["get"](_anon_PERCENT_1_143);
             }));
         }),
         [_PLUS_.MaybeT]: (function() {
@@ -553,8 +553,8 @@ var for$ = (function(c, f) {
 });
 var reduce = (function(f, init, coll) {
     let res224 = [init];
-    each((function(_anon_PERCENT_1_131, _anon_PERCENT_2_132, _anon_PERCENT_3_133, _anon_PERCENT_4_134) {
-        return res224[0] = f(res224[0], _anon_PERCENT_1_131, _anon_PERCENT_2_132, _anon_PERCENT_3_133, _anon_PERCENT_4_134);
+    each((function(_anon_PERCENT_1_144, _anon_PERCENT_2_145, _anon_PERCENT_3_146, _anon_PERCENT_4_147) {
+        return res224[0] = f(res224[0], _anon_PERCENT_1_144, _anon_PERCENT_2_145, _anon_PERCENT_3_146, _anon_PERCENT_4_147);
     }), coll);
     return res224[0];
 });
@@ -562,8 +562,8 @@ var fmap = (function(f, val_4) {
     let $225 = val_4;
     return coll_impl(({
         [_PLUS_.VecT]: (function() {
-            return _PLUS_.apply(Vec, $225["a"]["map"]((function(_anon_PERCENT_1_135, _anon_PERCENT_2_136) {
-                return f(_anon_PERCENT_1_135, _anon_PERCENT_2_136, $225);
+            return _PLUS_.apply(Vec, $225["a"]["map"]((function(_anon_PERCENT_1_148, _anon_PERCENT_2_149) {
+                return f(_anon_PERCENT_1_148, _anon_PERCENT_2_149, $225);
             })));
         }),
         [_PLUS_.MapT]: (function() {
@@ -587,8 +587,8 @@ var bind = (function(f, val_5) {
     let $233 = val_5;
     return coll_impl(({
         [_PLUS_.VecT]: (function() {
-            return _PLUS_.apply(Vec, $233["a"]["flatMap"]((function(_anon_PERCENT_1_137, _anon_PERCENT_2_138) {
-                return f(_anon_PERCENT_1_137, _anon_PERCENT_2_138, $233)["a"];
+            return _PLUS_.apply(Vec, $233["a"]["flatMap"]((function(_anon_PERCENT_1_150, _anon_PERCENT_2_151) {
+                return f(_anon_PERCENT_1_150, _anon_PERCENT_2_151, $233)["a"];
             })));
         }),
         [_PLUS_.MaybeT]: (function() {
@@ -607,8 +607,8 @@ var filter = (function(p, val_6) {
     let $234 = val_6;
     return coll_impl(({
         [_PLUS_.VecT]: (function() {
-            return _PLUS_.apply(Vec, $234["a"]["filter"]((function(_anon_PERCENT_1_139, _anon_PERCENT_2_140) {
-                return p(_anon_PERCENT_1_139, _anon_PERCENT_2_140, $234);
+            return _PLUS_.apply(Vec, $234["a"]["filter"]((function(_anon_PERCENT_1_152, _anon_PERCENT_2_153) {
+                return p(_anon_PERCENT_1_152, _anon_PERCENT_2_153, $234);
             })));
         }),
         [_PLUS_.MaybeT]: (function() {
@@ -621,8 +621,8 @@ var filter = (function(p, val_6) {
     }), $234);
 });
 var remove = (function(p, coll) {
-    return filter((function(_anon_PERCENT_1_141, _anon_PERCENT_2_142, _anon_PERCENT_3_143) {
-        return _PLUS_.not(p(_anon_PERCENT_1_141, _anon_PERCENT_2_142, _anon_PERCENT_3_143));
+    return filter((function(_anon_PERCENT_1_154, _anon_PERCENT_2_155, _anon_PERCENT_3_156) {
+        return _PLUS_.not(p(_anon_PERCENT_1_154, _anon_PERCENT_2_155, _anon_PERCENT_3_156));
     }), coll);
 });
 var keys = (function(val_7) {
@@ -632,8 +632,8 @@ var keys = (function(val_7) {
             return Range(_PLUS_.js_length($235["a"]));
         }),
         [_PLUS_.MapT]: (function() {
-            return _PLUS_.apply(Vec, _PLUS_.js_array_from($235, (function(_anon_PERCENT_1_144) {
-                return _anon_PERCENT_1_144[0];
+            return _PLUS_.apply(Vec, _PLUS_.js_array_from($235, (function(_anon_PERCENT_1_157) {
+                return _anon_PERCENT_1_157[0];
             })));
         }),
         [_PLUS_.SetT]: (function() {
@@ -658,8 +658,8 @@ var vals = (function(val_8) {
             return _PLUS_.apply(Vec, $236["a"]);
         }),
         [_PLUS_.MapT]: (function() {
-            return _PLUS_.apply(Vec, _PLUS_.js_array_from($236, (function(_anon_PERCENT_1_145) {
-                return _anon_PERCENT_1_145[1];
+            return _PLUS_.apply(Vec, _PLUS_.js_array_from($236, (function(_anon_PERCENT_1_158) {
+                return _anon_PERCENT_1_158[1];
             })));
         }),
         [_PLUS_.SetT]: (function() {
@@ -726,11 +726,11 @@ var unwrap_BANG_ = (function(m) {
 var at_BANG_ = (function(c, id) {
     return unwrap_BANG_(at(c, id));
 });
-var last_BANG_ = (function(_anon_PERCENT_1_146) {
-    return at_BANG_(_anon_PERCENT_1_146, (size(_anon_PERCENT_1_146) - 1));
+var last_BANG_ = (function(_anon_PERCENT_1_159) {
+    return at_BANG_(_anon_PERCENT_1_159, (size(_anon_PERCENT_1_159) - 1));
 });
-var first_BANG_ = (function(_anon_PERCENT_1_147) {
-    return at_BANG_(_anon_PERCENT_1_147, 0);
+var first_BANG_ = (function(_anon_PERCENT_1_160) {
+    return at_BANG_(_anon_PERCENT_1_160, 0);
 });
 var maybe_ = (function(on_none, on_just, val_11) {
     let $239 = val_11;
@@ -749,16 +749,45 @@ var maybe = (function(none, on_just, m) {
         return none;
     }), on_just, m);
 });
+var slice = (function() {
+    let f240 = (function(var_args) {
+        let args241245 = [];
+        let len__24440__auto__246 = arguments["length"];
+        let i242247 = 0;
+        while (true) {
+            if ((i242247 < len__24440__auto__246)) {
+                args241245.push((arguments[i242247]));
+                let G__248 = (i242247 + 1);
+                i242247 = G__248;
+                continue;
+            };
+            break;
+        };
+        let argseq__24702__auto__249 = (((1 < args241245["length"])) ? (args241245.slice(1)) : (undefined));
+        return f240.cljs$core$IFn$_invoke$arity$variadic((arguments[0]), argseq__24702__auto__249);
+    });
+    f240["cljs$core$IFn$_invoke$arity$variadic"] = (function(v, args) {
+        return _PLUS_.apply(Vec, v["a"]["slice"]["apply"](v["a"], args));
+    });
+    f240["cljs$lang$maxFixedArity"] = 1;
+    f240["cljs$lang$applyTo"] = (function(seq243) {
+        let G__244250 = first(seq243);
+        let seq243251 = next(seq243);
+        let self__24462__auto__252 = this;
+        return self__24462__auto__252.cljs$core$IFn$_invoke$arity$variadic(G__244250, seq243251);
+    });
+    return f240;
+})();
 var reverse = (function(v) {
-    let res240 = Vec();
-    let i241 = (size(v) - 1);
+    let res253 = Vec();
+    let i254 = (size(v) - 1);
     while (true) {
-        if ((i241 < 0)) {
-            return res240;
+        if ((i254 < 0)) {
+            return res253;
         } else {
-            push(res240, at_BANG_(v, i241));
-            let G__242 = (i241 - 1);
-            i241 = G__242;
+            push(res253, at_BANG_(v, i254));
+            let G__255 = (i254 - 1);
+            i254 = G__255;
             continue;
         };
         break;
@@ -766,122 +795,122 @@ var reverse = (function(v) {
 
 });
 var insert = (function(val_12, target_id, v) {
-    let $243 = val_12;
+    let $256 = val_12;
     return coll_impl(({
         [_PLUS_.VecT]: (function() {
-            if ((target_id >= size($243))) {
+            if ((target_id >= size($256))) {
                 return None;
             } else {
-                $243.splice(target_id, 0, v);
+                $256.splice(target_id, 0, v);
                 return Just(target_id);
             }
         }),
         [_PLUS_.MapT]: (function() {
             return fmap((function() {
-                put($243, target_id, v);
+                put($256, target_id, v);
                 return target_id;
-            }), at($243, target_id));
+            }), at($256, target_id));
         }),
         [_PLUS_.KeyMapT]: (function() {
-            let kk244 = key(target_id);
+            let kk257 = key(target_id);
             return fmap((function() {
-                put($243["ks"], kk244, v);
-                put($243["vs"], kk244, v);
-                return kk244;
-            }), at($243["ks"], kk244));
+                put($256["ks"], kk257, v);
+                put($256["vs"], kk257, v);
+                return kk257;
+            }), at($256["ks"], kk257));
         }),
         [_PLUS_.KeyedListT]: (function() {
-            let id245 = $243["i"];
-            let prepend246 = $243["d"][target_id];
-            if (nil_QMARK_(prepend246)) {
+            let id258 = $256["i"];
+            let prepend259 = $256["d"][target_id];
+            if (nil_QMARK_(prepend259)) {
                 return None;
             } else {
-                let vec__247250 = prepend246[1];
-                let pid251 = vec__247250[0];
-                let G__252253 = $243;
-                G__252253["n"] = (inc)(G__252253["n"]);
-                ((_PLUS_.nil_QMARK_(pid251)) ? ((function(_anon_PERCENT_1_148) {
-                    return _anon_PERCENT_1_148["f"] = pid251;
-                })) : ((function(_anon_PERCENT_1_149) {
-                    return _anon_PERCENT_1_149["d"][pid251][2] = id245;
-                })))(G__252253);
-                G__252253[_anon_PERCENT_1_150]["d"][target_id][1] = id245;
-                G__252253[_anon_PERCENT_1_150]["d"][id245] = [v, pid251, target_id];
-                G__252253;
-                return Just(id245);
+                let vec__260263 = prepend259[1];
+                let pid264 = vec__260263[0];
+                let G__265266 = $256;
+                G__265266["n"] = (inc)(G__265266["n"]);
+                ((_PLUS_.nil_QMARK_(pid264)) ? ((function(_anon_PERCENT_1_161) {
+                    return _anon_PERCENT_1_161["f"] = pid264;
+                })) : ((function(_anon_PERCENT_1_162) {
+                    return _anon_PERCENT_1_162["d"][pid264][2] = id258;
+                })))(G__265266);
+                G__265266[_anon_PERCENT_1_163]["d"][target_id][1] = id258;
+                G__265266[_anon_PERCENT_1_163]["d"][id258] = [v, pid264, target_id];
+                G__265266;
+                return Just(id258);
             }
         })
-    }), $243);
+    }), $256);
 });
 var push = (function(val_13, v) {
-    let $254 = val_13;
+    let $267 = val_13;
     return coll_impl(({
         [_PLUS_.VecT]: (function() {
-            return $254["a"].push(v);
+            return $267["a"].push(v);
         }),
         [_PLUS_.SetT]: (function() {
-            return $254["d"].set(key(v), v);
+            return $267["d"].set(key(v), v);
         }),
         [_PLUS_.KeyedListT]: (function() {
             return "TODO";
         })
-    }), $254);
+    }), $267);
 });
 var unshift = (function(val_14, v) {
-    let $255 = val_14;
+    let $268 = val_14;
     return coll_impl(({
         [_PLUS_.VecT]: (function() {
-            return $255["a"].unshift(v);
+            return $268["a"].unshift(v);
         }),
         [_PLUS_.SetT]: (function() {
-            return $255["d"].set(key(v), v);
+            return $268["d"].set(key(v), v);
         }),
         [_PLUS_.KeyedListT]: (function() {
-            return insert($255, $255["f"], v);
+            return insert($268, $268["f"], v);
         })
-    }), $255);
+    }), $268);
 });
 var sort_by = (function(f, val_15) {
-    let $256 = val_15;
+    let $269 = val_15;
     return coll_impl(({
         [_PLUS_.VecT]: (function() {
-            let res257 = _PLUS_.apply(Vec, $256["a"]);
-            res257["a"].sort((function(_anon_PERCENT_1_151, _anon_PERCENT_2_152) {
-                return (f(_anon_PERCENT_1_151) - f(_anon_PERCENT_2_152));
+            let res270 = _PLUS_.apply(Vec, $269["a"]);
+            res270["a"].sort((function(_anon_PERCENT_1_164, _anon_PERCENT_2_165) {
+                return (f(_anon_PERCENT_1_164) - f(_anon_PERCENT_2_165));
             }));
-            return res257;
+            return res270;
         })
-    }), $256);
+    }), $269);
 });
 var sort = (function(c) {
     return sort_by(_PLUS_.id, c);
 });
 var keyBy = (function(f, c) {
-    let res258 = Map();
-    each((function(_anon_PERCENT_1_153) {
-        return put(res258, f(_anon_PERCENT_1_153), _anon_PERCENT_1_153);
+    let res271 = Map();
+    each((function(_anon_PERCENT_1_166) {
+        return put(res271, f(_anon_PERCENT_1_166), _anon_PERCENT_1_166);
     }), c);
-    return res258;
+    return res271;
 });
 var groupBy = (function(f, c) {
-    let res259 = Map();
-    each((function(_anon_PERCENT_1_154) {
-        let k260 = f(_anon_PERCENT_1_154);
-        let curr261 = or_(Vec, at(res259, k260));
-        push(curr261, _anon_PERCENT_1_154);
-        return put(res259, k260, curr261);
+    let res272 = Map();
+    each((function(_anon_PERCENT_1_167) {
+        let k273 = f(_anon_PERCENT_1_167);
+        let curr274 = or_(Vec, at(res272, k273));
+        push(curr274, _anon_PERCENT_1_167);
+        return put(res272, k273, curr274);
     }), c);
-    return res259;
+    return res272;
 });
 var empty_QMARK_ = (function(c) {
     return _PLUS_.is(0, size(c));
 });
 var unjson = (function(v) {
-    let unjson_pairs262 = (function(p__263) {
-        let vec__264267 = p__263;
-        let k268 = vec__264267[0];
-        let v269 = vec__264267[1];
-        return [unjson(k268), unjson(v269)];
+    let unjson_pairs275 = (function(p__276) {
+        let vec__277280 = p__276;
+        let k281 = vec__277280[0];
+        let v282 = vec__277280[1];
+        return [unjson(k281), unjson(v282)];
     });
     if (_PLUS_.js_array_QMARK_(v)) {
         return (({
@@ -892,10 +921,10 @@ var unjson = (function(v) {
                 return fmap(unjson, _PLUS_.apply(Vec, v.slice(1)));
             }),
             [_PLUS_.MapT]: (function() {
-                return Map(unjson_pairs262.map(v.slice(1)));
+                return Map(unjson_pairs275.map(v.slice(1)));
             }),
             [_PLUS_.KeyMapT]: (function() {
-                return KeyMap(unjson_pairs262.map(v.slice(1)));
+                return KeyMap(unjson_pairs275.map(v.slice(1)));
             })
         })[type_id(v)] || (function() {
             return v.map(unjson);
@@ -969,6 +998,7 @@ export {
     each,
     any_QMARK_,
     fmap,
+    slice,
     insert,
     size,
     reduce,

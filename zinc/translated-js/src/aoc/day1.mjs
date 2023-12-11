@@ -14,8 +14,8 @@ var digitStrs = _PLUS_.Map([
 ]);
 var digitStrLengths = (function() {
     let seenLengths1 = _PLUS_.Map();
-    _PLUS_.each((function(_anon_PERCENT_1_53, _anon_PERCENT_2_52) {
-        return _PLUS_.put(seenLengths1, _anon_PERCENT_2_52["length"], true);
+    _PLUS_.each((function(_anon_PERCENT_1_80, _anon_PERCENT_2_79) {
+        return _PLUS_.put(seenLengths1, _anon_PERCENT_2_79["length"], true);
     }), digitStrs);
     return _PLUS_.sort(_PLUS_.keys(seenLengths1));
 })();
@@ -100,21 +100,21 @@ var firstDigit = (function(src, origin, useDigitStrs) {
 
 });
 var getCalibrationValue = (function(src, useDigitStrs) {
-    return (function(_anon_PERCENT_1_55, _anon_PERCENT_2_54) {
-        return _PLUS_.bind(_anon_PERCENT_2_54, _anon_PERCENT_1_55);
+    return (function(_anon_PERCENT_1_82, _anon_PERCENT_2_81) {
+        return _PLUS_.bind(_anon_PERCENT_2_81, _anon_PERCENT_1_82);
     })(firstDigit(src, Front, useDigitStrs), (function(dTens) {
-        return (function(_anon_PERCENT_1_57, _anon_PERCENT_2_56) {
-            return _PLUS_.bind(_anon_PERCENT_2_56, _anon_PERCENT_1_57);
+        return (function(_anon_PERCENT_1_84, _anon_PERCENT_2_83) {
+            return _PLUS_.bind(_anon_PERCENT_2_83, _anon_PERCENT_1_84);
         })(firstDigit(src, Back, useDigitStrs), (function(dOnes) {
             return _PLUS_.Just(((10 * dTens) + dOnes));
         }));
     }));
 });
 var getCalibrationSum = (function(input, useDigitStrs) {
-    return _PLUS_.reduce((function(_anon_PERCENT_1_59, _anon_PERCENT_2_60) {
-        return (_anon_PERCENT_1_59 + _PLUS_.or(0, _anon_PERCENT_2_60));
-    }), 0, _PLUS_.fmap((function(_anon_PERCENT_1_58) {
-        return getCalibrationValue(_anon_PERCENT_1_58, useDigitStrs);
+    return _PLUS_.reduce((function(_anon_PERCENT_1_86, _anon_PERCENT_2_87) {
+        return (_anon_PERCENT_1_86 + _PLUS_.or(0, _anon_PERCENT_2_87));
+    }), 0, _PLUS_.fmap((function(_anon_PERCENT_1_85) {
+        return getCalibrationValue(_anon_PERCENT_1_85, useDigitStrs);
     }), lib.strsplit(input, "\n")));
 });
 var part1 = (function(input) {

@@ -249,6 +249,8 @@
     ([+/MaybeT] (if (.-e $) (on-none) (on-just (.-j $))))))
 (defn maybe [none on-just m] (maybe- (fn [] none) on-just m))
 
+(defn slice [v & args]
+  (+/apply Vec ((.. v -a -slice -apply) (.-a v) args)))
 
 (defn reverse [v]
   (let [res (Vec)]
