@@ -8,7 +8,11 @@
 
 (defn parseInt [s] (js/Number.parseInt s 10))
 
-(defn getInput [n]
-  (let [basename (+/str "day" n)
-        filename (path/join js/__dirname ".." "resources" "input" basename)]
+(defn getRawInput [basename]
+  (let [filename (<<- (if (.startsWith basename ".") basename)
+                      (path/join js/__dirname ".." "resources" "input")
+                      basename)]
     (fs/readFileSync filename "utf8")))
+
+(defn getInput [n]
+  (getRawInput (+/str "day" n)))

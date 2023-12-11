@@ -14,19 +14,42 @@
 (def dayModules
   (+/Vec day1 day2 day3 day4 day5 day6 day7 day8 day9 day10))
 
+(def toSolve (+/Vec))
+(def rp1? (aref true))
+(def rp2? (aref true))
+(def rgetInput (aref lib/getInput))
+
 (defn solve [day]
   (let [module (+/or {} (+/at dayModules (- day 1)))]
     (+/log (+/str "❄ 🎄 ❄ 🎄 ❄ 🎄 ❄ 🎄 ❄ 🎄 ❄ "))
     (+/log (+/str "🎄 advent of code day " day " 🎄"))
-    (let [input (lib/getInput day)]
-      (+/log (+/str "❄ 🎄 part 1:🎄 ❄ 🎄 ❄ 🎄 ❄ "))
-      (+/log (.part1 module input))
-      (+/log (+/str "❄ 🎄 part 2:🎄 ❄ 🎄 ❄ 🎄 ❄ "))
-      (+/log (.part2 module input))
+    (let [input (@rgetInput day)]
+      (when @rp1?
+        (+/log (+/str "❄ 🎄 part 1:🎄 ❄ 🎄 ❄ 🎄 ❄ "))
+        (+/log (.part1 module input)))
+      (when @rp2?
+        (+/log (+/str "❄ 🎄 part 2:🎄 ❄ 🎄 ❄ 🎄 ❄ "))
+        (+/log (.part2 module input)))
       (+/log (+/str "❄ 🎄 ❄ 🎄 ❄ 🎄 ❄ 🎄 ❄ 🎄 ❄ "))
       (+/log))))
 
-(let [toSolve (lib/parseInt (+/dig js/process ["argv" 2]))]
-  (if (and (> toSolve 0) (<= toSolve (+/size dayModules)))
-    (solve toSolve)
-    (+/each (fn [_ index] (solve (+ index 1))) dayModules)))
+(loop [n 2 past-opts? false]
+  (when (< n (.-length js/process.argv))
+    (let [push #(let [v (lib/parseInt %1)]
+                  (when (and (> v 0) (<= v (+/size dayModules)))
+                    (+/push toSolve v)))
+          arg (aget js/process.argv n)]
+      (cond
+        past-opts?     (do (push arg) (recur (+ n 1) true))
+        (= arg "-n1")  (do (@= rp1? false) (recur (+ n 1) false))
+        (= arg "-n2")  (do (@= rp2? false) (recur (+ n 1) false))
+        (= arg "-i")   (do (let [basename (aget js/process.argv (+ n 1))
+                                 getInput #(lib/getRawInput basename)]
+                             (@= rgetInput getInput)
+                             (recur (+ n 2) false)))
+        :else          (do (push arg) (recur (+ n 1) true))))))
+
+(when (+/empty? toSolve)
+  (+/for dayModules #(+/push toSolve (+ 1 %2))))
+
+(+/for toSolve solve)
