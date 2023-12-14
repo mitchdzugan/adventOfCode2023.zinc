@@ -1,4 +1,9 @@
 ((() => {
+  const problems = `
+.???.###????.###????.###????.###????.###. 1,1,3,1,1,3,1,1,3,1,1,3,1,1,3
+.???#.????#??. 1,1,1,1
+?????????? 1,1,1
+  `
   const sample = `
 ???.### 1,1,3
 .??..??...?##. 1,1,3
@@ -8,43 +13,6 @@
 ?###???????? 3,2,1
 `
   const sum = (a, f = (a => a)) => a.map(f).reduce((acc, el) => acc + el, 0);
-
-  const chain = (init) => {
-    let proxy;
-    const val = [init];
-    const proc = (newVal) => { val[0] = newVal; return proxy; };
-    const ig = () => { return proxy; };
-    return proxy = new Proxy(val, {
-      get(target, prop) {
-        if (prop === 'done') { return () => val[0]; }
-        if (prop === 'fst') {
-          return new Proxy({}, {
-            get(_, prop) {
-              return (...args) => proc(eval(prop)(val[0], ...args))
-            }
-          });
-        }
-        if (prop === 'lst') {
-          return new Proxy({}, {
-            get(_, prop) {
-              return (...args) => proc(eval(prop)(...args, val[0]))
-            }
-          });
-        }
-        if (prop === 'at') {
-          return new Proxy(
-            {}, { get(_, prop) { return proc(val[0][prop]); } }
-          );
-        }
-        if (prop === 'ig') {
-          return new Proxy(
-            {}, { get(_, prop) { return (...args) => ig(val[0][prop](...args)); } }
-          );
-        }
-        return (...args) => proc(val[0][prop](...args));
-      }
-    });
-  };
 
   const cacheFn = (impl, makeKey_) => {
     const cache = {};
@@ -111,12 +79,13 @@
       }
     }
     const conditions = `.${conditions_}.`;
-    console.log(conditions, conditions.length);
+    console.log(conditions, groups_);
     const groups = groups_.split(",").map(s => parseInt(s, 10));
     const unsures = getChunks(conditions, "?");
     return { conditions, groups, unsures };
   };
-  const getNumArrangements = (line, expand) => {
+  const getNumArrangements = (line, expand, totalLines, lineNumber) => {
+    console.log({ totalLines, lineNumber });
     const row = parseLine(line, expand);
     const totalBars = row.groups.length * 2;
     let unsureBars = totalBars;
@@ -189,7 +158,7 @@
         if (barCounts[barCounts.length-1] < 2) { break; }
         barCounts.push(barCounts[barCounts.length-1] - 2);
       }
-      // console.log({unsureId,barCounts})
+      // console.log({unsureId,barCounts,maxRemaining,unsureBars})
 
       let totalPossible = 0;
       for (const possibleBars of barCounts) {
@@ -239,107 +208,62 @@
             return subtotal;
           }
 
-          // let hasTrailing = false;
-          let usedGroups = _h(unsure.prev) ? 1 : 0;
-          let required = _h(unsure.prev) ? 1 : 0;
-          for (let i = 0; i<possibleBars; i++) {
-            if (i % 2) {
-              ensure(usedGroups < localGroups.length);
-              required += localGroups[usedGroups] + 1;
-              usedGroups++;
-              // hasTrailing = true;
-            }
-          }
-          // console.log({ unsureId, hasTrailing })
-          if (possibleBars === 6) {
-            // console.log({localGroups,hasTrailing,usedGroups,space,required})
-          }
-          if (hasTrailing) {
-            required -= localGroups[usedGroups - 1];
-            const subspace = space - required;
-            let subtotal = 0;
-            const bins = unsure.hasSameEnds ? (usedGroups - 1) : usedGroups;
-            for (let i=0; i < localGroups[usedGroups - 1] && i < subspace; i++) {
-              const sublocalGroups = [...localGroups.slice(usedGroups - 1)];
-              sublocalGroups[0] -= (i + 1);
-              if (possibleBars === 6) {
-                // console.log({sublocalGroups,hasTrailing,usedGroups,subspace,i})
-              }
-              const combos = possibleSpacings(subspace - i, bins);
-              // console.log({ug:usedGroups, combos,i,subspace,bins, sl0:sublocalGroups[0]})
-              subtotal += combos * countValids(
-                unsureBars - possibleBars,
-                unsureId + 1,
-                sublocalGroups,
-              );
-            }
-            return subtotal;
-          }
-          const extra = space - required;
-          const bins = (() => {
+          const idiv = (n,d) => Math.floor(n / d);
+          const [groupSlice, usedSpace, bins, range] = ((() => {
             if (unsure.hasSameEnds) {
-              return usedGroups + 1;
+              if (_h(unsure.prev)) {
+                // console.log('# ?? #');
+                const usedGroups = idiv(possibleBars, 2);
+                const groupSlice = localGroups.slice(usedGroups);
+                const usedSpace = usedGroups + sum(localGroups.slice(0, usedGroups));
+                const bins = usedGroups;
+                const range = localGroups[usedGroups];
+                return [groupSlice, usedSpace, bins, range];
+              } else {
+                // console.log('. ?? .');
+                const usedGroups = idiv(possibleBars, 2);
+                const groupSlice = localGroups.slice(usedGroups);
+                const usedSpace = usedGroups + sum(localGroups.slice(0, usedGroups)) - 1;
+                const bins = usedGroups + 1;
+                const range = 0;
+                return [groupSlice, usedSpace, bins, range];
+              }
             } else {
-              return usedGroups;
+              if (_h(unsure.prev)) {
+                // console.log('# ?? .');
+                const usedGroups = idiv(possibleBars, 2) + 1;
+                const groupSlice = localGroups.slice(usedGroups);
+                const usedSpace = usedGroups + sum(localGroups.slice(0, usedGroups)) - 1;
+                const bins = usedGroups;
+                const range = 0;
+                return [groupSlice, usedSpace, bins, range];
+              } else {
+                // console.log('. ?? #');
+                const usedGroups = idiv(possibleBars, 2);
+                const groupSlice = localGroups.slice(usedGroups);
+                const usedSpace = usedGroups + sum(localGroups.slice(0, usedGroups));
+                const bins = usedGroups + 1;
+                const range = localGroups[usedGroups];
+                return [groupSlice, usedSpace, bins, range];
+              }
             }
-          })();
-          const combos = possibleSpacings(extra, bins);
-          if (hasLeading) {
-            // unsureId > 3 && console.log({ usedGroups, space, bins, required, extra, combos })
-          }
-          // console.log({ unsureId, possibleBars, usedGroups, space, bins, required, extra, combos,groups })
-          ensure(required <= space);
-          return combos * countValids(
-            unsureBars - possibleBars,
-            unsureId + 1,
-            localGroups.slice(usedGroups),
-          );
-          return 0;
+          })());
 
-          /*
-          let bars = possibleBars;
-          let bins = 0;
-          let space = unsure.length + 1;
-          const handleBin = () => { localGroups.shift(); space--; bins++; };
-          if (_p(unsure.prev)) {
-            bins++;
-          } else if (_h(unsure.prev)) {
-            if (!localGroups[0]) {
-              handleBin();
-              bars--;
-            } else if (unsure.hasSameEnds) {
-              bins--;
-            }
+          let subtotal = 0;
+          const subspace = space - usedSpace;
+          ensure(usedSpace < space);
+          for (let i=0; i < Math.max(1, range) && i < subspace; i++) {
+            const sublocalGroups = [...groupSlice];
+            range && ((() => {
+              ensure( sublocalGroups.length);
+              sublocalGroups[0] -= (i + 1);
+            })())
+            const combos = possibleSpacings(subspace - i - 1, bins);
+            const valids = countValids(unsureBars - possibleBars, unsureId + 1, sublocalGroups);
+            subtotal += combos * valids;
           }
-
-          const relbars = bars;
-          const isBin = () => (relbars % 2) !== (bars % 2)
-          for (;bars > 1;bars--) {
-            if (isBin()) {
-              handleBin();
-            } else {
-              space -= localGroups[0];
-              ensure(space >= 0);
-            }
-          }
-          if (isBin()) { handleBin(); }
-          const hasTrailing = _odd(possibleBars) === _p(unsure.prev);
-          if (hasTrailing) {
-            let subtotal = 0;
-            for (let i=0; i < localGroups[0] && i <= space; i++) {
-              const sublocalGroups = [...localGroups];
-              sublocalGroups[0] -= i;
-              const ps = possibleSpacings(space - i, bins);
-              const scv = countValids(unsureBars - possibleBars, unsureId + 1, sublocalGroups, '#');
-              subtotal += (ps * scv);
-            }
-            return subtotal;
-          } else {
-            const ps = possibleSpacings(space, bins);
-            const gcv = countValids(unsureBars - possibleBars, unsureId + 1, localGroups, '.');
-            return (ps * gcv);
-          }
-          */
+          // console.log({uId:unsureId,bars:possibleBars,groups:groupSlice,used:usedSpace,bins,range})
+          return subtotal;
         })();
       }
 
@@ -351,17 +275,15 @@
   };
 
   const doIt = (input, expand = false) => {
-    return chain(input)
-      .split("\n")
-      .filter(s => "" !== s.trim())
-      // .slice(0,1)
-      .map((s) => getNumArrangements(s, expand))
-      .fst.sum()
-      .done();
+    const usedLines = input.split("\n").filter(s => "" !== s.trim());
+    const totalLines = usedLines.length;
+    return usedLines.map((line, lineNumber) => (
+      getNumArrangements(line, expand, totalLines, lineNumber)
+    ));
   };
   return {
     part1: (input) => {
-      console.log(doIt(input, false));
+      console.log(doIt(problems, true));
     },
     part2: () => 2,
   };
