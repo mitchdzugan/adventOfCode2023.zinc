@@ -9,11 +9,12 @@
 (require '["/aoc/day9.zn"  :as day9 ])
 (require '["/aoc/day10.zn" :as day10])
 (require '["/aoc/day11.zn" :as day11])
+(require '["/aoc/day12.zn" :as day12])
 (require '["/aoc/lib.zn" :as lib])
 (require '["/+.zn" :as + :refer-macros true])
 
 (def dayModules
-  (+/Vec day1 day2 day3 day4 day5 day6 day7 day8 day9 day10 day11))
+  (+/Vec day1 day2 day3 day4 day5 day6 day7 day8 day9 day10 day11 day12))
 
 (def toSolve (+/Vec))
 (def rp1? (aref true))
