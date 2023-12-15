@@ -1,11 +1,44 @@
 import * as lib from './lib.mjs';
 import * as _PLUS_ from './../+.mjs';
-undefined;
+_PLUS_.qt_store[30] = "CubeNumsT";
+_PLUS_.bury(_PLUS_.prop_store, [30, undefined], ({
+    0: ({
+        "idname": "red",
+        "fullname": "%red",
+        "ind": 0,
+        "type": _PLUS_.NumT
+    }),
+    1: ({
+        "idname": "green",
+        "fullname": "%green",
+        "ind": 1,
+        "type": _PLUS_.NumT
+    }),
+    2: ({
+        "idname": "blue",
+        "fullname": "%blue",
+        "ind": 2,
+        "type": _PLUS_.NumT
+    })
+}));
 var CubeNumsT = 30;
 var CubeNums = (function(red, green, blue) {
     return [30, red, green, blue];
 });
-undefined;
+_PLUS_.qt_store[31] = "GameT";
+_PLUS_.bury(_PLUS_.prop_store, [31, undefined], ({
+    0: ({
+        "idname": "id",
+        "fullname": "%id",
+        "ind": 0
+    }),
+    1: ({
+        "idname": "rounds",
+        "fullname": "%rounds",
+        "ind": 1,
+        "type": [_PLUS_.VecT, CubeNumsT]
+    })
+}));
 var GameT = 31;
 var cubes_power = (function(val_164) {
     let var_red_1651 = val_164[1];
@@ -25,8 +58,8 @@ var parse_round = (function(_roundStr) {
     let roundStr12 = _roundStr.trim();
     let colorVals13 = _PLUS_.Map();
     let colorStrs14 = lib.strsplit(roundStr12, ",");
-    _PLUS_.each((function(_anon_PERCENT_1_110) {
-        return addColorValFromColorStr(colorVals13, _anon_PERCENT_1_110);
+    _PLUS_.each((function(_anon_PERCENT_1_18) {
+        return addColorValFromColorStr(colorVals13, _anon_PERCENT_1_18);
     }), colorStrs14);
     return CubeNums(_PLUS_.or(0, _PLUS_.at(colorVals13, "red")), _PLUS_.or(0, _PLUS_.at(colorVals13, "green")), _PLUS_.or(0, _PLUS_.at(colorVals13, "blue")));
 });
@@ -54,18 +87,18 @@ var valid_round_QMARK_ = (function(val_168) {
 });
 var valid_game_QMARK_ = (function(val_175) {
     let var_rounds_17636 = val_175[2];
-    return _PLUS_.reduce((function(_anon_PERCENT_1_111, _anon_PERCENT_2_112) {
-        return (_anon_PERCENT_1_111 && valid_round_QMARK_(_anon_PERCENT_2_112));
+    return _PLUS_.reduce((function(_anon_PERCENT_1_19, _anon_PERCENT_2_20) {
+        return (_anon_PERCENT_1_19 && valid_round_QMARK_(_anon_PERCENT_2_20));
     }), true, var_rounds_17636);
 });
 var to_games = (function(input) {
-    return _PLUS_.fmap(parse_game, _PLUS_.filter((function(_anon_PERCENT_1_113) {
-        return !_PLUS_.is("", _anon_PERCENT_1_113.trim());
+    return _PLUS_.fmap(parse_game, _PLUS_.filter((function(_anon_PERCENT_1_21) {
+        return !_PLUS_.is("", _anon_PERCENT_1_21.trim());
     }), lib.strsplit(input, "\n")));
 });
 var part1 = (function(input) {
-    return _PLUS_.reduce((function(_anon_PERCENT_1_114, _anon_PERCENT_2_115) {
-        return (_anon_PERCENT_1_114 + _anon_PERCENT_2_115);
+    return _PLUS_.reduce((function(_anon_PERCENT_1_22, _anon_PERCENT_2_23) {
+        return (_anon_PERCENT_1_22 + _anon_PERCENT_2_23);
     }), 0, _PLUS_.fmap((function(val_177) {
         let var_id_17837 = val_177[1];
         return var_id_17837;
@@ -88,8 +121,8 @@ var min_cubes = (function(val_186) {
     return _PLUS_.reduce(update_min_cubes, CubeNums(0, 0, 0), var_rounds_18747);
 });
 var part2 = (function(input) {
-    return _PLUS_.reduce((function(_anon_PERCENT_1_116, _anon_PERCENT_2_117) {
-        return (_anon_PERCENT_1_116 + _anon_PERCENT_2_117);
+    return _PLUS_.reduce((function(_anon_PERCENT_1_24, _anon_PERCENT_2_25) {
+        return (_anon_PERCENT_1_24 + _anon_PERCENT_2_25);
     }), 0, _PLUS_.fmap(cubes_power, _PLUS_.fmap(min_cubes, to_games(input))));
 });
 

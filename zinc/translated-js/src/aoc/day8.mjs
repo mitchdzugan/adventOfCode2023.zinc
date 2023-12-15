@@ -22,7 +22,23 @@ var lcm = (function(a_, b_) {
     let b6 = _PLUS_.min(a_, b_);
     return ((a5 / gcd(a5, b6)) * b6);
 });
-undefined;
+_PLUS_.qt_store[19] = "DirectionT";
+_PLUS_.bury(_PLUS_.prop_store, [19, 1], ({
+    0: ({
+        "idname": "+",
+        "fullname": "%+",
+        "ind": 0
+    })
+}));
+_PLUS_.bury(_PLUS_.prop_store, [19, 2], ({
+    0: ({
+        "idname": "+",
+        "fullname": "%+",
+        "ind": 0
+    })
+}));
+_PLUS_.bury(_PLUS_.variant_store, [19, 1], "Left");
+_PLUS_.bury(_PLUS_.variant_store, [19, 2], "Right");
 var DirectionT = 19;
 var Left = [19, 1];
 var Right = [19, 2];
@@ -38,7 +54,24 @@ var left_QMARK_ = (function(val_53) {
     });
     return (spec_558[val_547[1]] || spec_558[0])();
 });
-undefined;
+_PLUS_.qt_store[20] = "NodeT";
+_PLUS_.bury(_PLUS_.prop_store, [20, undefined], ({
+    0: ({
+        "idname": "id",
+        "fullname": "%id",
+        "ind": 0
+    }),
+    1: ({
+        "idname": "left",
+        "fullname": "%left",
+        "ind": 1
+    }),
+    2: ({
+        "idname": "right",
+        "fullname": "%right",
+        "ind": 2
+    })
+}));
 var NodeT = 20;
 var Node = (function(id, left, right) {
     return [20, id, left, right];
@@ -65,11 +98,11 @@ var parseLine = (function(line) {
     return Node(id18, left19, right20);
 });
 var parseNav = (function(line) {
-    return _PLUS_.bind((function(_anon_PERCENT_1_88) {
-        if ((_anon_PERCENT_1_88 === "L")) {
+    return _PLUS_.bind((function(_anon_PERCENT_1_96) {
+        if ((_anon_PERCENT_1_96 === "L")) {
             return _PLUS_.Vec(Left);
         } else {
-            if ((_anon_PERCENT_1_88 === "R")) {
+            if ((_anon_PERCENT_1_96 === "R")) {
                 return _PLUS_.Vec(Right);
             } else {
                 if ("else") {
@@ -81,7 +114,19 @@ var parseNav = (function(line) {
         }
     }), lib.strsplit(line, ""));
 });
-undefined;
+_PLUS_.qt_store[21] = "NavInputT";
+_PLUS_.bury(_PLUS_.prop_store, [21, undefined], ({
+    0: ({
+        "idname": "nav",
+        "fullname": "%nav",
+        "ind": 0
+    }),
+    1: ({
+        "idname": "nodes",
+        "fullname": "%nodes",
+        "ind": 1
+    })
+}));
 var NavInputT = 21;
 var NavInput = (function(nav, nodes) {
     return [21, nav, nodes];
@@ -93,8 +138,8 @@ var parseInput = (function(input) {
     let nodes24 = _PLUS_.keyBy((function(val_62) {
         let var_id_6325 = val_62[1];
         return var_id_6325;
-    }), _PLUS_.fmap(parseLine, _PLUS_.filter((function(_anon_PERCENT_1_89) {
-        return _anon_PERCENT_1_89.includes("=");
+    }), _PLUS_.fmap(parseLine, _PLUS_.filter((function(_anon_PERCENT_1_97) {
+        return _anon_PERCENT_1_97.includes("=");
     }), lines21)));
     return NavInput(nav23, nodes24);
 });
@@ -124,7 +169,29 @@ var part1 = (function(input) {
 
     })(parseInput(input));
 });
-undefined;
+_PLUS_.qt_store[32] = "PatternT";
+_PLUS_.bury(_PLUS_.prop_store, [32, undefined], ({
+    0: ({
+        "idname": "initLength",
+        "fullname": "%initLength",
+        "ind": 0
+    }),
+    1: ({
+        "idname": "loopLength",
+        "fullname": "%loopLength",
+        "ind": 1
+    }),
+    2: ({
+        "idname": "inits",
+        "fullname": "%inits",
+        "ind": 2
+    }),
+    3: ({
+        "idname": "loops",
+        "fullname": "%loops",
+        "ind": 3
+    })
+}));
 var PatternT = 32;
 var Pattern = (function(initLength, loopLength, inits, loops) {
     return [32, initLength, loopLength, inits, loops];

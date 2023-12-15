@@ -2,9 +2,9 @@ import * as lib from './lib.mjs';
 import * as _PLUS_ from './../+.mjs';
 var emptyXs = (function(line) {
     let res1 = _PLUS_.Set();
-    _PLUS_.for$(lib.strsplit(line, ""), (function(_anon_PERCENT_1_37, _anon_PERCENT_2_38) {
-        if (("." === _anon_PERCENT_1_37)) {
-            return _PLUS_.push(res1, _anon_PERCENT_2_38);
+    _PLUS_.for$(lib.strsplit(line, ""), (function(_anon_PERCENT_1_45, _anon_PERCENT_2_46) {
+        if (("." === _anon_PERCENT_1_45)) {
+            return _PLUS_.push(res1, _anon_PERCENT_2_46);
         }
     }));
     return res1;
@@ -15,8 +15,8 @@ var make_grid = (function(input) {
     };
     let joinEmptyXs3 = (function(xs) {
         return (rmemptyCols2.r = ((function(memptyCols) {
-            return _PLUS_.or(_PLUS_.Just(xs), _PLUS_.fmap((function(_anon_PERCENT_1_39) {
-                return _PLUS_.Just(_PLUS_.intersection(xs, _anon_PERCENT_1_39));
+            return _PLUS_.or(_PLUS_.Just(xs), _PLUS_.fmap((function(_anon_PERCENT_1_47) {
+                return _PLUS_.Just(_PLUS_.intersection(xs, _anon_PERCENT_1_47));
             }), memptyCols));
         }))(rmemptyCols2.r));
     });
@@ -24,26 +24,43 @@ var make_grid = (function(input) {
         return _PLUS_.unwrap_BANG_(rmemptyCols2["r"]);
     });
     return _PLUS_.fmap((function(line) {
-        return _PLUS_.fmap((function(_anon_PERCENT_1_43, _anon_PERCENT_2_42) {
-            if (_PLUS_.has_QMARK_(emptyCols4(), _anon_PERCENT_2_42)) {
+        return _PLUS_.fmap((function(_anon_PERCENT_1_51, _anon_PERCENT_2_50) {
+            if (_PLUS_.has_QMARK_(emptyCols4(), _anon_PERCENT_2_50)) {
                 return "x";
             } else {
-                return _anon_PERCENT_1_43;
+                return _anon_PERCENT_1_51;
             }
         }), lib.strsplit(line, ""));
-    }), _PLUS_.fmap((function(_anon_PERCENT_1_41) {
-        let xs5 = emptyXs(_anon_PERCENT_1_41);
+    }), _PLUS_.fmap((function(_anon_PERCENT_1_49) {
+        let xs5 = emptyXs(_anon_PERCENT_1_49);
         joinEmptyXs3(xs5);
-        if (!(_anon_PERCENT_1_41["length"] === _PLUS_.size(xs5))) {
-            return _anon_PERCENT_1_41;
+        if (!(_anon_PERCENT_1_49["length"] === _PLUS_.size(xs5))) {
+            return _anon_PERCENT_1_49;
         } else {
-            return _anon_PERCENT_1_41.replaceAll(".", "x");
+            return _anon_PERCENT_1_49.replaceAll(".", "x");
         }
-    }), _PLUS_.filter((function(_anon_PERCENT_1_40) {
-        return (_anon_PERCENT_1_40.trim() !== "");
+    }), _PLUS_.filter((function(_anon_PERCENT_1_48) {
+        return (_anon_PERCENT_1_48.trim() !== "");
     }), lib.strsplit(input, "\n"))));
 });
-undefined;
+_PLUS_.qt_store[36] = "GalaxyT";
+_PLUS_.bury(_PLUS_.prop_store, [36, undefined], ({
+    0: ({
+        "idname": "id",
+        "fullname": "%id",
+        "ind": 0
+    }),
+    1: ({
+        "idname": "x",
+        "fullname": "%x",
+        "ind": 1
+    }),
+    2: ({
+        "idname": "y",
+        "fullname": "%y",
+        "ind": 2
+    })
+}));
 var GalaxyT = 36;
 var Galaxy = (function(id, x, y) {
     return [36, id, x, y];
@@ -127,12 +144,12 @@ var get_galaxies = (function(grid, expandBy) {
 var calc_sum = (function(input, expandBy) {
     let grid28 = make_grid(input);
     let galaxies29 = get_galaxies(grid28, expandBy);
-    return _PLUS_.reduce((function(_anon_PERCENT_1_46, _anon_PERCENT_2_47) {
-        return (_anon_PERCENT_1_46 + _anon_PERCENT_2_47);
-    }), 0, _PLUS_.bind((function(_anon_PERCENT_1_44, _anon_PERCENT_2_45) {
+    return _PLUS_.reduce((function(_anon_PERCENT_1_54, _anon_PERCENT_2_55) {
+        return (_anon_PERCENT_1_54 + _anon_PERCENT_2_55);
+    }), 0, _PLUS_.bind((function(_anon_PERCENT_1_52, _anon_PERCENT_2_53) {
         return _PLUS_.fmap((function(g2) {
-            return distance(_anon_PERCENT_1_44, g2);
-        }), _PLUS_.slice(galaxies29, (1 + _anon_PERCENT_2_45)));
+            return distance(_anon_PERCENT_1_52, g2);
+        }), _PLUS_.slice(galaxies29, (1 + _anon_PERCENT_2_53)));
     }), galaxies29));
 });
 var part1 = (function(input) {

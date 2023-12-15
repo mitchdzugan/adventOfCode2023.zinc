@@ -1,6 +1,25 @@
 import * as lib from './lib.mjs';
 import * as _PLUS_ from './../+.mjs';
-undefined;
+_PLUS_.qt_store[13] = "CardT";
+_PLUS_.bury(_PLUS_.prop_store, [13, undefined], ({
+    0: ({
+        "idname": "id",
+        "fullname": "%id",
+        "ind": 0
+    }),
+    1: ({
+        "idname": "winning",
+        "fullname": "%winning",
+        "ind": 1,
+        "type": [_PLUS_.SetT, _PLUS_.NumT]
+    }),
+    2: ({
+        "idname": "my",
+        "fullname": "%my",
+        "ind": 2,
+        "type": [_PLUS_.SetT, _PLUS_.NumT]
+    })
+}));
 var CardT = 13;
 var cardId = (function(val_18) {
     let var_id_191 = val_18[1];
@@ -36,25 +55,25 @@ var cardValue = (function(card) {
     return Math.floor(Math.pow(2, (-1 + myWinCount(card))));
 });
 var parseCards = (function(input) {
-    return _PLUS_.fmap(parseCard, _PLUS_.filter((function(_anon_PERCENT_1_100) {
-        return !_PLUS_.is("", _anon_PERCENT_1_100.trim());
+    return _PLUS_.fmap(parseCard, _PLUS_.filter((function(_anon_PERCENT_1_108) {
+        return !_PLUS_.is("", _anon_PERCENT_1_108.trim());
     }), lib.strsplit(input, "\n")));
 });
 var part1 = (function(input) {
-    return _PLUS_.reduce((function(_anon_PERCENT_1_101, _anon_PERCENT_2_102) {
-        return (_anon_PERCENT_1_101 + _anon_PERCENT_2_102);
+    return _PLUS_.reduce((function(_anon_PERCENT_1_109, _anon_PERCENT_2_110) {
+        return (_anon_PERCENT_1_109 + _anon_PERCENT_2_110);
     }), 0, _PLUS_.fmap(cardValue, parseCards(input)));
 });
 var scratchCardsWonByCard = (function(card, cardsById) {
-    return _PLUS_.reduce((function(_anon_PERCENT_1_104, _anon_PERCENT_2_105) {
-        return (_anon_PERCENT_1_104 + _anon_PERCENT_2_105);
-    }), 1, _PLUS_.fmap((function(_anon_PERCENT_1_103) {
-        return scratchCardsWonById((cardId(card) + 1 + _anon_PERCENT_1_103), cardsById);
+    return _PLUS_.reduce((function(_anon_PERCENT_1_112, _anon_PERCENT_2_113) {
+        return (_anon_PERCENT_1_112 + _anon_PERCENT_2_113);
+    }), 1, _PLUS_.fmap((function(_anon_PERCENT_1_111) {
+        return scratchCardsWonById((cardId(card) + 1 + _anon_PERCENT_1_111), cardsById);
     }), _PLUS_.Range(myWinCount(card))));
 });
 let scratchCardsWonById_impl_1829 = (function(id, cardsById) {
-    return _PLUS_.or(0, _PLUS_.fmap((function(_anon_PERCENT_1_106) {
-        return scratchCardsWonByCard(_anon_PERCENT_1_106, cardsById);
+    return _PLUS_.or(0, _PLUS_.fmap((function(_anon_PERCENT_1_114) {
+        return scratchCardsWonByCard(_anon_PERCENT_1_114, cardsById);
     }), _PLUS_.at(cardsById, id)));
 });
 let scratchCardsWonById_memo_2030 = _PLUS_.Map();
@@ -93,10 +112,10 @@ var scratchCardsWonById = (function() {
 var part2 = (function(input) {
     let cards43 = parseCards(input);
     let cardsById44 = _PLUS_.keyBy(cardId, cards43);
-    return _PLUS_.reduce((function(_anon_PERCENT_1_108, _anon_PERCENT_2_109) {
-        return (_anon_PERCENT_1_108 + _anon_PERCENT_2_109);
-    }), 0, _PLUS_.fmap((function(_anon_PERCENT_1_107) {
-        return scratchCardsWonById(_anon_PERCENT_1_107, cardsById44);
+    return _PLUS_.reduce((function(_anon_PERCENT_1_116, _anon_PERCENT_2_117) {
+        return (_anon_PERCENT_1_116 + _anon_PERCENT_2_117);
+    }), 0, _PLUS_.fmap((function(_anon_PERCENT_1_115) {
+        return scratchCardsWonById(_anon_PERCENT_1_115, cardsById44);
     }), _PLUS_.keys(cardsById44)));
 });
 

@@ -1,6 +1,18 @@
 import * as lib from './lib.mjs';
 import * as _PLUS_ from './../+.mjs';
-undefined;
+_PLUS_.qt_store[25] = "SchemaNumberT";
+_PLUS_.bury(_PLUS_.prop_store, [25, undefined], ({
+    0: ({
+        "idname": "value",
+        "fullname": "%value",
+        "ind": 0
+    }),
+    1: ({
+        "idname": "part-number?",
+        "fullname": "%part-number?",
+        "ind": 1
+    })
+}));
 var SchemaNumberT = 25;
 var SchemaNumber = (function(value) {
     return [25, value, false];
@@ -16,7 +28,41 @@ var part_number_QMARK_ = (function(val_98) {
 var accept_part_number = (function(schema_number) {
     return [25, value(schema_number), true];
 });
-undefined;
+_PLUS_.qt_store[26] = "TokenT";
+_PLUS_.bury(_PLUS_.prop_store, [26, 1], ({
+    0: ({
+        "idname": "+",
+        "fullname": "%+",
+        "ind": 0
+    }),
+    1: ({
+        "idname": "d",
+        "fullname": "%d",
+        "ind": 1
+    })
+}));
+_PLUS_.bury(_PLUS_.prop_store, [26, 2], ({
+    0: ({
+        "idname": "+",
+        "fullname": "%+",
+        "ind": 0
+    }),
+    1: ({
+        "idname": "s",
+        "fullname": "%s",
+        "ind": 1
+    })
+}));
+_PLUS_.bury(_PLUS_.prop_store, [26, 3], ({
+    0: ({
+        "idname": "+",
+        "fullname": "%+",
+        "ind": 0
+    })
+}));
+_PLUS_.bury(_PLUS_.variant_store, [26, 1], "Digit");
+_PLUS_.bury(_PLUS_.variant_store, [26, 2], "Symbol");
+_PLUS_.bury(_PLUS_.variant_store, [26, 3], "Dot");
 var TokenT = 26;
 var Digit = (function(d) {
     return [26, 1, d];
@@ -42,32 +88,32 @@ var put_in = (function(v2d, i, j, v) {
     return _PLUS_.put(row4, j, v);
 });
 var process_grid = (function(input, handle_symbol_neighbors) {
-    let token_grid5 = _PLUS_.fmap((function(_anon_PERCENT_1_62) {
-        return _PLUS_.fmap(classify, lib.strsplit(_anon_PERCENT_1_62, ""));
+    let token_grid5 = _PLUS_.fmap((function(_anon_PERCENT_1_70) {
+        return _PLUS_.fmap(classify, lib.strsplit(_anon_PERCENT_1_70, ""));
     }), lib.strsplit(input, "\n"));
-    let schema_number_id_grid6 = _PLUS_.fmap((function(_anon_PERCENT_1_63) {
+    let schema_number_id_grid6 = _PLUS_.fmap((function(_anon_PERCENT_1_71) {
         return _PLUS_.fmap((function() {
             return _PLUS_.None;
-        }), _anon_PERCENT_1_63);
+        }), _anon_PERCENT_1_71);
     }), token_grid5);
     let schema_numbers7 = _PLUS_.Vec();
-    let init_schema_number8 = (function(_anon_PERCENT_1_64) {
-        if ((_anon_PERCENT_1_64 > 0)) {
-            return _PLUS_.put(schema_numbers7, _PLUS_.size(schema_numbers7), SchemaNumber(_anon_PERCENT_1_64));
+    let init_schema_number8 = (function(_anon_PERCENT_1_72) {
+        if ((_anon_PERCENT_1_72 > 0)) {
+            return _PLUS_.put(schema_numbers7, _PLUS_.size(schema_numbers7), SchemaNumber(_anon_PERCENT_1_72));
         }
     });
     let add_neighbor9 = (function(neighbors, i, j) {
-        return (function(_anon_PERCENT_1_66, _anon_PERCENT_2_65) {
-            return _PLUS_.bind(_anon_PERCENT_2_65, _anon_PERCENT_1_66);
+        return (function(_anon_PERCENT_1_74, _anon_PERCENT_2_73) {
+            return _PLUS_.bind(_anon_PERCENT_2_73, _anon_PERCENT_1_74);
         })(_PLUS_.at(schema_number_id_grid6, i), (function(row) {
-            return (function(_anon_PERCENT_1_68, _anon_PERCENT_2_67) {
-                return _PLUS_.bind(_anon_PERCENT_2_67, _anon_PERCENT_1_68);
+            return (function(_anon_PERCENT_1_76, _anon_PERCENT_2_75) {
+                return _PLUS_.bind(_anon_PERCENT_2_75, _anon_PERCENT_1_76);
             })(_PLUS_.at(row, j), (function(mschema_number_id) {
-                return (function(_anon_PERCENT_1_70, _anon_PERCENT_2_69) {
-                    return _PLUS_.bind(_anon_PERCENT_2_69, _anon_PERCENT_1_70);
+                return (function(_anon_PERCENT_1_78, _anon_PERCENT_2_77) {
+                    return _PLUS_.bind(_anon_PERCENT_2_77, _anon_PERCENT_1_78);
                 })(mschema_number_id, (function(schema_number_id) {
-                    return (function(_anon_PERCENT_1_72, _anon_PERCENT_2_71) {
-                        return _PLUS_.bind(_anon_PERCENT_2_71, _anon_PERCENT_1_72);
+                    return (function(_anon_PERCENT_1_80, _anon_PERCENT_2_79) {
+                        return _PLUS_.bind(_anon_PERCENT_2_79, _anon_PERCENT_1_80);
                     })(_PLUS_.at(schema_numbers7, schema_number_id), (function(schema_number) {
                         return _PLUS_.put(neighbors, schema_number_id, schema_number);
                     }));
@@ -121,11 +167,11 @@ var process_grid = (function(input, handle_symbol_neighbors) {
     return schema_numbers7;
 });
 var part1 = (function(input) {
-    return _PLUS_.reduce((function(_anon_PERCENT_1_75, _anon_PERCENT_2_76) {
-        return (_anon_PERCENT_1_75 + _anon_PERCENT_2_76);
+    return _PLUS_.reduce((function(_anon_PERCENT_1_83, _anon_PERCENT_2_84) {
+        return (_anon_PERCENT_1_83 + _anon_PERCENT_2_84);
     }), 0, _PLUS_.fmap(value, _PLUS_.filter(part_number_QMARK_, process_grid(input, (function(neighbors, schema_nums) {
-        return _PLUS_.each((function(_anon_PERCENT_1_74, _anon_PERCENT_2_73) {
-            return _PLUS_.put(schema_nums, _anon_PERCENT_2_73, accept_part_number(_anon_PERCENT_1_74));
+        return _PLUS_.each((function(_anon_PERCENT_1_82, _anon_PERCENT_2_81) {
+            return _PLUS_.put(schema_nums, _anon_PERCENT_2_81, accept_part_number(_anon_PERCENT_1_82));
         }), neighbors);
     })))));
 });
@@ -135,8 +181,8 @@ var part2 = (function(input) {
     };
     process_grid(input, (function(neighbors) {
         if (_PLUS_.is(2, _PLUS_.size(neighbors))) {
-            return (sum_ref17.r = (sum_ref17["r"] + _PLUS_.reduce((function(_anon_PERCENT_1_77, _anon_PERCENT_2_78) {
-                return (_anon_PERCENT_1_77 * value(_anon_PERCENT_2_78));
+            return (sum_ref17.r = (sum_ref17["r"] + _PLUS_.reduce((function(_anon_PERCENT_1_85, _anon_PERCENT_2_86) {
+                return (_anon_PERCENT_1_85 * value(_anon_PERCENT_2_86));
             }), 1, neighbors)));
         }
     }));

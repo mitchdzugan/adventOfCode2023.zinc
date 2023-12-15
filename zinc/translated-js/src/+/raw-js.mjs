@@ -84,13 +84,13 @@ var const$ = _const;
 var apply = _apply;
 var dig = _dig;
 var bury = _bury;
-var log = (undefined || _log || (function() {
+var log = (_log || _log || (function() {
     return undefined;
 }));
-var jlog = (undefined || _jlog || (function() {
+var jlog = (_jlog || _jlog || (function() {
     return undefined;
 }));
-var rlog = (undefined || _rlog || (function() {
+var rlog = (_rlog || _rlog || (function() {
     return undefined;
 }));
 var inc = _inc;

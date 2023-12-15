@@ -1,8 +1,8 @@
 import * as lib from './lib.mjs';
 import * as _PLUS_ from './../+.mjs';
 var zeros_QMARK_ = (function(history) {
-    return _PLUS_.every_QMARK_((function(_anon_PERCENT_1_20) {
-        return _PLUS_.is(0, _anon_PERCENT_1_20);
+    return _PLUS_.every_QMARK_((function(_anon_PERCENT_1_28) {
+        return _PLUS_.is(0, _anon_PERCENT_1_28);
     }), history);
 });
 var next_value = (function(history) {
@@ -48,14 +48,14 @@ var next_value = (function(history) {
 
 });
 var process = (function(input, reverse_QMARK_) {
-    return _PLUS_.reduce((function(_anon_PERCENT_1_24, _anon_PERCENT_2_25) {
-        return (_anon_PERCENT_1_24 + _anon_PERCENT_2_25);
-    }), 0, _PLUS_.fmap(next_value, _PLUS_.fmap(((reverse_QMARK_) ? (_PLUS_.reverse) : (_PLUS_.id)), _PLUS_.fmap((function(_anon_PERCENT_1_23) {
-        return _PLUS_.fmap(lib.parseInt, _anon_PERCENT_1_23);
-    }), _PLUS_.fmap((function(_anon_PERCENT_1_22) {
-        return lib.strsplit(_anon_PERCENT_1_22.trim(), lib.rx_whitespace);
-    }), _PLUS_.filter((function(_anon_PERCENT_1_21) {
-        return !_PLUS_.is("", _anon_PERCENT_1_21.trim());
+    return _PLUS_.reduce((function(_anon_PERCENT_1_32, _anon_PERCENT_2_33) {
+        return (_anon_PERCENT_1_32 + _anon_PERCENT_2_33);
+    }), 0, _PLUS_.fmap(next_value, _PLUS_.fmap(((reverse_QMARK_) ? (_PLUS_.reverse) : (_PLUS_.id)), _PLUS_.fmap((function(_anon_PERCENT_1_31) {
+        return _PLUS_.fmap(lib.parseInt, _anon_PERCENT_1_31);
+    }), _PLUS_.fmap((function(_anon_PERCENT_1_30) {
+        return lib.strsplit(_anon_PERCENT_1_30.trim(), lib.rx_whitespace);
+    }), _PLUS_.filter((function(_anon_PERCENT_1_29) {
+        return !_PLUS_.is("", _anon_PERCENT_1_29.trim());
     }), lib.strsplit(input, "\n")))))));
 });
 var part1 = (function(input) {

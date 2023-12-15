@@ -14,8 +14,8 @@ var digitStrs = _PLUS_.Map([
 ]);
 var digitStrLengths = (function() {
     let seenLengths1 = _PLUS_.Map();
-    _PLUS_.each((function(_anon_PERCENT_1_80, _anon_PERCENT_2_79) {
-        return _PLUS_.put(seenLengths1, _anon_PERCENT_2_79["length"], true);
+    _PLUS_.each((function(_anon_PERCENT_1_88, _anon_PERCENT_2_87) {
+        return _PLUS_.put(seenLengths1, _anon_PERCENT_2_87["length"], true);
     }), digitStrs);
     return _PLUS_.sort(_PLUS_.keys(seenLengths1));
 })();
@@ -42,7 +42,23 @@ var getDigit = (function(src, index, useDigitStrs, exclude0) {
         }
     }
 });
-undefined;
+_PLUS_.qt_store[24] = "OriginT";
+_PLUS_.bury(_PLUS_.prop_store, [24, 1], ({
+    0: ({
+        "idname": "+",
+        "fullname": "%+",
+        "ind": 0
+    })
+}));
+_PLUS_.bury(_PLUS_.prop_store, [24, 2], ({
+    0: ({
+        "idname": "+",
+        "fullname": "%+",
+        "ind": 0
+    })
+}));
+_PLUS_.bury(_PLUS_.variant_store, [24, 1], "Front");
+_PLUS_.bury(_PLUS_.variant_store, [24, 2], "Back");
 var OriginT = 24;
 var Front = [24, 1];
 var Back = [24, 2];
@@ -100,21 +116,21 @@ var firstDigit = (function(src, origin, useDigitStrs) {
 
 });
 var getCalibrationValue = (function(src, useDigitStrs) {
-    return (function(_anon_PERCENT_1_82, _anon_PERCENT_2_81) {
-        return _PLUS_.bind(_anon_PERCENT_2_81, _anon_PERCENT_1_82);
+    return (function(_anon_PERCENT_1_90, _anon_PERCENT_2_89) {
+        return _PLUS_.bind(_anon_PERCENT_2_89, _anon_PERCENT_1_90);
     })(firstDigit(src, Front, useDigitStrs), (function(dTens) {
-        return (function(_anon_PERCENT_1_84, _anon_PERCENT_2_83) {
-            return _PLUS_.bind(_anon_PERCENT_2_83, _anon_PERCENT_1_84);
+        return (function(_anon_PERCENT_1_92, _anon_PERCENT_2_91) {
+            return _PLUS_.bind(_anon_PERCENT_2_91, _anon_PERCENT_1_92);
         })(firstDigit(src, Back, useDigitStrs), (function(dOnes) {
             return _PLUS_.Just(((10 * dTens) + dOnes));
         }));
     }));
 });
 var getCalibrationSum = (function(input, useDigitStrs) {
-    return _PLUS_.reduce((function(_anon_PERCENT_1_86, _anon_PERCENT_2_87) {
-        return (_anon_PERCENT_1_86 + _PLUS_.or(0, _anon_PERCENT_2_87));
-    }), 0, _PLUS_.fmap((function(_anon_PERCENT_1_85) {
-        return getCalibrationValue(_anon_PERCENT_1_85, useDigitStrs);
+    return _PLUS_.reduce((function(_anon_PERCENT_1_94, _anon_PERCENT_2_95) {
+        return (_anon_PERCENT_1_94 + _PLUS_.or(0, _anon_PERCENT_2_95));
+    }), 0, _PLUS_.fmap((function(_anon_PERCENT_1_93) {
+        return getCalibrationValue(_anon_PERCENT_1_93, useDigitStrs);
     }), lib.strsplit(input, "\n")));
 });
 var part1 = (function(input) {

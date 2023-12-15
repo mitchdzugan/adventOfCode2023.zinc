@@ -10,9 +10,11 @@ import * as day9 from './../src/aoc/day9.mjs';
 import * as day10 from './../src/aoc/day10.mjs';
 import * as day11 from './../src/aoc/day11.mjs';
 import * as day12 from './../src/aoc/day12.mjs';
+import * as day13 from './../src/aoc/day13.mjs';
+import * as day14 from './../src/aoc/day14.mjs';
 import * as lib from './../src/aoc/lib.mjs';
 import * as _PLUS_ from './../src/+.mjs';
-var dayModules = _PLUS_.Vec(day1, day2, day3, day4, day5, day6, day7, day8, day9, day10, day11, day12);
+var dayModules = _PLUS_.Vec(day1, day2, day3, day4, day5, day6, day7, day8, day9, day10, day11, day12, day13, day14);
 var toSolve = _PLUS_.Vec();
 var rp1_QMARK_ = {
     r: true

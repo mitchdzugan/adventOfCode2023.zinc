@@ -1,6 +1,18 @@
 import * as lib from './lib.mjs';
 import * as _PLUS_ from './../+.mjs';
-undefined;
+_PLUS_.qt_store[29] = "RaceT";
+_PLUS_.bury(_PLUS_.prop_store, [29, undefined], ({
+    0: ({
+        "idname": "time",
+        "fullname": "%time",
+        "ind": 0
+    }),
+    1: ({
+        "idname": "record",
+        "fullname": "%record",
+        "ind": 1
+    })
+}));
 var RaceT = 29;
 var Race = (function(time, record) {
     return [29, time, record];
@@ -15,8 +27,8 @@ var count_possibilities = (function(val_161) {
     return (bound_h5 - bound_l6);
 });
 var part1 = (function() {
-    return _PLUS_.reduce((function(_anon_PERCENT_1_18, _anon_PERCENT_2_19) {
-        return (_anon_PERCENT_1_18 * _anon_PERCENT_2_19);
+    return _PLUS_.reduce((function(_anon_PERCENT_1_26, _anon_PERCENT_2_27) {
+        return (_anon_PERCENT_1_26 * _anon_PERCENT_2_27);
     }), 1, _PLUS_.fmap(count_possibilities, _PLUS_.Vec(Race(52, 426), Race(94, 1374), Race(75, 1279), Race(94, 1216))));
 });
 var part2 = (function() {

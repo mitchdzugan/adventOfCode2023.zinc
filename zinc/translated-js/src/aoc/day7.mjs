@@ -1,6 +1,62 @@
 import * as lib from './lib.mjs';
 import * as _PLUS_ from './../+.mjs';
-undefined;
+_PLUS_.qt_store[27] = "HandTypeT";
+_PLUS_.bury(_PLUS_.prop_store, [27, 1], ({
+    0: ({
+        "idname": "+",
+        "fullname": "%+",
+        "ind": 0
+    })
+}));
+_PLUS_.bury(_PLUS_.prop_store, [27, 2], ({
+    0: ({
+        "idname": "+",
+        "fullname": "%+",
+        "ind": 0
+    })
+}));
+_PLUS_.bury(_PLUS_.prop_store, [27, 3], ({
+    0: ({
+        "idname": "+",
+        "fullname": "%+",
+        "ind": 0
+    })
+}));
+_PLUS_.bury(_PLUS_.prop_store, [27, 4], ({
+    0: ({
+        "idname": "+",
+        "fullname": "%+",
+        "ind": 0
+    })
+}));
+_PLUS_.bury(_PLUS_.prop_store, [27, 5], ({
+    0: ({
+        "idname": "+",
+        "fullname": "%+",
+        "ind": 0
+    })
+}));
+_PLUS_.bury(_PLUS_.prop_store, [27, 6], ({
+    0: ({
+        "idname": "+",
+        "fullname": "%+",
+        "ind": 0
+    })
+}));
+_PLUS_.bury(_PLUS_.prop_store, [27, 7], ({
+    0: ({
+        "idname": "+",
+        "fullname": "%+",
+        "ind": 0
+    })
+}));
+_PLUS_.bury(_PLUS_.variant_store, [27, 1], "Kind5");
+_PLUS_.bury(_PLUS_.variant_store, [27, 2], "Kind4");
+_PLUS_.bury(_PLUS_.variant_store, [27, 3], "Kind3");
+_PLUS_.bury(_PLUS_.variant_store, [27, 4], "Kind2");
+_PLUS_.bury(_PLUS_.variant_store, [27, 5], "Kind1");
+_PLUS_.bury(_PLUS_.variant_store, [27, 6], "FullHouse");
+_PLUS_.bury(_PLUS_.variant_store, [27, 7], "TwoPair");
 var HandTypeT = 27;
 var type_val = (function(val_152) {
     let val_1531 = val_152;
@@ -113,18 +169,18 @@ var get_type = (function(cards, jokers_QMARK_) {
     let rkind6 = {
         r: 0
     };
-    _PLUS_.for$(cards, (function(_anon_PERCENT_1_26) {
-        let card_count7 = (1 + _PLUS_.or(0, _PLUS_.at(card_counts3, _anon_PERCENT_1_26)));
-        if ((!jokers_QMARK_ || !joker_QMARK_(_anon_PERCENT_1_26))) {
+    _PLUS_.for$(cards, (function(_anon_PERCENT_1_34) {
+        let card_count7 = (1 + _PLUS_.or(0, _PLUS_.at(card_counts3, _anon_PERCENT_1_34)));
+        if ((!jokers_QMARK_ || !joker_QMARK_(_anon_PERCENT_1_34))) {
             (rkind6.r = Math.max(rkind6["r"], card_count7))
         };
-        if (joker_QMARK_(_anon_PERCENT_1_26)) {
+        if (joker_QMARK_(_anon_PERCENT_1_34)) {
             (rjokers5.r = (_PLUS_.inc)(rjokers5.r))
         };
         if (_PLUS_.is(card_count7, 2)) {
             (rpairs4.r = (_PLUS_.inc)(rpairs4.r))
         };
-        return _PLUS_.put(card_counts3, _anon_PERCENT_1_26, card_count7);
+        return _PLUS_.put(card_counts3, _anon_PERCENT_1_34, card_count7);
     }));
     let kind8 = (rkind6["r"] + ((jokers_QMARK_) ? (rjokers5["r"]) : (0)));
     let pairs_QMARK_9 = (rpairs4["r"] > 1);
@@ -159,13 +215,30 @@ var get_type = (function(cards, jokers_QMARK_) {
     }
 });
 var get_val = (function(cards, jokers_QMARK_) {
-    return _PLUS_.reduce((function(_anon_PERCENT_1_28, _anon_PERCENT_2_30, _anon_PERCENT_3_29) {
-        return (_anon_PERCENT_1_28 + (Math.pow(14, (_PLUS_.size(cards) - 1 - _anon_PERCENT_3_29)) * _anon_PERCENT_2_30));
-    }), 0, _PLUS_.fmap((function(_anon_PERCENT_1_27) {
-        return card_val(_anon_PERCENT_1_27, jokers_QMARK_);
+    return _PLUS_.reduce((function(_anon_PERCENT_1_36, _anon_PERCENT_2_38, _anon_PERCENT_3_37) {
+        return (_anon_PERCENT_1_36 + (Math.pow(14, (_PLUS_.size(cards) - 1 - _anon_PERCENT_3_37)) * _anon_PERCENT_2_38));
+    }), 0, _PLUS_.fmap((function(_anon_PERCENT_1_35) {
+        return card_val(_anon_PERCENT_1_35, jokers_QMARK_);
     }), cards));
 });
-undefined;
+_PLUS_.qt_store[28] = "HandStatsT";
+_PLUS_.bury(_PLUS_.prop_store, [28, undefined], ({
+    0: ({
+        "idname": "type",
+        "fullname": "%type",
+        "ind": 0
+    }),
+    1: ({
+        "idname": "val",
+        "fullname": "%val",
+        "ind": 1
+    }),
+    2: ({
+        "idname": "bid",
+        "fullname": "%bid",
+        "ind": 2
+    })
+}));
 var HandStatsT = 28;
 var hand_val = (function(val_155) {
     let var_val_15610 = val_155[2];
@@ -191,17 +264,17 @@ var parse_line = (function(line, jokers_QMARK_) {
 });
 var sort_hands = (function(hands) {
     let by_type_val23 = _PLUS_.groupBy(hand_type_val, hands);
-    return _PLUS_.bind((function(_anon_PERCENT_1_31) {
-        return _PLUS_.sort_by(hand_val, _PLUS_.or(_PLUS_.Vec(), _PLUS_.at(by_type_val23, type_val(_anon_PERCENT_1_31))));
+    return _PLUS_.bind((function(_anon_PERCENT_1_39) {
+        return _PLUS_.sort_by(hand_val, _PLUS_.or(_PLUS_.Vec(), _PLUS_.at(by_type_val23, type_val(_anon_PERCENT_1_39))));
     }), _PLUS_.Vec(Kind1, Kind2, TwoPair, Kind3, FullHouse, Kind4, Kind5));
 });
 var get_total_winnings = (function(input, jokers_QMARK_) {
-    return _PLUS_.reduce((function(_anon_PERCENT_1_34, _anon_PERCENT_2_36, _anon_PERCENT_3_35) {
-        return (_anon_PERCENT_1_34 + ((1 + _anon_PERCENT_3_35) * hand_bid(_anon_PERCENT_2_36)));
-    }), 0, sort_hands(_PLUS_.fmap((function(_anon_PERCENT_1_33) {
-        return parse_line(_anon_PERCENT_1_33, jokers_QMARK_);
-    }), _PLUS_.filter((function(_anon_PERCENT_1_32) {
-        return !_PLUS_.is("", _anon_PERCENT_1_32.trim());
+    return _PLUS_.reduce((function(_anon_PERCENT_1_42, _anon_PERCENT_2_44, _anon_PERCENT_3_43) {
+        return (_anon_PERCENT_1_42 + ((1 + _anon_PERCENT_3_43) * hand_bid(_anon_PERCENT_2_44)));
+    }), 0, sort_hands(_PLUS_.fmap((function(_anon_PERCENT_1_41) {
+        return parse_line(_anon_PERCENT_1_41, jokers_QMARK_);
+    }), _PLUS_.filter((function(_anon_PERCENT_1_40) {
+        return !_PLUS_.is("", _anon_PERCENT_1_40.trim());
     }), lib.strsplit(input, "\n")))));
 });
 var part1 = (function(input) {
