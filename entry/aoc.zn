@@ -13,12 +13,13 @@
 (require '["/aoc/day13.zn" :as day13])
 (require '["/aoc/day14.zn" :as day14])
 (require '["/aoc/day15.zn" :as day15])
+(require '["/aoc/day16.zn" :as day16])
 (require '["/aoc/lib.zn" :as lib])
 (require '["/+.zn" :as + :refer-macros true])
 
 (def dayModules
   (+/Vec day1 day2 day3 day4 day5 day6 day7 day8 day9
-         day10 day11 day12 day13 day14 day15))
+         day10 day11 day12 day13 day14 day15 day16))
 
 (def toSolve (+/Vec))
 (def rp1? (aref true))
